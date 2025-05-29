@@ -46,27 +46,27 @@ Initiate Process:
 
 
 Commit Process:
-  0. Make a new branch called 'gh-pages'. You only need to do this the first time you deploy. The rest of the steps should be done every time you deploy or redeploy your project.
+  1. Make a new branch called 'gh-pages'. You only need to do this the first time you deploy. The rest of the steps should be done every time you deploy or redeploy your project.
   ```  
   $ git branch gh-pages
   ```
-  1. Make sure you have all your work committed
+  2. Make sure you have all your work committed
   ```
   $ git status
   ```
-  2. Change branch and sync your changes from main so that you’re ready to deploy.
+  3. Change branch and sync your changes from main so that you’re ready to deploy.
   ```
   $ git checkout gh-pages && git merge main --no-edit
   ```
-  3. Bundle our application into dist with your build command.
+  4. Bundle our application into dist with your build command.
   ```
   $ npm run build
   ```
-  4. Deploy files inside 'dist' folder to Github. The Github page will be built based on contents inside the 'dist' folder.
+  5. Deploy files inside 'dist' folder to Github. The Github page will be built based on contents inside the 'dist' folder.
   Remember to add your own commit messages (Don't directly use "Deployment commit message") in each commit.
   ```
   $ git add dist -f && git commit -m "<Deployment commit message>"
   $ npm run deploy
   $ git checkout main
   ```
-  5. Go to the Github repository of your project, and check the result of the commit.
+  6. Go to the Github repository of your project, and check the result of the commit.
