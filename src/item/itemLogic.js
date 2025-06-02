@@ -12,7 +12,7 @@ export function addProject(title, description, notes){
 
     projectList.push(newProject);
 
-    storeWithJSON();
+    storeWithJSON(projectList);
 }
 
 // Edit a specific project in project list
@@ -22,12 +22,12 @@ export function modifyProject(projectIndex, newTitle, newDescription, newNotes) 
 
     projectList[projectIndex].modifyProjectInfo(newTitle, newDescription, newNotes);
 
-    // Modify the project name of tasks related to the modified project
+    // Modify the project name of all tasks related to the modified project
     if(oldTitle !== newTitle){
-        renameProjectName(projectIndex, newTitle);
+        projectList[projectIndex].modifyAllTasksProjectName(newTitle);
     }
 
-    storeWithJSON();
+    storeWithJSON(projectList);
 }
 
 // Delete a specific project in project list
@@ -39,7 +39,7 @@ export function deleteProject(projectIndex) {
 
     // Need to modify the data attribute of other projects
 
-    storeWithJSON();
+    storeWithJSON(projectList);
 }
 
 // Display all projects in project list
@@ -59,7 +59,7 @@ export function addTask(projectIndex, title, description, dueDate, priority, pro
     // Will be modified to localStorage version
     projectList[projectIndex].addOneTask(newTask);
 
-    storeWithJSON();
+    storeWithJSON(projectList);
 }
 
 // Edit a specific task in task list
@@ -68,7 +68,7 @@ export function modifyTask(projectIndex, taskIndex, newTitle, newDes, newDate, n
 
     projectList[projectIndex].modifyOneTaskInfo(taskIndex, newTitle, newDes, newDate, newPri, newPro, newNote);
 
-    storeWithJSON();
+    storeWithJSON(projectList);
 }
 
 // Switch the checklist of a specific task in task list
@@ -77,7 +77,7 @@ export function switchTask(projectIndex, taskIndex) {
 
     projectList[projectIndex].switchOneTaskState(taskIndex);
 
-    storeWithJSON();
+    storeWithJSON(projectList);
 }
 
 // Delete a specific task in task list
@@ -87,16 +87,7 @@ export function deleteTask(projectIndex, taskIndex) {
     projectList[projectIndex].deleteOneTask(taskIndex);
 
     // Need to modify the data attribute of other tasks
-    storeWithJSON();
-}
-
-// Change all tasks with specific project name to another project name
-export function renameProjectName(projectIndex, newProjectName) {
-    projectList = restoreFromJSON();
-    
-    projectList[projectIndex].modifyAllTasksProjectName(newProjectName);
-
-    storeWithJSON();
+    storeWithJSON(projectList);
 }
 
 // Display all tasks in task list
@@ -106,8 +97,8 @@ export function displayTask(projectIndex) {
 }
 
 // Convert ths task list to a JSON format string
-function storeWithJSON() {
-    const JSONData = projectList.map(project => project.toJSON());
+function storeWithJSON(projectData) {
+    const JSONData = projectData.map(project => project.toJSON());
     storageModule.saveToStorage(JSONData);
 }
 
