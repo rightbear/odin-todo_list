@@ -1,4 +1,5 @@
 // 與初始化頁面內容、展現task有關
+import * as itemLogicModule from "../item/itemLogic"
 
 function addMainRegion (){
     const main = document.createElement("div");
@@ -32,9 +33,9 @@ function addSidebarRegion (){
     projects.classList.add("projects");
     sidebar.append(category, projects);
 
-    const categoryBtns = document.createElement("h2");
-    categoryBtns.classList.add("sTitle");
-    categoryBtns.textContent = "Category";
+    const categoryTitle = document.createElement("h2");
+    categoryTitle.classList.add("sTitle");
+    categoryTitle.textContent = "Category";
     const today = document.createElement("button");
     today.id = "today";
     today.textContent = "Today";
@@ -47,12 +48,14 @@ function addSidebarRegion (){
     const all = document.createElement("button");
     all.id = "all";
     all.textContent = "All";
-    category.append(categoryBtns, today, week, completed, all);
+    category.append(categoryTitle, today, week, completed, all);
 
-    const projectsBtns = document.createElement("h2");
-    projectsBtns.classList.add("sTitle");
-    projectsBtns.textContent = "Projects";
-    projects.appendChild(projectsBtns);
+    const projectsTitle = document.createElement("h2");
+    projectsTitle.classList.add("sTitle");
+    projectsTitle.textContent = "Projects";
+    const projectsDivs = document.createElement("div");
+    projectsDivs.classList.add("projectsDivs");
+    projects.append(projectsTitle, projectsDivs);
 }
 
 function addContentRegion(){
@@ -72,4 +75,9 @@ export function loadInitialLayout(){
     addHeaderRegion();
     addSidebarRegion();
     addContentRegion();
+}
+
+function addProject() {
+    const projectsDivs = document.querySelector(".projectsDivs");
+    itemLogicModule
 }

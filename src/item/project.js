@@ -8,7 +8,7 @@ export default class Project {
             projectData.description,
             projectData.notes,
         );
-        project.tasks = projectData.tasks.map(taskData => Task.fromJSON(taskData));
+        project.#taskList = projectData.tasks.map(taskData => Task.fromJSON(taskData));
         return project;
     }
 

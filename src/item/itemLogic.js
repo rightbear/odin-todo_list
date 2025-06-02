@@ -6,11 +6,10 @@ let projectList = [];
 
 // Add a specific project in project list
 export function addProject(title, description, notes){
-    restoreFromJSON();
+    projectList = restoreFromJSON();
 
     let newProject = new Project(title, description, notes);
 
-    // Will be modified to localStorage version
     projectList.push(newProject);
 
     storeWithJSON();
@@ -18,10 +17,9 @@ export function addProject(title, description, notes){
 
 // Edit a specific project in project list
 export function modifyProject(projectIndex, newTitle, newDescription, newNotes) {
-    // Will be modified to localStorage version
+    projectList = restoreFromJSON();
     const oldTitle = projectList[projectIndex].getTitle();
 
-    // Will be modified to localStorage version
     projectList[projectIndex].modifyProjectInfo(newTitle, newDescription, newNotes);
 
     // Modify the project name of tasks related to the modified project
@@ -34,10 +32,10 @@ export function modifyProject(projectIndex, newTitle, newDescription, newNotes) 
 
 // Delete a specific project in project list
 export function deleteProject(projectIndex) {
-    // Will be modified to localStorage version
+    projectList = restoreFromJSON();
+
     // All tasks in the projects will also be deleted
     projectList.splice(projectIndex, 1);
-
 
     // Need to modify the data attribute of other projects
 
@@ -46,6 +44,8 @@ export function deleteProject(projectIndex) {
 
 // Display all projects in project list
 export function displayProject() {
+    projectList = restoreFromJSON();
+
     for(let index=0 ; index < projectList.length ; index++){
         console.log(projectList[index]);
     }
@@ -53,6 +53,7 @@ export function displayProject() {
 
 // Add a specific task in task list
 export function addTask(projectIndex, title, description, dueDate, priority, project, notes){
+    projectList = restoreFromJSON();
     let newTask = new Task(title, description, dueDate, priority, project, notes);
 
     // Will be modified to localStorage version
@@ -63,7 +64,8 @@ export function addTask(projectIndex, title, description, dueDate, priority, pro
 
 // Edit a specific task in task list
 export function modifyTask(projectIndex, taskIndex, newTitle, newDes, newDate, newPri, newPro, newNote) {
-    // Will be modified to localStorage version
+    projectList = restoreFromJSON();
+
     projectList[projectIndex].modifyOneTaskInfo(taskIndex, newTitle, newDes, newDate, newPri, newPro, newNote);
 
     storeWithJSON();
@@ -71,7 +73,8 @@ export function modifyTask(projectIndex, taskIndex, newTitle, newDes, newDate, n
 
 // Switch the checklist of a specific task in task list
 export function switchTask(projectIndex, taskIndex) {
-    // Will be modified to localStorage version
+    projectList = restoreFromJSON();
+
     projectList[projectIndex].switchOneTaskState(taskIndex);
 
     storeWithJSON();
@@ -79,7 +82,8 @@ export function switchTask(projectIndex, taskIndex) {
 
 // Delete a specific task in task list
 export function deleteTask(projectIndex, taskIndex) {
-    // Will be modified to localStorage version
+    projectList = restoreFromJSON();
+
     projectList[projectIndex].deleteOneTask(taskIndex);
 
     // Need to modify the data attribute of other tasks
@@ -88,7 +92,8 @@ export function deleteTask(projectIndex, taskIndex) {
 
 // Change all tasks with specific project name to another project name
 export function renameProjectName(projectIndex, newProjectName) {
-    // Will be modified to localStorage version
+    projectList = restoreFromJSON();
+    
     projectList[projectIndex].modifyAllTasksProjectName(newProjectName);
 
     storeWithJSON();
@@ -96,17 +101,17 @@ export function renameProjectName(projectIndex, newProjectName) {
 
 // Display all tasks in task list
 export function displayTask(projectIndex) {
-    // Will be modified to localStorage version
+    projectList = restoreFromJSON();
     projectList[projectIndex].displayAllTasks();
 }
 
 // Convert ths task list to a JSON format string
-function storeWithJSON(){
+function storeWithJSON() {
     const JSONData = projectList.map(project => project.toJSON());
     storageModule.saveToStorage(JSONData);
 }
 
-function restoreFromJSON(){
+function restoreFromJSON() {
     const JSONData = storageModule.loadFromStorage();
-    projectList = JSONData.map(projectData => Project.fromJSON(projectData));
+    return JSONData.map(projectData => Project.fromJSON(projectData));
 }
