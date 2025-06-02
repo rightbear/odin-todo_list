@@ -13,7 +13,7 @@ export function loadFromStorage(){
     if(!localStorage.getItem(KEY)){
         localStorage.setItem(KEY, "[]")
     }
-    
+
     const storedData = localStorage.getItem(KEY);
     const JSONList = JSON.parse(storedData);
     return JSONList;

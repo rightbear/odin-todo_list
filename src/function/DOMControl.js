@@ -79,5 +79,4 @@ export function loadInitialLayout(){
 
 function addProject() {
     const projectsDivs = document.querySelector(".projectsDivs");
-    itemLogicModule
 }

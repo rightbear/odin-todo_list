@@ -17,11 +17,10 @@ export default class Task {
         return task;
     }
 
-    constructor(title, description, dueDate, priority, project, notes) {
+    constructor(title, description, dueDate, priority, project, notes, state) {
         // Use destructuring to assign fileds
         // The value of priority: 0 is low, 1 is medium, 2 is high
-        Object.assign(this, { title, description, dueDate, priority, project, notes });
-        this.state = TASK_UNFINISHED;
+        Object.assign(this, { title, description, dueDate, priority, project, notes, state});
     }
 
     // Change the current state of task

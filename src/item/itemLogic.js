@@ -23,7 +23,7 @@ export function modifyProject(projectIndex, newTitle, newDescription, newNotes) 
     projectList[projectIndex].modifyProjectInfo(newTitle, newDescription, newNotes);
 
     // Modify the project name of tasks related to the modified project
-    if(oldTitle != newTitle){
+    if(oldTitle !== newTitle){
         renameProjectName(projectIndex, newTitle);
     }
 
@@ -52,9 +52,9 @@ export function displayProject() {
 }
 
 // Add a specific task in task list
-export function addTask(projectIndex, title, description, dueDate, priority, project, notes){
+export function addTask(projectIndex, title, description, dueDate, priority, project, notes, state){
     projectList = restoreFromJSON();
-    let newTask = new Task(title, description, dueDate, priority, project, notes);
+    let newTask = new Task(title, description, dueDate, priority, project, notes, state);
 
     // Will be modified to localStorage version
     projectList[projectIndex].addOneTask(newTask);
