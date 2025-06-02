@@ -30,4 +30,16 @@ export default class Task {
     displayContent(){
         console.log(`${this.title}, ${this.description}, ${this.dueDate}, ${this.priority}, ${this.project}, ${this.notes}, ${this.state}`);
     }
+
+    toJSON(){
+        return {
+            title: this.title,
+            description: this.description,
+            dueDate: this.dueDate,
+            priority: this.priority,
+            project: this.project,
+            notes: this.notes,
+            state: this.state
+        };
+    }
 }
