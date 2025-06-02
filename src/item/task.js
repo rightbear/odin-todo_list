@@ -2,6 +2,21 @@ const TASK_FINISHED = true;
 const TASK_UNFINISHED = false;
 
 export default class Task {
+
+    static fromJSON(taskData) {
+        const task = new Task(
+            taskData.title,
+            taskData.description,
+            taskData.dueDate,
+            taskData.priority,
+            taskData.project,
+            taskData.notes,
+            taskData.state
+        );
+        
+        return task;
+    }
+
     constructor(title, description, dueDate, priority, project, notes) {
         // Use destructuring to assign fileds
         // The value of priority: 0 is low, 1 is medium, 2 is high

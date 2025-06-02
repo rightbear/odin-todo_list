@@ -4,8 +4,10 @@ import * as itemLogic from "./item/itemLogic.js"
 
 loadInitialLayout();
 
+
 itemLogic.addProject("project1", "des1", "note1");
 itemLogic.addProject("project2", "des2", "note2");
+
 itemLogic.addProject("project3", "des3", "note3");
 itemLogic.addProject("project4", "des4", "note4");
 itemLogic.addProject("project5", "des5", "note5");

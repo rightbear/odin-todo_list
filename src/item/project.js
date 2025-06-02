@@ -1,4 +1,16 @@
+import Task from "./task.js"
+
 export default class Project {
+
+    static fromJSON(projectData) {
+        const project = new Project(
+            projectData.title,
+            projectData.description,
+            projectData.notes,
+        );
+        project.tasks = projectData.tasks.map(taskData => Task.fromJSON(taskData));
+        return project;
+    }
 
     #taskList = [];
 

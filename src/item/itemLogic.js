@@ -1,16 +1,19 @@
 import Task from "./task.js";
 import Project from "./project.js"
 import * as storageModule from "../function/localStorageService.js"
-const projectList = [];
+
+let projectList = [];
 
 // Add a specific project in project list
 export function addProject(title, description, notes){
+    restoreFromJSON();
+
     let newProject = new Project(title, description, notes);
 
     // Will be modified to localStorage version
     projectList.push(newProject);
 
-    storeToJSON();
+    storeWithJSON();
 }
 
 // Edit a specific project in project list
@@ -26,7 +29,7 @@ export function modifyProject(projectIndex, newTitle, newDescription, newNotes) 
         renameProjectName(projectIndex, newTitle);
     }
 
-    storeToJSON();
+    storeWithJSON();
 }
 
 // Delete a specific project in project list
@@ -38,7 +41,7 @@ export function deleteProject(projectIndex) {
 
     // Need to modify the data attribute of other projects
 
-    storeToJSON();
+    storeWithJSON();
 }
 
 // Display all projects in project list
@@ -55,7 +58,7 @@ export function addTask(projectIndex, title, description, dueDate, priority, pro
     // Will be modified to localStorage version
     projectList[projectIndex].addOneTask(newTask);
 
-    storeToJSON();
+    storeWithJSON();
 }
 
 // Edit a specific task in task list
@@ -63,7 +66,7 @@ export function modifyTask(projectIndex, taskIndex, newTitle, newDes, newDate, n
     // Will be modified to localStorage version
     projectList[projectIndex].modifyOneTaskInfo(taskIndex, newTitle, newDes, newDate, newPri, newPro, newNote);
 
-    storeToJSON();
+    storeWithJSON();
 }
 
 // Switch the checklist of a specific task in task list
@@ -71,7 +74,7 @@ export function switchTask(projectIndex, taskIndex) {
     // Will be modified to localStorage version
     projectList[projectIndex].switchOneTaskState(taskIndex);
 
-    storeToJSON();
+    storeWithJSON();
 }
 
 // Delete a specific task in task list
@@ -80,7 +83,7 @@ export function deleteTask(projectIndex, taskIndex) {
     projectList[projectIndex].deleteOneTask(taskIndex);
 
     // Need to modify the data attribute of other tasks
-    storeToJSON();
+    storeWithJSON();
 }
 
 // Change all tasks with specific project name to another project name
@@ -88,7 +91,7 @@ export function renameProjectName(projectIndex, newProjectName) {
     // Will be modified to localStorage version
     projectList[projectIndex].modifyAllTasksProjectName(newProjectName);
 
-    storeToJSON();
+    storeWithJSON();
 }
 
 // Display all tasks in task list
@@ -98,7 +101,12 @@ export function displayTask(projectIndex) {
 }
 
 // Convert ths task list to a JSON format string
-function storeToJSON(){
+function storeWithJSON(){
     const JSONData = projectList.map(project => project.toJSON());
-    storageModule.StoreListItem(JSONData);
+    storageModule.saveToStorage(JSONData);
+}
+
+function restoreFromJSON(){
+    const JSONData = storageModule.loadFromStorage();
+    projectList = JSONData.map(projectData => Project.fromJSON(projectData));
 }
