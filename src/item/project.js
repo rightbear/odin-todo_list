@@ -57,6 +57,11 @@ export default class Project {
         return this.title;
     }
 
+    // Deep Copy the task list
+    getAllTasks() {
+        return structuredClone(this.#taskList);
+    }
+
     toJSON(){
         return {
             title: this.title,

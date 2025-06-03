@@ -1,5 +1,5 @@
 import "./styles.css";
-import { loadInitialLayout, showProjects } from "./function/DOMControl.js"
+import { loadInitialLayout, showProjects, showTasksinProject } from "./function/DOMControl.js"
 import * as itemLogic from "./item/itemLogic.js"
 
 localStorage.clear();
@@ -26,3 +26,4 @@ itemLogic.modifyProject(1, "project233333", "des2", "note2");
 //itemLogic.deleteProject(0);
 
 showProjects();
+showTasksinProject(0);

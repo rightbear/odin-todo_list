@@ -1,4 +1,5 @@
 import * as itemLogicModule from "../item/itemLogic"
+import * as eventHandlerModule from "./eventHandler"
 import calenderIcon from "../images/calendar.png"
 import checkMarkIcon from "../images/check-mark.png"
 import layersIcon from "../images/layers.png"
@@ -41,18 +42,18 @@ function addSidebarRegion (){
     sidebar.append(category, projects);
 
     const categoryTitle = document.createElement("h2");
-    categoryTitle.classList.add("sTitle");
+    categoryTitle.classList.add("itemsTitle");
     categoryTitle.textContent = "Category";
-    const categoryDivs = document.createElement("div");
-    categoryDivs.classList.add("categoryDivs");
-    category.append(categoryTitle, categoryDivs);
+    const categoryList = document.createElement("div");
+    categoryList.classList.add("categoryList");
+    category.append(categoryTitle, categoryList);
 
+    const allCategory = addCategory(layersIcon, "layers", 20, "all", "All");
     const todayCategory = addCategory(calenderIcon, "calender", 20, "today", "Today");
     const weekCategory = addCategory(calenderIcon, "calender", 20, "week", "Week");
     const completeCategory = addCategory(checkMarkIcon, "check-mark", 20, "completed", "Completed");
-    const allCategory = addCategory(layersIcon, "layers", 20, "all", "All");
 
-    categoryDivs.append(todayCategory, weekCategory, completeCategory, allCategory);
+    categoryList.append(allCategory, todayCategory, weekCategory, completeCategory);
     
     showProjects();
 }
@@ -71,7 +72,7 @@ function addCategory(iconSrc, iconAlt, iconHeight, textID, text, ) {
     divText.textContent = text;
 
     divContainer.append(divIcon, divText);
-    divContainer.classList.add("categoryDiv");
+    divContainer.classList.add("categoryItem");
 
     return divContainer;
 }
@@ -105,17 +106,17 @@ export function showProjects() {
         projects.removeChild(projects.firstChild);
     }
 
-    const projectList = itemLogicModule.restoreFromJSON();
-    const projectNum = projectList.length;
+    const allProjects = itemLogicModule.restoreFromJSON();
+    const projectNum = allProjects.length;
 
     const projectHeader = document.createElement("div");
 
     projectHeader.classList.add("projectHeader");
     const projectsTitle = document.createElement("h2");
-    projectsTitle.classList.add("sTitle");
+    projectsTitle.classList.add("itemsTitle");
     projectsTitle.textContent = `Projects (${projectNum})`;
-    let addBtn = document.createElement("button");
-    addBtn.classList.add("editBtn");
+    const addBtn = document.createElement("button");
+    addBtn.classList.add("addBtn");
     const addBtnImg = document.createElement("img");
     addBtnImg.src = addIcon;
     addBtnImg.alt = "add";
@@ -128,53 +129,54 @@ export function showProjects() {
     
     projectHeader.append(projectsTitle, addBtn);
 
-    const projectsDivs = document.createElement("div");
-    projectsDivs.classList.add("projectsDivs");
+    const projectList = document.createElement("div");
+    projectList.classList.add("projectList");
 
-    projects.append(projectHeader, projectsDivs);
+    projects.append(projectHeader, projectList);
 
     for (let index = 0 ; index < projectNum ; index++){
-        let projectTitle = projectList[index].getTitle();
-        const projectItemDiv = addProject(documentIcon, document, 20, projectTitle);
-        projectItemDiv.dataset.projectid = index;
-        projectsDivs.appendChild(projectItemDiv);
+        let projectTitle = allProjects[index].getTitle();
+        const projectItem = addProject(20, projectTitle);
+        projectItem.dataset.projectid = index;
+        projectList.appendChild(projectItem);
     }
 }
 
-function addProject(iconSrc, iconAlt, iconHeight, text) {
+function addProject(iconHeight, projectTitle) {
 
     const divContainer = document.createElement("div");
+    divContainer.classList.add("projectItem");
 
-    let divIcon = document.createElement("img");
-    divIcon.src = iconSrc;
-    divIcon.alt = iconAlt;
+    const divIcon = document.createElement("img");
+    divIcon.src = documentIcon;
+    divIcon.alt = "document";
     divIcon.height = iconHeight;
 
-    let divText = document.createElement("div");
+    const divText = document.createElement("div");
     divText.classList.add("projectTitle");
-    divText.textContent = text;
+    divText.textContent = projectTitle;
 
-    let divFuncBtns = document.createElement("div");
+    const divFuncBtns = document.createElement("div");
     divFuncBtns.classList.add("projectBtns");
-    let editBtn = document.createElement("button");
-    editBtn.classList.add("editBtn");
-    let editBtnImg = document.createElement("img");
+    const editBtn = document.createElement("button");
+    editBtn.classList.add("projectEdit");
+    const editBtnImg = document.createElement("img");
     editBtnImg.src = editIcon;
     editBtnImg.alt = "edit";
     editBtnImg.height = iconHeight;
     editBtn.appendChild(editBtnImg);
 
-    let deleteBtn = document.createElement("button");
-    deleteBtn.classList.add("deleteBtn");
-    let deleteBtnImg = document.createElement("img");
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("projectDelete");
+    const deleteBtnImg = document.createElement("img");
     deleteBtnImg.src = deleteIcon;
     deleteBtnImg.alt = "delete";
     deleteBtnImg.height = iconHeight;
     deleteBtn.appendChild(deleteBtnImg);
 
-    let infoBtn = document.createElement("button");
-    infoBtn.classList.add("infoBtn");
-    let infoBtnImg = document.createElement("img");
+    const infoBtn = document.createElement("button");
+    infoBtn.classList.add("projectInfo");
+    const infoBtnImg = document.createElement("img");
     infoBtnImg.src = infoIcon;
     infoBtnImg.alt = "edit";
     infoBtnImg.height = iconHeight;
@@ -183,14 +185,132 @@ function addProject(iconSrc, iconAlt, iconHeight, text) {
     divFuncBtns.append(editBtn, deleteBtn, infoBtn);
 
     divContainer.append(divIcon, divText, divFuncBtns);
-    divContainer.classList.add("projectDiv");
 
     return divContainer;
 }
 
 // Show all tasks of the specific project in the content region
-export function showTasks() {
+export function showTasksinProject(projectID) {
+
+    const allProjects = itemLogicModule.restoreFromJSON();
+    const projectName = allProjects[projectID].getTitle();
+    const allTasksinProject = allProjects[projectID].getAllTasks();
+    const taskNum = allTasksinProject.length;
+
+    const contentwithSlogan = addSlogan(documentIcon, "docment", projectName);
+
+    const taskHeader = document.createElement("div");
+
+    taskHeader.classList.add("taskHeader");
+    const tasksTitle = document.createElement("h2");
+    tasksTitle.classList.add("itemsTitle");
+    tasksTitle.textContent = `Tasks (${taskNum})`;
+    const addBtn = document.createElement("button");
+    addBtn.classList.add("addBtn");
+    const addBtnImg = document.createElement("img");
+    addBtnImg.src = addIcon;
+    addBtnImg.alt = "add";
+    addBtnImg.height = 25;
+    addBtn.appendChild(addBtnImg);
+    const addBtnTooltip = document.createElement("span");
+    addBtnTooltip.classList.add("btnTooltip");
+    addBtnTooltip.textContent = "Add a task";
+    addBtn.appendChild(addBtnTooltip);
+
+    taskHeader.append(tasksTitle, addBtn);
+
+    const taskList = document.createElement("div");
+    taskList.classList.add("taskList");
+
+    contentwithSlogan.append(taskHeader, taskList);
+
+    for (let index = 0 ; index < taskNum ; index++){
+        let taskTitle = allTasksinProject[index].title;
+        let taskState = allTasksinProject[index].state;
+        const taskItem = addTask(20, taskTitle, taskState);
+        taskItem.dataset.taskid = index;
+        taskList.appendChild(taskItem);
+    }
+
+    eventHandlerModule.taskCheckboxEvent();
+}
+
+function addSlogan(iconSrc, iconAlt, sloganText) {
+    const content = document.querySelector(".content");
+
+    //Remove all old task items on page
+    if (content.firstChild) {
+        content.removeChild(content.firstChild);
+    }
+
+    const sloganTitle = document.createElement("div");
+    sloganTitle.classList.add("sloganTitle");
+    const sloganIcon = document.createElement("img");
+    sloganIcon.src = iconSrc;
+    sloganIcon.alt = iconAlt;
+    sloganIcon.height = 40;
+    const sloganName = document.createElement("div");
+    sloganName.classList.add("sloganName")
+    sloganName.textContent = sloganText;
     
+    sloganTitle.append(sloganIcon, sloganName);
+    content.appendChild(sloganTitle);
+
+    return content;
+}
+
+function addTask(iconHeight, taskTitle, taskState) {
+
+    const divContainer = document.createElement("div");
+    divContainer.classList.add("taskItem");
+
+    const divChecklist = document.createElement("input");
+    divChecklist.type = "checkbox";
+    divChecklist.classList.add("taskCheckbox");
+    divChecklist.checked = (taskState === true) ? true : false;
+
+    const divText = document.createElement("div");
+    divText.classList.add("taskTitle");
+    divText.textContent = taskTitle;
+
+    if (divChecklist.checked) {
+        divText.style.textDecoration = "line-through";
+    }
+    else {
+        divText.style.textDecoration = "none";
+    }
+
+    const divFuncBtns = document.createElement("div");
+    divFuncBtns.classList.add("projectBtns");
+    const editBtn = document.createElement("button");
+    editBtn.classList.add("projectEdit");
+    const editBtnImg = document.createElement("img");
+    editBtnImg.src = editIcon;
+    editBtnImg.alt = "edit";
+    editBtnImg.height = iconHeight;
+    editBtn.appendChild(editBtnImg);
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("projectDelete");
+    const deleteBtnImg = document.createElement("img");
+    deleteBtnImg.src = deleteIcon;
+    deleteBtnImg.alt = "delete";
+    deleteBtnImg.height = iconHeight;
+    deleteBtn.appendChild(deleteBtnImg);
+
+    const infoBtn = document.createElement("button");
+    infoBtn.classList.add("projectInfo");
+    const infoBtnImg = document.createElement("img");
+    infoBtnImg.src = infoIcon;
+    infoBtnImg.alt = "edit";
+    infoBtnImg.height = iconHeight;
+    infoBtn.appendChild(infoBtnImg);
+
+    divFuncBtns.append(editBtn, deleteBtn, infoBtn);
+
+    divContainer.append(divChecklist, divText, divFuncBtns);
+
+    return divContainer;
 }
 
 //after remove projects Update the projectid of all tasks

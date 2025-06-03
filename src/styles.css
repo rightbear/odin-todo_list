@@ -23,6 +23,41 @@ body {
 
 /*************************************/
 
+/*Set style of text part of tooltip*/
+button > .btnTooltip {
+    visibility: hidden;
+    width: 100px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    /* 90px is 90% width of Tooltip */
+    left: 90%;
+    margin-left: -90px;
+}
+
+/*Set style of button triangle part of tooltip*/
+button > .btnTooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 80%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+button:hover > .btnTooltip {
+  visibility: visible;
+}
+
+/*************************************/
+
 .header {
     grid-column: 1 / -1;
     grid-row: 1 / 2;
@@ -46,7 +81,7 @@ body {
     flex-direction: column;
 }
 
-.categoryDiv {
+.categoryItem {
     display: flex;
     flex-direction: row;
 }
@@ -65,45 +100,11 @@ body {
     margin: 0 5px;
 }
 
-/*Set style of text part of tooltip*/
-button > .btnTooltip {
-    visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    /*Horizontal center alignment (60px is half of width)*/
-    left: 50%;
-    margin-left: -60px;
-    /**********/
-}
-
-/*Set style of button triangle part of tooltip*/
-button > .btnTooltip::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
-}
-
-button:hover > .btnTooltip {
-  visibility: visible;
-}
-
 .projectHeader > button:hover {
   transform: scale(1.2);
 }
 
-.projectDiv {
+.projectItem {
     display: flex;
     flex-direction: row;
 }
@@ -123,4 +124,34 @@ button:hover > .btnTooltip {
 /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 .projectBtns > button:hover {
   transform: scale(1.2);
+}
+
+/*************************************/
+
+.sloganTitle {
+    display: flex;
+    flex-direction: row;
+}
+
+.taskHeader {
+    display: flex;
+    flex-direction: row;
+}
+
+.taskHeader > button {
+    position: relative;
+    background-color: grey;
+    transition: transform .2s;
+
+    border: none;
+    margin: 0 5px;
+}
+
+.taskHeader > button:hover {
+  transform: scale(1.2);
+}
+
+.taskItem {
+    display: flex;
+    flex-direction: row;
 }
