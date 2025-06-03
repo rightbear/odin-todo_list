@@ -46,6 +46,81 @@ body {
     flex-direction: column;
 }
 
-.projects {
+.categoryDiv {
+    display: flex;
+    flex-direction: row;
+}
 
+.projectHeader {
+    display: flex;
+    flex-direction: row;
+}
+
+.projectHeader > button {
+    position: relative;
+    background-color: grey;
+    transition: transform .2s;
+
+    border: none;
+    margin: 0 5px;
+}
+
+/*Set style of text part of tooltip*/
+button > .btnTooltip {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    /*Horizontal center alignment (60px is half of width)*/
+    left: 50%;
+    margin-left: -60px;
+    /**********/
+}
+
+/*Set style of button triangle part of tooltip*/
+button > .btnTooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+button:hover > .btnTooltip {
+  visibility: visible;
+}
+
+.projectHeader > button:hover {
+  transform: scale(1.2);
+}
+
+.projectDiv {
+    display: flex;
+    flex-direction: row;
+}
+
+.projectTitle {
+    width: 65%;
+}
+
+.projectBtns > button {
+    background-color: grey;
+    transition: transform .2s;
+
+    border: none;
+    margin: 1px;
+}
+
+/* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+.projectBtns > button:hover {
+  transform: scale(1.2);
 }

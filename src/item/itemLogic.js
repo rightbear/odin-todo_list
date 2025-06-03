@@ -86,7 +86,8 @@ export function deleteTask(projectIndex, taskIndex) {
 
     projectList[projectIndex].deleteOneTask(taskIndex);
 
-    // Need to modify the data attribute of other tasks
+    // Need to modify the data attribute of other projects
+    // Need to modify all project numbers of all tasks
     storeWithJSON(projectList);
 }
 
@@ -96,13 +97,14 @@ export function displayTask(projectIndex) {
     projectList[projectIndex].displayAllTasks();
 }
 
-// Convert ths task list to a JSON format string
+// Convert the object array of Project class to a JSON format object
 function storeWithJSON(projectData) {
     const JSONData = projectData.map(project => project.toJSON());
     storageModule.saveToStorage(JSONData);
 }
 
-function restoreFromJSON() {
+// Convert the JSON format object back to object array of Project class
+export function restoreFromJSON() {
     const JSONData = storageModule.loadFromStorage();
     return JSONData.map(projectData => Project.fromJSON(projectData));
 }
