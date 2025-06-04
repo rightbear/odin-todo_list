@@ -11,10 +11,12 @@ export function taskCheckboxEvent() {
             // If checked, strike through the task title
             if (this.checked) {
                 taskTitles[index].style.textDecoration = "line-through";
+                taskTitles[index].style.color = "Gainsboro";
             }
             // If unchecked, remove the strikethrough
             else {
                 taskTitles[index].style.textDecoration = "none";
+                taskTitles[index].style.color = "black";
             }
      });
  }

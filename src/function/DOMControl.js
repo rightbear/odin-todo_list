@@ -208,6 +208,9 @@ export function showTasksinProject(projectID) {
 
     const contentwithSlogan = addSlogan(documentIcon, "docment", projectName);
 
+    const tasks = document.createElement("div");
+    tasks.classList.add("tasks");
+
     const taskHeader = document.createElement("div");
 
     taskHeader.classList.add("taskHeader");
@@ -230,8 +233,9 @@ export function showTasksinProject(projectID) {
 
     const taskList = document.createElement("div");
     taskList.classList.add("taskList");
+    tasks.append(taskHeader, taskList);
 
-    contentwithSlogan.append(taskHeader, taskList);
+    contentwithSlogan.appendChild(tasks);
 
     for (let index = 0 ; index < taskNum ; index++){
         let taskTitle = allTasksinProject[index].title;
@@ -278,21 +282,21 @@ function addTask(iconHeight, taskTitle, taskState) {
     divChecklist.classList.add("taskCheckbox");
     divChecklist.checked = (taskState === true) ? true : false;
 
-    const divText = document.createElement("div");
-    divText.classList.add("taskTitle");
-    divText.textContent = taskTitle;
+    const divTaskTitle = document.createElement("div");
+    divTaskTitle.classList.add("taskTitle");
+    divTaskTitle.textContent = taskTitle;
 
     if (divChecklist.checked) {
-        divText.style.textDecoration = "line-through";
+        divTaskTitle.style.textDecoration = "line-through";
     }
     else {
-        divText.style.textDecoration = "none";
+        divTaskTitle.style.textDecoration = "none";
     }
-
+    
     const divFuncBtns = document.createElement("div");
-    divFuncBtns.classList.add("projectBtns");
+    divFuncBtns.classList.add("taskBtns");
     const editBtn = document.createElement("button");
-    editBtn.classList.add("projectEdit");
+    editBtn.classList.add("taskEdit");
     const editBtnImg = document.createElement("img");
     editBtnImg.src = editIcon;
     editBtnImg.alt = "edit";
@@ -300,7 +304,7 @@ function addTask(iconHeight, taskTitle, taskState) {
     editBtn.appendChild(editBtnImg);
 
     const deleteBtn = document.createElement("button");
-    deleteBtn.classList.add("projectDelete");
+    deleteBtn.classList.add("taskDelete");
     const deleteBtnImg = document.createElement("img");
     deleteBtnImg.src = deleteIcon;
     deleteBtnImg.alt = "delete";
@@ -308,7 +312,7 @@ function addTask(iconHeight, taskTitle, taskState) {
     deleteBtn.appendChild(deleteBtnImg);
 
     const infoBtn = document.createElement("button");
-    infoBtn.classList.add("projectInfo");
+    infoBtn.classList.add("taskInfo");
     const infoBtnImg = document.createElement("img");
     infoBtnImg.src = infoIcon;
     infoBtnImg.alt = "edit";
@@ -317,7 +321,7 @@ function addTask(iconHeight, taskTitle, taskState) {
 
     divFuncBtns.append(editBtn, deleteBtn, infoBtn);
 
-    divContainer.append(divChecklist, divText, divFuncBtns);
+    divContainer.append(divChecklist, divTaskTitle, divFuncBtns);
 
     return divContainer;
 }

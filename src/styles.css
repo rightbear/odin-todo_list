@@ -91,7 +91,7 @@ button:hover > .btnTooltip {
 
     display: flex;
     flex-direction: row;
-    justify-content: baseline;
+    justify-content: flex-start;
     align-items: center;
     
     background-color: var(--color-with-theme);
@@ -111,7 +111,7 @@ button:hover > .btnTooltip {
     display: flex;
     flex-direction: column;
 
-    background-color: lightgray;
+    background-color: Gainsboro;
 
     max-width: 305px;
 }
@@ -166,6 +166,7 @@ button:hover > .btnTooltip {
     flex-direction: column;
     padding: 5px;
 
+    /* For scrollbar in y-axis of .projectList */
     /* "flex: 1" makes the element occupy all remaining available space
        (other fiexd space is occupied by category calss) in the flex container(sidebar) */
     flex: 1;
@@ -191,7 +192,7 @@ button:hover > .btnTooltip {
 
 .projectHeader > button {
     position: relative;
-    background-color: lightgray;
+    background-color: Gainsboro;
     transition: transform .2s;
 
     border: none;
@@ -222,7 +223,8 @@ button:hover > .btnTooltip {
 
     background-color: #fff;
 
-    /*Prevent the size of projectItem gets too big when projectTitle is too long */
+    /* For adding text overflow effect in x-axis of .projectTitle */
+    /*Prevent the size of projectItem gets too big when .projectTitle is too long */
     max-width: 275px;
 }
 
@@ -230,6 +232,7 @@ button:hover > .btnTooltip {
     width: 75%;
     margin: 3px 5px;
 
+    /* Add text overflow effect in x-axis of .projectTitle */
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -263,6 +266,19 @@ button:hover > .btnTooltip {
 
 /*************************************/
 
+.content {
+    grid-column: 2 / -1;
+    grid-row: 2 / -1;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: flex-start;
+    align-items: center;
+    
+    background-color: #fff;
+}
+
 .content .itemsTitle{
     display: flex;
     flex-direction: row;
@@ -275,30 +291,145 @@ button:hover > .btnTooltip {
 .sloganTitle {
     display: flex;
     flex-direction: row;
+
+    justify-content: center;
+    align-items: center;
+
+    margin: 25px 0px 30px 0px ;
+    gap: 10px
+}
+
+.sloganTitle .sloganName {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.tasks {
+    display: flex;
+    flex-direction: column;
+
+    width: 60%;
+
+    /* For adding scrollbar in y-axis of .taskList */
+    flex: 1;
+    min-height: 0;
 }
 
 .taskHeader {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+
+    padding: 5px;
+    border-bottom: 1px solid black;
+    margin: 30px 0px 0px 0px;
 }
 
-.taskHeader > button {
-    position: relative;
-    background-color: grey;
-    transition: transform .2s;
+.taskList {
+    display: flex;
+    flex-direction: column;
 
-    border: none;
-    margin: 0 5px;
-}
+    padding: 0px 5px;
 
-.taskHeader > button:hover {
-  transform: scale(1.2);
+    /* Add scrollbar in y-axis */
+    overflow-y: auto;
 }
 
 .taskItem {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    height: 50px;
+    padding: 10px 0px;
+    border-bottom: 1px solid Gainsboro;
+
+    /* For adding text overflow effect in x-axis of .taskTitle */
+    /*Prevent the size of taskLeftItem gets too big when .taskTitle is too long */
+    max-width: 1000px;
+}
+
+.taskTitle {
+    width: 80%;
+    margin: 3px 20px;
+
+    /* Add text overflow effect in x-axis of .taskTitle */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.taskBtns {
+    display: flex;
+    flex-direction: row;
+
+    /*fixed the size of butons*/
+    flex-shrink: 0;
+}
+
+.taskBtns > img {
+    /*fixed the size of image*/
+    flex-shrink: 0; 
+}
+
+.taskBtns > button {
+    background-color: #fff;
+    transition: transform .2s;
+
+    border: none;
+    margin: 1px;
+}
+
+/* 150% zoom */
+.taskBtns > button:hover {
+  transform: scale(1.2);
 }
 
 /*************************/
 
+/* Pseudo element for check styling */
+
+.taskCheckbox[type=checkbox] {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-with-theme);
+  vertical-align: middle;
+  appearance: none;
+  background: none;
+  border: 0;
+  outline: 0;
+  flex-grow: 0;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: background-color 300ms;
+  cursor: pointer;
+}
+
+
+/* Pseudo element for check styling */
+
+.taskCheckbox[type=checkbox]::before {
+  content: "";
+  color: transparent;
+  display: block;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  border: 0;
+  background-color: transparent;
+  background-size: contain;
+  box-shadow: inset 0 0 0 1px #CCD3D8;
+}
+
+
+/* Checked */
+
+.taskCheckbox[type=checkbox]:checked {
+  background-color: currentcolor;
+}
+
+.taskCheckbox[type=checkbox]:checked::before {
+  box-shadow: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E %3Cpath d='M15.88 8.29L10 14.17l-1.88-1.88a.996.996 0 1 0-1.41 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7a.996.996 0 0 0 0-1.41c-.39-.39-1.03-.39-1.42 0z' fill='%23fff'/%3E %3C/svg%3E");
+}
