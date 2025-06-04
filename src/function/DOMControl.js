@@ -69,6 +69,7 @@ function addCategory(iconSrc, iconAlt, iconHeight, textID, text, ) {
 
     let divText = document.createElement("div");
     divText.id = textID;
+    divText.classList.add("categoryTitle");
     divText.textContent = text;
 
     divContainer.append(divIcon, divText);
@@ -102,7 +103,7 @@ export function showProjects() {
     const projects = document.querySelector(".projects");
 
     //Remove all old project items on page
-    if (projects.firstChild) {
+    while (projects.firstChild) {
         projects.removeChild(projects.firstChild);
     }
 

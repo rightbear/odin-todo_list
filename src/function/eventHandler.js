@@ -1,3 +1,5 @@
+
+
 // EventHandler about controling checkbox in task items on page
 export function taskCheckboxEvent() {
     const taskCheckboxes = document.querySelectorAll(".taskCheckbox");

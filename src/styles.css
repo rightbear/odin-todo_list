@@ -8,6 +8,7 @@
 
 body {
     font-family: Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    height: 100vh;
 }
 
 .main {
@@ -17,8 +18,6 @@ body {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(10, 1fr);
-
-    --color-with-theme: #408EE0;
 }
 
 /*************************************/
@@ -34,7 +33,7 @@ button > .btnTooltip {
     padding: 5px 0;
     position: absolute;
     z-index: 1;
-    bottom: 125%;
+    bottom: 105%;
     /* 90px is 90% width of Tooltip */
     left: 90%;
     margin-left: -90px;
@@ -58,6 +57,32 @@ button:hover > .btnTooltip {
 
 /*************************************/
 
+/*Set style of text part of scrollbar*/
+
+/* width */
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: white; 
+}
+
+/*************************************/
+
 .header {
     grid-column: 1 / -1;
     grid-row: 1 / 2;
@@ -72,18 +97,76 @@ button:hover > .btnTooltip {
     grid-column: 1 / 2;
     grid-row: 2 / -1;
 
-    background-color: grey;
-}
-
-.category {
-    height: 45%;
     display: flex;
     flex-direction: column;
+
+    background-color: lightgray;
+}
+
+.sidebar .itemsTitle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px;
+
+    width: 75%;
+}
+
+/********************/
+
+.category {
+    display: flex;
+    flex-direction: column;
+
+    /* Category section remain fixed size and will not shrink*/
+    flex: 0 0 240px;
+
+    padding: 5px;
+}
+
+.categoryTitle {
+    width: 90%;
+    margin: 3px 5px;
 }
 
 .categoryItem {
     display: flex;
     flex-direction: row;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px;
+    border: 1px solid black;
+    margin: 10px;
+    border-radius: 5px;
+
+    background-color: #fff;
+}
+
+/********************/
+
+.projects {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+
+    /* "flex: 1" makes the element occupy all remaining available space
+       (other fiexd space is occupied by category calss) in the flex container(sidebar) */
+    flex: 1;
+
+    /* "min-height: 0" overrides the default minimum height behavior of flex items */
+    /* Flex items have an implicit "min-height: auto" by default, this means flex 
+       items won't shrink smaller than their content size */
+    /* When there's a lot of content, "min-height: 0" prevents the flex item from 
+       shrinking, causing the entire container to expand */
+    min-height: 0;
+
+    /* Summary:
+        "flex: 1" makes the element fill all space not occupied by other fixed elements in the container
+        "min-height: 0" allows the element to shrink, so that when internal content overflows, it can trigger overflow behavior
+        Without "min-height: 0", when there's too much content, the entire container would expand instead of creating a scrollbar within the element
+    */
 }
 
 .projectHeader {
@@ -93,7 +176,7 @@ button:hover > .btnTooltip {
 
 .projectHeader > button {
     position: relative;
-    background-color: grey;
+    background-color: lightgray;
     transition: transform .2s;
 
     border: none;
@@ -104,17 +187,39 @@ button:hover > .btnTooltip {
   transform: scale(1.2);
 }
 
+.projectList {
+    /* Add scrollbar in y-axis */
+    /* Need to cooperate with "flex: 1" and "min-height: 0" in projects class
+       ,and cooperate with "flex: 0 0 240px" in category class*/
+    overflow-y: auto;
+}
+
 .projectItem {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px;
+    border: 1px solid black;
+    margin: 10px 8px 10px 10px;
+    border-radius: 5px;
+
+    background-color: #fff;
 }
 
 .projectTitle {
     width: 65%;
+    margin: 3px 5px;
+}
+
+.projectBtns {
+    display: flex;
+    flex-direction: row;
 }
 
 .projectBtns > button {
-    background-color: grey;
+    background-color: #fff;
     transition: transform .2s;
 
     border: none;
@@ -154,4 +259,13 @@ button:hover > .btnTooltip {
 .taskItem {
     display: flex;
     flex-direction: row;
+}
+
+/*************************/
+
+.content .itemsTitle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px;
 }
