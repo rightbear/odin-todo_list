@@ -8,6 +8,7 @@ import documentIcon from "../images/document.png"
 import editIcon from "../images/editing.png"
 import infoIcon from "../images/information.png" 
 import addIcon from "../images/add.png"
+import twoTicsIcon from "../images/two-ticks.png"
 
 function addMainRegion (){
     const main = document.createElement("div");
@@ -22,10 +23,17 @@ function addHeaderRegion (){
     header.classList.add("header");
     main.appendChild(header);
 
+    const hIcon = document.createElement("img");
+    hIcon.classList.add("hIcon");
+    hIcon.src = twoTicsIcon;
+    hIcon.alt = "two-ticks";
+    hIcon.height = 40;
+
     const hTitle = document.createElement("h1");
     hTitle.classList.add("hTitle");
     hTitle.textContent = "ToDo";
-    header.appendChild(hTitle);
+
+    header.append(hIcon, hTitle);
 }
 
 function addSidebarRegion (){

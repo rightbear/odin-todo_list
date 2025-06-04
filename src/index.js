@@ -22,7 +22,7 @@ itemLogic.addTask(1, "task10", "des10", "due10", "pri10", "project2", "note10", 
 
 //itemLogic.deleteTask(0, 0);
 
-itemLogic.modifyProject(1, "ddddddddd555d", "des2", "note2");
+itemLogic.modifyProject(1, "dddddddd7898788979d555d", "des2", "note2");
 
 //itemLogic.deleteProject(0);
 
