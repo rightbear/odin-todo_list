@@ -9,7 +9,7 @@ export default class Task {
             taskData.description,
             taskData.dueDate,
             taskData.priority,
-            taskData.project,
+            taskData.projectID,
             taskData.notes,
             taskData.state
         );
@@ -17,10 +17,10 @@ export default class Task {
         return task;
     }
 
-    constructor(title, description, dueDate, priority, project, notes, state) {
+    constructor(title, description, dueDate, priority, projectID, notes, state) {
         // Use destructuring to assign fileds
         // The value of priority: 0 is low, 1 is medium, 2 is high
-        Object.assign(this, { title, description, dueDate, priority, project, notes, state});
+        Object.assign(this, { title, description, dueDate, priority, projectID, notes, state});
     }
 
     // Change the current state of task
@@ -28,21 +28,21 @@ export default class Task {
         this.state = (this.state === TASK_FINISHED) ? TASK_UNFINISHED : TASK_FINISHED;
     }
 
-    modifyProjectName(newProjectName){
-        this.project = newProjectName;
+    modifyProjectID(newProjectID){
+        this.projectID = newProjectID;
     }
 
-    modifyInfo(newTitle, newDescription, newDueDate, newPriority, newProject, newNotes){
+    modifyInfo(newTitle, newDescription, newDueDate, newPriority, newProjectID, newNotes){
         this.title = newTitle;
         this.description = newDescription;
         this.dueDate = newDueDate;
         this.priority = newPriority;
-        this.modifyProjectName(newProject);
+        this.modifyProjectID(newProjectID);
         this.notes = newNotes;
     }
 
     displayContent(){
-        console.log(`${this.title}, ${this.description}, ${this.dueDate}, ${this.priority}, ${this.project}, ${this.notes}, ${this.state}`);
+        console.log(`${this.title}, ${this.description}, ${this.dueDate}, ${this.priority}, ${this.projectID}, ${this.notes}, ${this.state}`);
     }
 
     toJSON(){
@@ -51,7 +51,7 @@ export default class Task {
             description: this.description,
             dueDate: this.dueDate,
             priority: this.priority,
-            project: this.project,
+            projectID: this.projectID,
             notes: this.notes,
             state: this.state
         };

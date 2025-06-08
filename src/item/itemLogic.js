@@ -22,11 +22,6 @@ export function modifyProject(projectIndex, newTitle, newDescription, newNotes) 
 
     projectList[projectIndex].modifyProjectInfo(newTitle, newDescription, newNotes);
 
-    // Modify the project name of all tasks related to the modified project
-    if(oldTitle !== newTitle){
-        projectList[projectIndex].modifyAllTasksProjectName(newTitle);
-    }
-
     storeWithJSON(projectList);
 }
 
@@ -38,6 +33,17 @@ export function deleteProject(projectIndex) {
     projectList.splice(projectIndex, 1);
 
     // Need to modify the data attribute of other projects
+
+    const newLength = projectList.length;
+    // if the length of current projectList is bigger than projectIndex, that 
+    // means the deleted project is not the last project in the old projectList.
+    // Need to modify the project number in tasks inside all projects after 
+    // the deleted project in the old projectList.
+    if(newLength > projectIndex) {
+        for(let projectID = projectIndex ; projectID < newLength ; projectID++){
+            projectList[projectID].modifyAllTasksProjectID(projectID);
+        }
+    }
 
     storeWithJSON(projectList);
 }
@@ -86,8 +92,8 @@ export function deleteTask(projectIndex, taskIndex) {
 
     projectList[projectIndex].deleteOneTask(taskIndex);
 
-    // Need to modify the data attribute of other projects
-    // Need to modify all project numbers of all tasks
+    // Need to modify the data attribute of other tasks
+
     storeWithJSON(projectList);
 }
 

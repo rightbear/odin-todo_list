@@ -245,6 +245,7 @@ export function showTasksinProject(projectID) {
         taskList.appendChild(taskItem);
     }
 
+    eventHandlerModule.clickProjectToShowAllTasksEvent();
     eventHandlerModule.taskCheckboxEvent();
 }
 
@@ -326,6 +327,7 @@ function addTask(iconHeight, taskTitle, taskState) {
     return divContainer;
 }
 
-//after remove projects Update the projectid of all tasks
+//after remove projects, Update the data attribute of other projects, and update projectid of all tasks
+
 
 

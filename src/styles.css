@@ -19,7 +19,7 @@ body {
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(10, 1fr);
 
-    --color-with-theme: #7bc4c4;
+    --color-with-theme: #009688;
 }
 
 /*************************************/
@@ -95,11 +95,12 @@ button:hover > .btnTooltip {
     align-items: center;
     
     background-color: var(--color-with-theme);
-    color: black;
+    color: white;
 }
 
 .hIcon {
     margin: 0px 10px 0px 15px;
+    filter: invert(1);
 }
 
 /*************************************/
@@ -157,7 +158,29 @@ button:hover > .btnTooltip {
     background-color: #fff;
 
     max-width: 275px;
+
+    transition: border 0.2s ease;
 }
+
+.categoryItem:hover {
+    border: 1px solid #4db6ac;
+}
+
+.categoryItem.clickedItem {
+    background-color: var(--color-with-theme);
+    border: 1px solid var(--color-with-theme);
+    color: white;
+}
+
+.categoryItem.clickedItem img {
+    filter: invert(1);
+}
+
+.categoryItem.clickedItem:hover {
+    border: 1px solid #4db6ac;
+    background-color: #4db6ac;
+}
+
 
 /********************/
 
@@ -165,6 +188,7 @@ button:hover > .btnTooltip {
     display: flex;
     flex-direction: column;
     padding: 5px;
+    margin-bottom: 10px;
 
     /* For scrollbar in y-axis of .projectList */
     /* "flex: 1" makes the element occupy all remaining available space
@@ -226,6 +250,35 @@ button:hover > .btnTooltip {
     /* For adding text overflow effect in x-axis of .projectTitle */
     /*Prevent the size of projectItem gets too big when .projectTitle is too long */
     max-width: 275px;
+
+    transition: border 0.2s ease;
+}
+
+.projectItem:hover {
+    border: 1px solid #4db6ac;
+}
+
+.projectItem.clickedItem {
+    background-color: var(--color-with-theme);
+    border: 1px solid var(--color-with-theme);
+    color: white;
+}
+
+.projectItem.clickedItem button {
+    background-color: var(--color-with-theme);
+}
+
+.projectItem.clickedItem img {
+    filter: invert(1);
+}
+
+.projectItem.clickedItem:hover {
+    border: 1px solid #4db6ac;
+    background-color: #4db6ac;
+}
+
+.projectItem.clickedItem:hover button {
+    background-color: #4db6ac;
 }
 
 .projectTitle {
@@ -313,6 +366,8 @@ button:hover > .btnTooltip {
     /* For adding scrollbar in y-axis of .taskList */
     flex: 1;
     min-height: 0;
+
+    margin-bottom: 20px;
 }
 
 .taskHeader {
@@ -325,11 +380,24 @@ button:hover > .btnTooltip {
     margin: 30px 0px 0px 0px;
 }
 
+.taskHeader > button {
+    position: relative;
+    background-color: #fff;
+    transition: transform .2s;
+
+    border: none;
+    margin: 0 8px;
+}
+
+.taskHeader > button:hover {
+  transform: scale(1.2);
+}
+
 .taskList {
     display: flex;
     flex-direction: column;
 
-    padding: 0px 5px;
+    padding: 0px 0px;
 
     /* Add scrollbar in y-axis */
     overflow-y: auto;
@@ -350,6 +418,14 @@ button:hover > .btnTooltip {
     max-width: 1000px;
 }
 
+.taskItem:hover {
+    background-color: Gainsboro;
+}
+
+.taskItem:hover button {
+    background-color: Gainsboro;
+}
+
 .taskTitle {
     width: 80%;
     margin: 3px 20px;
@@ -366,6 +442,7 @@ button:hover > .btnTooltip {
 
     /*fixed the size of butons*/
     flex-shrink: 0;
+    margin-right: 5px;
 }
 
 .taskBtns > img {
@@ -398,6 +475,7 @@ button:hover > .btnTooltip {
   appearance: none;
   background: none;
   border: 0;
+  margin-left: 5px;
   outline: 0;
   flex-grow: 0;
   border-radius: 50%;
