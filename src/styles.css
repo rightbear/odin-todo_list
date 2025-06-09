@@ -20,6 +20,7 @@ body {
     grid-template-rows: repeat(10, 1fr);
 
     --color-with-theme: #009688;
+    --color-with-hover: #4db6ac;
 }
 
 /*************************************/
@@ -163,7 +164,7 @@ button:hover > .btnTooltip {
 }
 
 .categoryItem:hover {
-    border: 1px solid #4db6ac;
+    border: 1px solid var(--color-with-hover);
 }
 
 .categoryItem.clickedItem {
@@ -177,8 +178,8 @@ button:hover > .btnTooltip {
 }
 
 .categoryItem.clickedItem:hover {
-    border: 1px solid #4db6ac;
-    background-color: #4db6ac;
+    border: 1px solid var(--color-with-hover);
+    background-color: var(--color-with-hover);
 }
 
 
@@ -255,7 +256,7 @@ button:hover > .btnTooltip {
 }
 
 .projectItem:hover {
-    border: 1px solid #4db6ac;
+    border: 1px solid var(--color-with-hover);
 }
 
 .projectItem.clickedItem {
@@ -273,12 +274,12 @@ button:hover > .btnTooltip {
 }
 
 .projectItem.clickedItem:hover {
-    border: 1px solid #4db6ac;
-    background-color: #4db6ac;
+    border: 1px solid var(--color-with-hover);
+    background-color: var(--color-with-hover);
 }
 
 .projectItem.clickedItem:hover button {
-    background-color: #4db6ac;
+    background-color: var(--color-with-hover);
 }
 
 .projectTitle {
@@ -319,6 +320,224 @@ button:hover > .btnTooltip {
 
 /*************************************/
 
+dialog {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin:auto;
+  
+    min-width: 350px;
+  
+    border-radius: 10px;
+    box-shadow: 0px 10px 15px 5px #888888;
+}
+
+dialog::backdrop {
+    /* Blur the background when the dialog pops*/
+    backdrop-filter: blur(10px);
+}
+
+dialog[id="add-pageDialog"]{
+  min-height: 550px;
+}
+
+dialog form {
+  display: flex;
+  flex-direction: column;
+  
+  padding: 10px;
+}
+
+.dialogHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+  
+    width: 100%;
+    position: relative;
+  
+    background-color: var(--color-with-theme);
+    color: white;
+}
+
+.dialogHeader .crossDialogBtn {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+  
+    position: absolute;
+    top: 15px;
+    right: 15px;
+
+    filter: invert(1);
+}
+
+.dialogFields {
+  display: flex;
+  flex-direction: column;
+  
+  /* Trigger overflow property in fields of project*/
+  max-width: 325px;
+  
+  padding-bottom: 10px;
+  border-bottom: 1px solid Gainsboro;
+}
+
+.dialogFields .field {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.field input {
+  width: 100%;
+  
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 2px;
+  padding: 0.5rem;
+  color: #666;
+  box-shadow: inset 0 0 0.25rem #ddd;
+  
+  font-size: 0.875rem;
+}
+
+.field input:focus {
+  outline: none;
+  border: 2px solid black;
+  box-shadow: inset 0 0 0.5rem darken(#ddd, 5%);
+}
+
+.field input[class="normal"] {
+  border: 1px solid #ddd;
+}
+
+.field input[class="normal"]:focus {
+  border: 2px solid black;
+}
+
+.field input[class="error"] {
+  border: 1px solid red;
+}
+
+.field input[class="error"]:focus {
+  border: 2px solid DarkRed;
+}
+
+
+.field input[class="success"] {
+  border: 1px solid green;
+}
+
+.field input[class="success"]:focus {
+  border: 2px solid DarkGreen;
+}
+
+.validation-message {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 15px;
+  margin: 2px;
+  padding-left: 5px;
+  font-size: 0.8rem;
+}
+
+.success-message {
+  color: green;
+}
+
+.error-message {
+  color: red;
+}
+  
+.field textarea {
+  width: 100%;
+  height: 100px;
+  resize: none;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 2px;
+  padding: 0.5rem;
+  color: #666;
+  box-shadow: inset 0 0 0.25rem #ddd;
+  
+  font-size: 0.875rem;
+}
+
+.field textarea:focus {
+  outline: none;
+  border: 2px solid black;
+  box-shadow: inset 0 0 0.5rem darken(#ddd, 5%);
+}
+
+.requiredSign {
+  color: red;  
+}
+
+.field .textCount {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  padding: 0.1rem 0 0 0;
+  font-size: 0.875rem;
+}
+
+form .dialogButtons {
+  display: flex;
+  flex-direction: row;
+  
+  margin: 10px;
+  gap: 5px;
+  justify-content: end;
+  align-items: center;
+}
+
+.dialogButtons button {
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+#project-cancelBtn {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #f44336;
+}
+
+
+#project-cancelBtn:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+#project-addBtn {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+
+#project-addBtn:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+#project-addBtn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+ }
+
+/*************************************/
+
 .content {
     grid-column: 2 / -1;
     grid-row: 2 / -1;
@@ -355,6 +574,14 @@ button:hover > .btnTooltip {
 .sloganTitle .sloganName {
     font-size: 30px;
     font-weight: bold;
+
+    /* For adding text overflow effect in x-axis of .sloganName */
+    max-width: 375px;
+
+    /* Add text overflow effect in x-axis of .sloganName */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .tasks {

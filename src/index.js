@@ -1,10 +1,12 @@
 import "./styles.css";
-import { loadInitialLayout, showProjects, showTasksinProject } from "./function/DOMControl.js"
-import * as itemLogic from "./item/itemLogic.js"
+import * as DOMControlModule from "./function/DOMControl"
+import * as eventHandlerModule from "./function/eventHandler"
+import * as projectModalModule from "./item/projectModal"
+import * as itemLogic from "./item/itemLogic"
 
 localStorage.clear();
 
-loadInitialLayout();
+DOMControlModule.loadInitialLayout();
 
 itemLogic.addProject("project1", "des1", "note1");
 itemLogic.addProject("project2", "des2", "note2");
@@ -37,5 +39,9 @@ itemLogic.modifyProject(1, "dddddddd7898788979d555d", "des2", "note2");
 
 //itemLogic.deleteProject(0);
 
-showProjects();
-showTasksinProject(0);
+DOMControlModule.showProjects();
+projectModalModule.createProjectAddDialog();
+eventHandlerModule.setAddDialogEvent();
+DOMControlModule.showTasksinProject(0);
+eventHandlerModule.taskCheckboxEvent();
+eventHandlerModule.clickProjectToShowAllTasksEvent();

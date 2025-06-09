@@ -57,6 +57,13 @@ export function displayProject() {
     }
 }
 
+// Deep Copy the project list
+export function getAllProjects() {
+    projectList = restoreFromJSON();
+
+    return structuredClone(projectList);
+}
+
 // Add a specific task in task list
 export function addTask(projectIndex, title, description, dueDate, priority, project, notes, state){
     projectList = restoreFromJSON();

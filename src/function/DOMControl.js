@@ -149,6 +149,10 @@ export function showProjects() {
         projectItem.dataset.projectid = index;
         projectList.appendChild(projectItem);
     }
+
+    const projectDialog = document.createElement("div");
+    projectDialog.classList.add("projectDialog");
+    projects.appendChild(projectDialog);
 }
 
 function addProject(iconHeight, projectTitle) {
@@ -245,7 +249,6 @@ export function showTasksinProject(projectID) {
         taskList.appendChild(taskItem);
     }
 
-    eventHandlerModule.clickProjectToShowAllTasksEvent();
     eventHandlerModule.taskCheckboxEvent();
 }
 
@@ -253,7 +256,7 @@ function addSlogan(iconSrc, iconAlt, sloganText) {
     const content = document.querySelector(".content");
 
     //Remove all old task items on page
-    if (content.firstChild) {
+    while (content.firstChild) {
         content.removeChild(content.firstChild);
     }
 
