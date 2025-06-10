@@ -359,3 +359,71 @@ export function setInfoDialogEvent() {
         dialogForm.reset();
     });
 }
+
+export function setDeleteDialogEvent() {
+    const deleteBtn = document.querySelectorAll(".projectDelete");
+
+    const pageDialog = document.querySelector('#project-delete-pageDialog');
+    const dialogForm = document.querySelector('#project-delete-dialogForm');
+    const crossDialogBtn = document.querySelector('#project-delete-crossDialogBtn');
+    const deletedProject = document.querySelector('#deletedProject');
+
+    let currentProjectID = null;
+    const projectList = itemLogicModule.getAllProjects();
+
+
+    for(let index = 0; index < deleteBtn.length; index++) {
+        deleteBtn[index].addEventListener('click', (event) => {
+
+            const clickedDeleteBtn = event.currentTarget;
+            currentProjectID = ((clickedDeleteBtn.parentNode).parentNode).dataset.projectid;
+            const currentProject = projectList[currentProjectID];
+
+            deletedProject.textContent = currentProject.title;
+            pageDialog.showModal();
+        });
+    }
+
+    crossDialogBtn.addEventListener('click', (event) => {
+        const crossButton = event.target;
+        pageDialog.close(crossButton.value);
+    });
+
+    dialogForm.addEventListener('submit', function(event) {
+        const submitBtn = event.submitter;
+        event.preventDefault();
+        pageDialog.close(submitBtn.value);
+    });
+
+    pageDialog.addEventListener("close", () => {
+
+        const buttomValue = pageDialog.returnValue;
+    
+        if(buttomValue == 'cross'){
+            console.log('Dialog closed with crossDialogBtn');
+        }
+        else{
+            if(buttomValue == 'delete'){
+                console.log('Dialog closed with deleteBtn');
+
+                itemLogicModule.deleteProject(currentProjectID);
+                DOMControlModule.showProjects();
+
+                //Need yo modify to show all page
+                DOMControlModule.showTasksinProject(0);
+            }
+            else if (buttomValue == 'cancel'){
+                console.log('Dialog closed with cancelBtn');
+            }
+            
+            dialogForm.reset();
+        }
+    });
+}
+
+export function setAllDialogEvent() {
+    setAddDialogEvent();
+    setEditDialogEvent();
+    setInfoDialogEvent();
+    setDeleteDialogEvent();
+}

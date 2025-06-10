@@ -82,7 +82,7 @@ button:hover > .btnTooltip {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: white; 
+  background: var(--color-with-hover); 
 }
 
 /*************************************/
@@ -350,6 +350,10 @@ dialog[id="project-info-pageDialog"] {
   max-height: 550px;
 }
 
+dialog[id="project-delete-pageDialog"] {
+  min-height: 200px;
+}
+
 dialog form {
   display: flex;
   flex-direction: column;
@@ -435,13 +439,24 @@ dialog form {
   border: 2px solid DarkRed;
 }
 
-
 .field input[class="success"] {
   border: 1px solid green;
 }
 
 .field input[class="success"]:focus {
   border: 2px solid DarkGreen;
+}
+
+.field span[id="deletedProject"] {
+  font-weight: bold;
+  overflow: hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  max-width: 300px;
+  
+  display:inline-block;
+  /* Vertical align the text in inline-block*/
+  vertical-align: middle;
 }
 
 .validation-message {
@@ -551,7 +566,8 @@ form .dialogButtons {
 
 #project-add-cancelBtn,
 #project-edit-cancelBtn,
-#project-info-closeBtn {
+#project-info-closeBtn,
+#project-delete-cancelBtn {
   background-color: white; 
   color: black; 
   border: 2px solid #f44336;
@@ -560,20 +576,23 @@ form .dialogButtons {
 
 #project-add-cancelBtn:hover,
 #project-edit-cancelBtn:hover,
-#project-info-closeBtn:hover {
+#project-info-closeBtn:hover,
+#project-delete-cancelBtn:hover {
   background-color: #f44336;
   color: white;
 }
 
 #project-add-addBtn,
-#project-edit-editBtn {
+#project-edit-editBtn,
+#project-delete-deleteBtn {
   background-color: white; 
   color: black; 
   border: 2px solid #008CBA;
 }
 
 #project-add-addBtn:hover,
-#project-edit-editBtn:hover {
+#project-edit-editBtn:hover,
+#project-delete-deleteBtn:hover {
   background-color: #008CBA;
   color: white;
 }

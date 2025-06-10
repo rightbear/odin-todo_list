@@ -192,7 +192,7 @@ function addProject(iconHeight, projectTitle) {
     infoBtn.classList.add("projectInfo");
     const infoBtnImg = document.createElement("img");
     infoBtnImg.src = infoIcon;
-    infoBtnImg.alt = "edit";
+    infoBtnImg.alt = "info";
     infoBtnImg.height = iconHeight;
     infoBtn.appendChild(infoBtnImg);
 
@@ -322,7 +322,7 @@ function addTask(iconHeight, taskTitle, taskState) {
     infoBtn.classList.add("taskInfo");
     const infoBtnImg = document.createElement("img");
     infoBtnImg.src = infoIcon;
-    infoBtnImg.alt = "edit";
+    infoBtnImg.alt = "info";
     infoBtnImg.height = iconHeight;
     infoBtn.appendChild(infoBtnImg);
 

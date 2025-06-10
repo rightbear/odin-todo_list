@@ -40,12 +40,15 @@ itemLogic.modifyProject(1, "dddddddd7898788979d555d", "des2", "note2");
 //itemLogic.deleteProject(0);
 
 DOMControlModule.showProjects();
-projectModalModule.createProjectAddDialog();
-eventHandlerModule.setAddDialogEvent();
-projectModalModule.createProjectEditDialog();
-eventHandlerModule.setEditDialogEvent();
-projectModalModule.createProjectInfoDialog();
-eventHandlerModule.setInfoDialogEvent();
+createAllModal();
+eventHandlerModule.setAllDialogEvent();
 DOMControlModule.showTasksinProject(0);
 eventHandlerModule.taskCheckboxEvent();
 eventHandlerModule.clickProjectToShowAllTasksEvent();
+
+function createAllModal() {
+    projectModalModule.createProjectAddDialog();
+    projectModalModule.createProjectEditDialog();
+    projectModalModule.createProjectInfoDialog();
+    projectModalModule.createProjectDeleteDialog();
+}
