@@ -124,19 +124,20 @@ export function showProjects() {
     const projectsTitle = document.createElement("h2");
     projectsTitle.classList.add("itemsTitle");
     projectsTitle.textContent = `Projects (${projectNum})`;
-    const addBtn = document.createElement("button");
-    addBtn.classList.add("addBtn");
+    const projectAddBtn = document.createElement("button");
+    projectAddBtn.classList.add("addBtn");
+    projectAddBtn.id = "projectAddBtn";
     const addBtnImg = document.createElement("img");
     addBtnImg.src = addIcon;
     addBtnImg.alt = "add";
     addBtnImg.height = 25;
-    addBtn.appendChild(addBtnImg);
+    projectAddBtn.appendChild(addBtnImg);
     const addBtnTooltip = document.createElement("span");
     addBtnTooltip.classList.add("btnTooltip");
     addBtnTooltip.textContent = "Add a project";
-    addBtn.appendChild(addBtnTooltip);
+    projectAddBtn.appendChild(addBtnTooltip);
     
-    projectHeader.append(projectsTitle, addBtn);
+    projectHeader.append(projectsTitle, projectAddBtn);
 
     const projectList = document.createElement("div");
     projectList.classList.add("projectList");
@@ -221,19 +222,20 @@ export function showTasksinProject(projectID) {
     const tasksTitle = document.createElement("h2");
     tasksTitle.classList.add("itemsTitle");
     tasksTitle.textContent = `Tasks (${taskNum})`;
-    const addBtn = document.createElement("button");
-    addBtn.classList.add("addBtn");
+    const taskAddBtn = document.createElement("button");
+    taskAddBtn.classList.add("addBtn");
+    taskAddBtn.id = "taskAddBtn";
     const addBtnImg = document.createElement("img");
     addBtnImg.src = addIcon;
     addBtnImg.alt = "add";
     addBtnImg.height = 25;
-    addBtn.appendChild(addBtnImg);
+    taskAddBtn.appendChild(addBtnImg);
     const addBtnTooltip = document.createElement("span");
     addBtnTooltip.classList.add("btnTooltip");
     addBtnTooltip.textContent = "Add a task";
-    addBtn.appendChild(addBtnTooltip);
+    taskAddBtn.appendChild(addBtnTooltip);
 
-    taskHeader.append(tasksTitle, addBtn);
+    taskHeader.append(tasksTitle, taskAddBtn);
 
     const taskList = document.createElement("div");
     taskList.classList.add("taskList");
@@ -246,6 +248,7 @@ export function showTasksinProject(projectID) {
         let taskState = allTasksinProject[index].state;
         const taskItem = addTask(20, taskTitle, taskState);
         taskItem.dataset.taskid = index;
+        taskItem.dataset.task_projectid = projectID;
         taskList.appendChild(taskItem);
     }
 

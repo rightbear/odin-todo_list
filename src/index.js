@@ -42,6 +42,8 @@ itemLogic.modifyProject(1, "dddddddd7898788979d555d", "des2", "note2");
 DOMControlModule.showProjects();
 projectModalModule.createProjectAddDialog();
 eventHandlerModule.setAddDialogEvent();
+projectModalModule.createProjectEditDialog();
+eventHandlerModule.setEditDialogEvent();
 DOMControlModule.showTasksinProject(0);
 eventHandlerModule.taskCheckboxEvent();
 eventHandlerModule.clickProjectToShowAllTasksEvent();

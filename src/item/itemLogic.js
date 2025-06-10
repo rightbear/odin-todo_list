@@ -18,7 +18,6 @@ export function addProject(title, description, notes){
 // Edit a specific project in project list
 export function modifyProject(projectIndex, newTitle, newDescription, newNotes) {
     projectList = restoreFromJSON();
-    const oldTitle = projectList[projectIndex].getTitle();
 
     projectList[projectIndex].modifyProjectInfo(newTitle, newDescription, newNotes);
 
