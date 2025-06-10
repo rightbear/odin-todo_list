@@ -203,9 +203,8 @@ export function setEditDialogEvent() {
             // You can also write as -> const clickedEditBtn = editBtn[index];
             const clickedEditBtn = event.currentTarget;
             currentProjectID = ((clickedEditBtn.parentNode).parentNode).dataset.projectid;
-
             const currentProject = projectList[currentProjectID];
-            console.log(currentProject);
+
             title.value = currentProject.title;
             description.value = currentProject.description;
             desCurrent.textContent = (currentProject.description).length;
@@ -218,7 +217,6 @@ export function setEditDialogEvent() {
 
     crossDialogBtn.addEventListener('click', (event) => {
         const crossButton = event.target;
-        
         pageDialog.close(crossButton.value);
     });
 
@@ -309,4 +307,55 @@ export function setEditDialogEvent() {
             messageElement.textContent = result.message;
         }
     }
+}
+
+export function setInfoDialogEvent() {
+    const infoBtn = document.querySelectorAll(".projectInfo");
+
+    const pageDialog = document.querySelector('#project-info-pageDialog');
+    const dialogForm = document.querySelector('#project-info-dialogForm');
+    const crossDialogBtn = document.querySelector('#project-info-crossDialogBtn');
+    const titleText = document.querySelector('#project-info-title-text');
+    const descriptionText = document.querySelector('#project-info-description-text');
+    const notesText = document.querySelector('#project-info-notes-text');
+
+    let currentProjectID = null;
+    const projectList = itemLogicModule.getAllProjects();
+
+    for(let index = 0; index < infoBtn.length; index++) {
+        infoBtn[index].addEventListener('click', (event) => {
+
+            const clickedInfoBtn = event.currentTarget;
+            currentProjectID = ((clickedInfoBtn.parentNode).parentNode).dataset.projectid;
+            const currentProject = projectList[currentProjectID];
+
+            titleText.textContent = currentProject.title;
+            descriptionText.textContent = currentProject.description;
+            notesText.textContent = currentProject.notes;
+            pageDialog.showModal();
+        });
+    }
+
+    crossDialogBtn.addEventListener('click', (event) => {
+        const crossButton = event.target;
+        pageDialog.close(crossButton.value);
+    });
+
+    dialogForm.addEventListener('submit', function(event) {
+        const submitBtn = event.submitter;
+        event.preventDefault();
+        pageDialog.close(submitBtn.value);
+    });
+
+    pageDialog.addEventListener("close", () => {
+        const buttomValue = pageDialog.returnValue;
+    
+        if(buttomValue == 'cross'){
+            console.log('Dialog closed with crossDialogBtn');
+        }
+        else{
+            console.log('Dialog closed with closeBtn');
+        }
+        dialogForm.reset();
+    });
 }

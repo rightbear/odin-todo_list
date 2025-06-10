@@ -1,27 +1,3 @@
-function clearProjecDialog(projectDialog){
-  while (projectDialog.firstChild) {
-    projectDialog.removeChild(projectDialog.firstChild);
-  }
-}
-
-function addDialogHeader(headerText) {
-    const dialogHeader = document.createElement("div");
-    dialogHeader.classList.add("dialogHeader");
-
-    const headerTitle= document.createElement("h2");
-    headerTitle.classList.add("headerTitle");
-    headerTitle.textContent = headerText;
-
-    const crossDialogBtn= document.createElement("button");
-    crossDialogBtn.classList.add("crossDialogBtn");
-    crossDialogBtn.value = "cross";
-    crossDialogBtn.ariaLabel = "close";
-    crossDialogBtn.textContent = "X";
-
-    dialogHeader.append(headerTitle, crossDialogBtn);
-    return dialogHeader;
-}
-
 export function createProjectAddDialog() {
     const projectDialog = document.querySelector(".projectDialog");
 
@@ -338,4 +314,119 @@ export function createProjectEditDialog() {
         </div>
     </form>
 </dialog>
+*/
+
+export function createProjectInfoDialog() {
+  const projectDialog = document.querySelector(".projectDialog");
+
+    const infoPageDialog = document.createElement("dialog");
+    infoPageDialog.id = "project-info-pageDialog";
+
+    const dialogHeader = document.createElement("div");
+    dialogHeader.classList.add("dialogHeader");
+
+    const headerTitle= document.createElement("h2");
+    headerTitle.classList.add("headerTitle");
+    headerTitle.textContent = "Project Information";
+
+    const crossDialogBtn= document.createElement("button");
+    crossDialogBtn.classList.add("crossDialogBtn");
+    crossDialogBtn.id = "project-info-crossDialogBtn";
+    crossDialogBtn.value = "cross";
+    crossDialogBtn.ariaLabel = "close";
+    crossDialogBtn.textContent = "X";
+
+    dialogHeader.append(headerTitle, crossDialogBtn);
+
+    const dialogForm = document.createElement("form");
+    dialogForm.classList.add("dialogForm");
+    dialogForm.id = "project-info-dialogForm";
+    dialogForm.setAttribute("method", "dialog");
+    const dialogFields = document.createElement("div");
+    dialogFields.classList.add("dialogFields");
+
+    const titleField = document.createElement("div");
+    titleField.classList.add("field");
+    titleField.id = "project-info-titleField";
+    const titleLabel = document.createElement("div");
+    titleLabel.id = "project-info-title";
+    titleLabel.innerHTML = 'Title:';
+    const titleText = document.createElement("div");
+    titleText.classList.add("infoText");
+    titleText.id = "project-info-title-text";
+    titleField.append(titleLabel, titleText)
+
+    const descriptionField = document.createElement("div");
+    descriptionField.classList.add("field");
+    descriptionField.id = "project-info-descriptionField";
+    const descriptionLabel = document.createElement("div");
+    descriptionLabel.id = "project-info-description";
+    descriptionLabel.textContent = "Description:";
+    const descriptionText = document.createElement("div");
+    descriptionText.classList.add("infoText");
+    descriptionText.id = "project-info-description-text";
+    descriptionField.append(descriptionLabel, descriptionText);
+
+    const notesField = document.createElement("div");
+    notesField.classList.add("field");
+    notesField.id = "project-info-notesField";
+    const notesLabel = document.createElement("div");
+    notesLabel.setAttribute("for", "project-info-notes");
+    notesLabel.textContent = "Notes:";
+    const notesText = document.createElement("div");
+    notesText.classList.add("infoText");
+    notesText.id = "project-info-notes-text";
+    notesField.append(notesLabel, notesText); 
+
+    dialogFields.append(titleField, descriptionField, notesField);
+
+    const dialogButtons = document.createElement("div");
+    dialogButtons.classList.add("dialogButtons");
+    const closeBtn = document.createElement("button");
+    closeBtn.type = "submit";
+    closeBtn.id = "project-info-closeBtn";
+    closeBtn.value = "close";
+    closeBtn.formMethod = "dialog";
+    closeBtn.formNoValidate = true;
+    closeBtn.textContent = "Close";
+    dialogButtons.appendChild(closeBtn);
+
+    dialogForm.append(dialogFields, dialogButtons);
+
+    infoPageDialog.append(dialogHeader, dialogForm);
+    projectDialog.appendChild(infoPageDialog);
+}
+
+/*
+
+<dialog id="project-info-pageDialog">
+    <div class="dialogHeader">
+        <h2 class="headerTitle">Project Information</h2>
+        <button class="crossDialogBtn" id="project-info-crossDialogBtn" value="cross" aria-label="close">X</button>
+    </div>
+    <form class="dialogForm" id="project-info-dialogForm" method="dialog">
+        <div class="dialogFields">
+         
+          <div class="field" id="project-info-titleField">
+            <div id="project-info-title">Title:</div>
+            <div class="infoText" id="project-info-title-text"></div>
+          </div>
+          
+          <div class="field" id="project-info-descriptionField">
+            <div id="project-info-description">Description:</div>
+            <div class="infoText" id="project-info-description-text"></div>
+          </div>
+          
+          <div class="field" id="project-info-notesField">
+            <div id="project-info-notes">Notes:</div>
+            <div class="infoText" id="project-info-notes-text"></div>
+          </div>
+        </div>
+      
+        <div class="dialogButtons">
+          <button type="submit" id="project-info-closeBtn" value="close" formmethod="dialog" formnovalidate>Close</button>
+        </div>
+    </form>
+</dialog>
+
 */

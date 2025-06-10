@@ -44,6 +44,8 @@ projectModalModule.createProjectAddDialog();
 eventHandlerModule.setAddDialogEvent();
 projectModalModule.createProjectEditDialog();
 eventHandlerModule.setEditDialogEvent();
+projectModalModule.createProjectInfoDialog();
+eventHandlerModule.setInfoDialogEvent();
 DOMControlModule.showTasksinProject(0);
 eventHandlerModule.taskCheckboxEvent();
 eventHandlerModule.clickProjectToShowAllTasksEvent();
