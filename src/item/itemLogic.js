@@ -98,8 +98,6 @@ export function deleteTask(projectIndex, taskIndex) {
 
     projectList[projectIndex].deleteOneTask(taskIndex);
 
-    // Need to modify the data attribute of other tasks
-
     storeWithJSON(projectList);
 }
 

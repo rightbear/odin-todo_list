@@ -1,5 +1,4 @@
 import * as itemLogicModule from "../item/itemLogic"
-import * as eventHandlerModule from "./eventHandler"
 import calenderIcon from "../images/calendar.png"
 import checkMarkIcon from "../images/check-mark.png"
 import layersIcon from "../images/layers.png"
@@ -215,12 +214,19 @@ function addProject(iconHeight, projectTitle) {
 // Show all tasks of the specific project in the content region
 export function showTasksinProject(projectID) {
 
+    const content = document.querySelector(".content");
+
+    //Remove all old task items on page
+    while (content.firstChild) {
+        content.removeChild(content.firstChild);
+    }
+
     const allProjects = itemLogicModule.restoreFromJSON();
     const projectName = allProjects[projectID].getTitle();
     const allTasksinProject = allProjects[projectID].getAllTasks();
     const taskNum = allTasksinProject.length;
-
-    const contentwithSlogan = addSlogan(documentIcon, "docment", projectName);
+    
+    const sloganTitle = addSlogan(documentIcon, "docment", projectName);
 
     const tasks = document.createElement("div");
     tasks.classList.add("tasks");
@@ -250,26 +256,33 @@ export function showTasksinProject(projectID) {
     taskList.classList.add("taskList");
     tasks.append(taskHeader, taskList);
 
-    contentwithSlogan.appendChild(tasks);
+    content.append(sloganTitle, tasks);
 
     for (let index = 0 ; index < taskNum ; index++){
         let taskTitle = allTasksinProject[index].title;
         let taskState = allTasksinProject[index].state;
+
         const taskItem = addTask(20, taskTitle, taskState);
         taskItem.dataset.taskid = index;
         taskItem.dataset.task_projectid = projectID;
+
+        let taskPriority = allTasksinProject[index].priority;
+
+        if(taskPriority == "low"){
+            taskItem.classList.add("priority-low");
+        }
+        else if(taskPriority == "medium"){
+            taskItem.classList.add("priority-medium");
+        }
+        else if(taskPriority == "high"){
+            taskItem.classList.add("priority-high");
+        }
+
         taskList.appendChild(taskItem);
     }
 }
 
 function addSlogan(iconSrc, iconAlt, sloganText) {
-    const content = document.querySelector(".content");
-
-    //Remove all old task items on page
-    while (content.firstChild) {
-        content.removeChild(content.firstChild);
-    }
-
     const sloganTitle = document.createElement("div");
     sloganTitle.classList.add("sloganTitle");
     const sloganIcon = document.createElement("img");
@@ -281,9 +294,8 @@ function addSlogan(iconSrc, iconAlt, sloganText) {
     sloganName.textContent = sloganText;
     
     sloganTitle.append(sloganIcon, sloganName);
-    content.appendChild(sloganTitle);
 
-    return content;
+    return sloganTitle;
 }
 
 function addTask(iconHeight, taskTitle, taskState) {
@@ -339,7 +351,6 @@ function addTask(iconHeight, taskTitle, taskState) {
 
     return divContainer;
 }
-
 //after remove projects, Update the data attribute of other projects, and update projectid of all tasks
 
 
