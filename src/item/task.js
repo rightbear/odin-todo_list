@@ -19,7 +19,6 @@ export default class Task {
 
     constructor(title, description, dueDate, priority, projectID, notes, state) {
         // Use destructuring to assign fileds
-        // The value of priority: 0 is low, 1 is medium, 2 is high
         Object.assign(this, { title, description, dueDate, priority, projectID, notes, state});
     }
 
@@ -28,16 +27,12 @@ export default class Task {
         this.state = (this.state === TASK_FINISHED) ? TASK_UNFINISHED : TASK_FINISHED;
     }
 
-    modifyProjectID(newProjectID){
-        this.projectID = newProjectID;
-    }
 
-    modifyInfo(newTitle, newDescription, newDueDate, newPriority, newProjectID, newNotes){
+    modifyInfo(newTitle, newDescription, newDueDate, newPriority, newNotes){
         this.title = newTitle;
         this.description = newDescription;
         this.dueDate = newDueDate;
         this.priority = newPriority;
-        this.modifyProjectID(newProjectID);
         this.notes = newNotes;
     }
 

@@ -64,9 +64,9 @@ export function getAllProjects() {
 }
 
 // Add a specific task in task list
-export function addTask(projectIndex, title, description, dueDate, priority, project, notes, state){
+export function addTask(title, description, dueDate, priority, projectIndex, notes, state){
     projectList = restoreFromJSON();
-    let newTask = new Task(title, description, dueDate, priority, project, notes, state);
+    let newTask = new Task(title, description, dueDate, priority, projectIndex, notes, state);
 
     // Will be modified to localStorage version
     projectList[projectIndex].addOneTask(newTask);
@@ -75,10 +75,10 @@ export function addTask(projectIndex, title, description, dueDate, priority, pro
 }
 
 // Edit a specific task in task list
-export function modifyTask(projectIndex, taskIndex, newTitle, newDes, newDate, newPri, newPro, newNote) {
+export function modifyTask(projectIndex, taskIndex, newTitle, newDes, newDate, newPri, newNote) {
     projectList = restoreFromJSON();
 
-    projectList[projectIndex].modifyOneTaskInfo(taskIndex, newTitle, newDes, newDate, newPri, newPro, newNote);
+    projectList[projectIndex].modifyOneTaskInfo(taskIndex, newTitle, newDes, newDate, newPri, newNote);
 
     storeWithJSON(projectList);
 }
@@ -105,6 +105,13 @@ export function deleteTask(projectIndex, taskIndex) {
 export function displayTask(projectIndex) {
     projectList = restoreFromJSON();
     projectList[projectIndex].displayAllTasks();
+}
+
+// Deep Copy the task list
+export function getAllTasks(projectIndex) {
+    const taskList = projectList[projectIndex].getAllTasks();
+
+    return taskList;
 }
 
 // Convert the object array of Project class to a JSON format object

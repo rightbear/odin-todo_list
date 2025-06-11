@@ -33,8 +33,8 @@ export default class Project {
         this.notes = newNotes;
     }
 
-    modifyOneTaskInfo(taskIndex, newTitle, newDes, newDate, newPri, newProID, newNote){
-        this.#taskList[taskIndex].modifyInfo(newTitle, newDes, newDate, newPri, newProID, newNote);
+    modifyOneTaskInfo(taskIndex, newTitle, newDes, newDate, newPri, newNote){
+        this.#taskList[taskIndex].modifyInfo(newTitle, newDes, newDate, newPri, newNote);
     }
 
     modifyAllTasksProjectID(newProID){

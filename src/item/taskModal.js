@@ -92,6 +92,7 @@ export function createTaskAddDialog() {
   const prioritySelectOptText = document.createElement("option");
   prioritySelectOptText.value = "";
   prioritySelectOptText.disabled = true;
+  prioritySelectOptText.selected = true;
   prioritySelectOptText.textContent = "How important the task is?";
   const prioritySelectOptLow = document.createElement("option");
   prioritySelectOptLow.value = "low";

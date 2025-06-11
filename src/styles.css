@@ -361,7 +361,7 @@ dialog[id="project-delete-pageDialog"] {
 }
 
 dialog[id="task-add-pageDialog"] {
-  min-height: 625px;
+  min-height: 585px;
 }
 
 dialog form {
@@ -543,15 +543,18 @@ dialog form {
 }
 
 select option[value="low"] {
-  color: green;
+  font-weight: bold;
+  color: #228B22;
 }
 
 select option[value="medium"] {
-  color: orange;
+  font-weight: bold;
+  color: #FFAA33;
 }
 
 select option[value="high"] {
-  color: red;
+  font-weight: bold;
+  color: #ff2052;
 }
 
 .field .infoText {
@@ -768,15 +771,15 @@ form .dialogButtons {
 }
 
 .taskItem.priority-low {
-  border-left: 5px solid #47894b;
+  border-left: 5px solid #8FBC8F;
 }
 
 .taskItem.priority-medium {
-  border-left: 5px solid #e9d366;
+  border-left: 5px solid #FFD700;
 }
 
 .taskItem.priority-high {
-  border-left: 5px solid #ff2052;
+  border-left: 5px solid #DC143C;
 }
 
 .taskTitle {

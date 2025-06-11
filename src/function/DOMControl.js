@@ -240,6 +240,7 @@ export function showTasksinProject(projectID) {
     const taskAddBtn = document.createElement("button");
     taskAddBtn.classList.add("addBtn");
     taskAddBtn.id = "taskAddBtn";
+    taskAddBtn.dataset.task_projectid = projectID;
     const addBtnImg = document.createElement("img");
     addBtnImg.src = addIcon;
     addBtnImg.alt = "add";
@@ -262,7 +263,7 @@ export function showTasksinProject(projectID) {
         let taskTitle = allTasksinProject[index].title;
         let taskState = allTasksinProject[index].state;
 
-        const taskItem = addTask(20, taskTitle, taskState);
+        const taskItem = addTaskinProject(20, taskTitle, taskState);
         taskItem.dataset.taskid = index;
         taskItem.dataset.task_projectid = projectID;
 
@@ -298,7 +299,7 @@ function addSlogan(iconSrc, iconAlt, sloganText) {
     return sloganTitle;
 }
 
-function addTask(iconHeight, taskTitle, taskState) {
+function addTaskinProject(iconHeight, taskTitle, taskState) {
 
     const divContainer = document.createElement("div");
     divContainer.classList.add("taskItem");

@@ -105,8 +105,6 @@ export function projectAddDialogEvent() {
         }
 
         if(clickedAddBtn) {
-            desCurrent.textContent = (description.value).length;
-            notesCurrent.textContent = (notes.value).length;
             pageDialog.showModal();
         }
     });
@@ -145,12 +143,15 @@ export function projectAddDialogEvent() {
                 console.log('Dialog closed with cancelBtn');
             }
             
+            // reset title message and count value in the dialog
             title.classList.remove('normal','error', 'success');
             title.classList.add('normal');
             addTitleMessage.classList.remove('normal-message','error-message', 'success-message');
             addTitleMessage.classList.add('normal-message');
             addTitleMessage.textContent="";
             project_addBtn.disabled = false;
+            desCurrent.textContent = 0;
+            notesCurrent.textContent = 0;
 
             dialogForm.reset();
         }
@@ -286,6 +287,7 @@ export function projectEditDialogEvent() {
             }
         }
         
+        // reset title message
         title.classList.remove('normal','error', 'success');
         title.classList.add('normal');
         editTitleMessage.classList.remove('normal-message','error-message', 'success-message');
@@ -481,9 +483,146 @@ export function projectDeleteDialogEvent() {
     });
 }
 
+// Add eventListners on "adding buttons in tasks" and "task adding dialog"
+export function taskAddDialogEvent() {
+    const content = document.querySelector('.content');
+
+    const pageDialog = document.querySelector('#task-add-pageDialog');
+    const dialogForm = document.querySelector('#task-add-dialogForm');
+    const task_addBtn = document.querySelector('#task-add-addBtn');
+    const crossDialogBtn = document.querySelector('#task-add-crossDialogBtn');
+    const title = document.querySelector('#task-add-title');
+    const addTitleMessage = document.querySelector("#task-add-title-message");
+    const description = document.querySelector('#task-add-description');
+    const desCurrent = document.querySelector('#task-add-desCurrent');
+    const notes = document.querySelector('#task-add-notes');
+    const notesCurrent = document.querySelector('#task-add-notesCurrent');
+    const dueDate = document.querySelector('#task-add-dueDate');
+    const priority = document.querySelector('#task-add-priority');
+    let projectID = null;
+
+    content.addEventListener("click", function(event) {
+        let clickedAddBtn = null;
+
+        if(event.target.classList.contains("#taskAddBtn")){
+            clickedAddBtn = event.target;
+        }
+        // If the clicked element is not "#taskAddBtn",
+        // try finding the nearest ancestor that is "#taskAddBtn"
+        else if(event.target.closest("#taskAddBtn")) {
+            clickedAddBtn = event.target.closest("#taskAddBtn");
+        }
+
+        if(clickedAddBtn) {
+            projectID = clickedAddBtn.dataset.task_projectid;
+            pageDialog.showModal();
+        }
+    });
+
+    crossDialogBtn.addEventListener('click', (event) => {
+        const crossButton = event.target;
+        pageDialog.close(crossButton.value);
+    });
+
+    dialogForm.addEventListener('submit', function(event) {
+        const submitBtn = event.submitter;
+
+        // We don't want to submit this fake form
+        event.preventDefault();
+
+        // Have to send the submitter value of form, as the returnValue of dialog.
+        pageDialog.close(submitBtn.value);
+    });
+
+    pageDialog.addEventListener("close", () => {
+
+        const buttomValue = pageDialog.returnValue;
+    
+        if(buttomValue == 'cross') {
+            console.log('Dialog closed with crossDialogBtn');
+        }
+        else {
+            if(buttomValue == 'add'){
+                console.log('Dialog closed with addBtn');
+                 
+                itemLogicModule.addTask(title.value, description.value, dueDate.value, priority.value, projectID, notes.value, false);
+                DOMControlModule.showTasksinProject(projectID);
+            }
+            else if (buttomValue == 'cancel'){
+                console.log('Dialog closed with cancelBtn');
+            }
+            
+            // reset title message and count value in the dialog
+            title.classList.remove('normal','error', 'success');
+            title.classList.add('normal');
+            addTitleMessage.classList.remove('normal-message','error-message', 'success-message');
+            addTitleMessage.classList.add('normal-message');
+            addTitleMessage.textContent="";
+            task_addBtn.disabled = false;
+            desCurrent.textContent = 0;
+            notesCurrent.textContent = 0;
+            
+            dialogForm.reset();
+        }
+    });
+
+    description.addEventListener('input', function() {
+        const allText = description.value;
+        const charCount = allText.length;
+        desCurrent.textContent = charCount;
+    });
+
+    notes.addEventListener('input', function() {
+        const allText = notes.value;
+        const charCount = allText.length;
+        notesCurrent.textContent = charCount;
+    });
+
+    title.addEventListener('input', function() {
+        const result = checkAddDuplicate(this.value, itemLogicModule.getAllTasks(projectID), 'task');
+        task_addBtn.disabled = result.isInValid; 
+        displayAddMessage('title', result);
+    });
+
+    function checkAddDuplicate(value, array, fieldName) {
+        const isDuplicate = array.some(item => (item.title).toLowerCase() === value.toLowerCase());
+
+        if (value == ""){
+            return { isInValid: false, message: ``, type: 'normal'};
+        }
+        else {
+            if (isDuplicate) {
+                return {  isInValid: true, message: `The ${fieldName} name is duplicate. Choose a new one.`, type: 'error'};
+            }
+            else {
+                return { isInValid: false, message: `The ${fieldName} name is available.`, type: 'success' };
+            }
+        }
+    }
+
+    function displayAddMessage(fieldName, result) {
+        const fieldElement = document.querySelector(`#task-add-${fieldName}`);
+        const messageElement = document.querySelector(`#task-add-${fieldName}-message`);
+
+        fieldElement.classList.remove('normal', 'error', 'success');
+        messageElement.classList.remove('normal-message','error-message', 'success-message');
+
+        fieldElement.classList.add(`${result.type}`);
+        messageElement.classList.add(`${result.type}-message`);
+
+        if(result.type == 'normal') {
+            messageElement.textContent = '';
+        }
+        else{
+            messageElement.textContent = result.message;
+        }
+    }
+}
+
 export function setAllDialogEvent() {
     projectAddDialogEvent();
     projectEditDialogEvent();
     projectInfoDialogEvent();
     projectDeleteDialogEvent();
+    taskAddDialogEvent();
 }
