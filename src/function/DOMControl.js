@@ -102,6 +102,12 @@ function addDialogRegion(){
     const dialog = document.createElement("div");
     dialog.classList.add("dialog");
     main.appendChild(dialog);
+
+    const projectDialog = document.createElement("div");
+    projectDialog.classList.add("projectDialog");
+    const taskDialog = document.createElement("div");
+    taskDialog.classList.add("taskDialog")
+    dialog.append(projectDialog, taskDialog);
 }
 
 export function loadInitialLayout(){
@@ -157,11 +163,6 @@ export function showProjects() {
         projectItem.dataset.projectid = index;
         projectList.appendChild(projectItem);
     }
-
-    const dialog = document.querySelector('.dialog');
-    const projectDialog = document.createElement("div");
-    projectDialog.classList.add("projectDialog");
-    dialog.appendChild(projectDialog);
 }
 
 function addProject(iconHeight, projectTitle) {
@@ -259,8 +260,6 @@ export function showTasksinProject(projectID) {
         taskItem.dataset.task_projectid = projectID;
         taskList.appendChild(taskItem);
     }
-
-    eventHandlerModule.taskCheckboxEvent();
 }
 
 function addSlogan(iconSrc, iconAlt, sloganText) {

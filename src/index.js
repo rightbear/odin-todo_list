@@ -2,6 +2,7 @@ import "./styles.css";
 import * as DOMControlModule from "./function/DOMControl"
 import * as eventHandlerModule from "./function/eventHandler"
 import * as projectModalModule from "./item/projectModal"
+import * as taskModalModule from "./item/taskModal"
 import * as itemLogic from "./item/itemLogic"
 
 localStorage.clear();
@@ -18,7 +19,7 @@ itemLogic.addProject("project6", "des6", "note6");
 itemLogic.addTask(0, "task00", "des00", "due00", "pri00", "project1", "note00", false);
 itemLogic.addTask(0, "task01", "des01", "due01", "pri01", "project1", "note01", false);
 itemLogic.addTask(0, "task02", "des01", "due01", "pri01", "project1", "note01", false);
-itemLogic.addTask(0, "task03555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555", "des01", "due01", "pri01", "project1", "note01", false);
+itemLogic.addTask(0, "task03555555555555555555555555555555555555666666666666655555555555555555555555555555555555555555", "des01", "due01", "pri01", "project1", "note01", false);
 itemLogic.addTask(0, "task04", "des01", "due01", "pri01", "project1", "note01", false);
 itemLogic.addTask(0, "task05", "des01", "due01", "pri01", "project1", "note01", false);
 itemLogic.addTask(0, "task06", "des01", "due01", "pri01", "project1", "note01", false);
@@ -51,4 +52,5 @@ function createAllModal() {
     projectModalModule.createProjectEditDialog();
     projectModalModule.createProjectInfoDialog();
     projectModalModule.createProjectDeleteDialog();
+    taskModalModule.createTaskAddDialog();
 }

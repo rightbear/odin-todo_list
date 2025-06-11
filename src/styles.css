@@ -214,6 +214,7 @@ button:hover > .btnTooltip {
 .projectHeader {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .projectHeader > button {
@@ -221,6 +222,11 @@ button:hover > .btnTooltip {
     background-color: Gainsboro;
     transition: transform .2s;
 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: 30px;
     border: none;
     margin: 0 5px;
 }
@@ -354,6 +360,10 @@ dialog[id="project-delete-pageDialog"] {
   min-height: 200px;
 }
 
+dialog[id="task-add-pageDialog"] {
+  min-height: 625px;
+}
+
 dialog form {
   display: flex;
   flex-direction: column;
@@ -479,7 +489,6 @@ dialog form {
   
 .field textarea {
   width: 100%;
-  height: 100px;
   resize: none;
   border-radius: 8px;
   border: 1px solid #ddd;
@@ -489,6 +498,20 @@ dialog form {
   box-shadow: inset 0 0 0.25rem #ddd;
   
   font-size: 0.875rem;
+}
+
+.field textarea[id="project-add-description"],
+.field textarea[id="project-add-notes"],
+.field textarea[id="project-edit-description"],
+.field textarea[id="project-edit-notes"] {
+  height: 100px;
+}
+
+.field textarea[id="task-add-description"],
+.field textarea[id="task-add-notes"], 
+.field textarea[id="task-edit-description"],
+.field textarea[id="task-edit-notes"] {
+  height: 50px;
 }
 
 .field textarea:focus {
@@ -508,6 +531,27 @@ dialog form {
   align-items: center;
   padding: 0.1rem 0 0 0;
   font-size: 0.875rem;
+}
+
+.field select {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 2px;
+  padding: 0.5rem;
+  color: #666;
+}
+
+select option[value="low"] {
+  color: green;
+}
+
+select option[value="medium"] {
+  color: orange;
+}
+
+select option[value="high"] {
+  color: red;
 }
 
 .field .infoText {
@@ -564,49 +608,41 @@ form .dialogButtons {
   cursor: pointer;
 }
 
-#project-add-cancelBtn,
-#project-edit-cancelBtn,
-#project-info-closeBtn,
-#project-delete-cancelBtn {
+.dialogButtons button[value="cancel"],
+.dialogButtons button[value="close"] {
   background-color: white; 
   color: black; 
   border: 2px solid #f44336;
 }
 
 
-#project-add-cancelBtn:hover,
-#project-edit-cancelBtn:hover,
-#project-info-closeBtn:hover,
-#project-delete-cancelBtn:hover {
+.dialogButtons button[value="cancel"]:hover,
+.dialogButtons button[value="close"]:hover {
   background-color: #f44336;
   color: white;
 }
 
-#project-add-addBtn,
-#project-edit-editBtn,
-#project-delete-deleteBtn {
+.dialogButtons button[value="add"],
+.dialogButtons button[value="edit"],
+.dialogButtons button[value="delete"] {
   background-color: white; 
   color: black; 
   border: 2px solid #008CBA;
 }
 
-#project-add-addBtn:hover,
-#project-edit-editBtn:hover,
-#project-delete-deleteBtn:hover {
+.dialogButtons button[value="add"]:hover,
+.dialogButtons button[value="edit"]:hover,
+.dialogButtons button[value="delete"]:hover {
   background-color: #008CBA;
   color: white;
 }
 
-#project-add-addBtn:disabled,
-#project-edit-editBtn:disabled {
+.dialogButtons button[value="add"]:disabled,
+.dialogButtons button[value="edit"]:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
   opacity: 0.6;
 }
-
-/****************************/
-
-
 
 /*************************************/
 
@@ -673,6 +709,7 @@ form .dialogButtons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 
     padding: 5px;
     border-bottom: 1px solid black;
@@ -684,6 +721,11 @@ form .dialogButtons {
     background-color: #fff;
     transition: transform .2s;
 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: 30px;
     border: none;
     margin: 0 8px;
 }
@@ -709,7 +751,8 @@ form .dialogButtons {
     align-items: center;
 
     height: 50px;
-    padding: 10px 0px;
+    padding: 10px 0px 10px 5px;
+    border-left: 5px solid black;
     border-bottom: 1px solid Gainsboro;
 
     /* For adding text overflow effect in x-axis of .taskTitle */

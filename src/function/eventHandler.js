@@ -2,33 +2,40 @@ import * as DOMControlModule from "./DOMControl"
 import * as itemLogicModule from "../item/itemLogic"
 import * as projectModalModule from "../item/projectModal"
 
-// Add new project in the page list
-export function addNewProjectEvent() {
-    const projectAddBtn = document.querySelector(".projectHeader .addBtn");
-
-    projectAddBtn.addEventListener("click", function(){
-        
-    })
-}
-
 // Control checkbox in task items to change text
 export function taskCheckboxEvent() {
-    const taskCheckboxes = document.querySelectorAll(".taskCheckbox");
-    const taskTitles = document.querySelectorAll(".taskTitle");
+    const content = document.querySelector(".content");
 
-    for (let index = 0; index < taskCheckboxes.length; index++) {
-        taskCheckboxes[index].addEventListener("change", function() {
+    content.addEventListener("click", function(event) {
+        let clickedCheckbox = null;
+
+        if(event.target.classList.contains(".taskCheckbox")){
+            clickedCheckbox = event.target;
+        }
+        // If the clicked element is not ".taskCheckbox",
+        // try finding the nearest ancestor that is ".taskCheckbox"
+        else if(event.target.closest('.taskCheckbox')) {
+            clickedCheckbox = event.target.closest('.taskCheckbox');
+        }
+
+        if(clickedCheckbox){
+            const taskID = (clickedCheckbox.parentNode).dataset.taskid;
+            const projectID = (clickedCheckbox.parentNode).dataset.task_projectid;
+
+            const taskTitles = document.querySelectorAll(".taskTitle");
 
             // If checked, strike through the task title
-            if (this.checked) {
-                taskTitles[index].style.textDecoration = "line-through";
+            if (clickedCheckbox.checked) {
+                taskTitles[taskID].style.textDecoration = "line-through";
             }
-            // If unchecked, remove the strikethrough
             else {
-                taskTitles[index].style.textDecoration = "none";
+                taskTitles[taskID].style.textDecoration = "none";
             }
-     });
-    }
+
+            itemLogicModule.switchTask(projectID, taskID);
+        }
+
+    });
 }
 
 // Click project to show all tasks inside the project.
@@ -143,7 +150,8 @@ export function projectAddDialogEvent() {
             addTitleMessage.classList.remove('normal-message','error-message', 'success-message');
             addTitleMessage.classList.add('normal-message');
             addTitleMessage.textContent="";
-            
+            project_addBtn.disabled = false;
+
             dialogForm.reset();
         }
     });
@@ -186,13 +194,14 @@ export function projectAddDialogEvent() {
         const fieldElement = document.querySelector(`#project-add-${fieldName}`);
         const messageElement = document.querySelector(`#project-add-${fieldName}-message`);
 
-        // 清除所有樣式
+        // Clear all classes about styles to title field
         fieldElement.classList.remove('normal', 'error', 'success');
         messageElement.classList.remove('normal-message','error-message', 'success-message');
 
         fieldElement.classList.add(`${result.type}`);
         messageElement.classList.add(`${result.type}-message`);
-        // 根據結果類型添加樣式
+
+        // Add title field message based on classes about title field
         if(result.type == 'normal') {
             messageElement.textContent = '';
         }
@@ -282,6 +291,7 @@ export function projectEditDialogEvent() {
         editTitleMessage.classList.remove('normal-message','error-message', 'success-message');
         editTitleMessage.classList.add('normal-message');
         editTitleMessage.textContent="";
+        project_editBtn.disabled = false;
     
         dialogForm.reset();
     });
@@ -325,13 +335,12 @@ export function projectEditDialogEvent() {
         const fieldElement = document.querySelector(`#project-edit-${fieldName}`);
         const messageElement = document.querySelector(`#project-edit-${fieldName}-message`);
 
-        // Clear all classes about styles to title field
         fieldElement.classList.remove('normal', 'error', 'success');
         messageElement.classList.remove('normal-message','error-message', 'success-message');
 
         fieldElement.classList.add(`${result.type}`);
         messageElement.classList.add(`${result.type}-message`);
-        // Add title field message based on classes about title field
+        
         if(result.type == 'normal') {
             messageElement.textContent = '';
         }
