@@ -11,8 +11,6 @@ export function addNewProjectEvent() {
     })
 }
 
-
-
 // Control checkbox in task items to change text
 export function taskCheckboxEvent() {
     const taskCheckboxes = document.querySelectorAll(".taskCheckbox");
@@ -33,14 +31,26 @@ export function taskCheckboxEvent() {
     }
 }
 
-// Click project to show all tasks inside the project
+// Click project to show all tasks inside the project.
+// Also add classes about hovering and clicking effects on .projectItem
 export function clickProjectToShowAllTasksEvent() {
-    const projectItems = document.querySelectorAll(".projectItem");
-    const categoryItems = document.querySelectorAll(".categoryItem");
+    const projects = document.querySelector(".projects");
 
-    for (let index = 0; index < projectItems.length; index++) {
-        
-        projectItems[index].addEventListener("click", function(event) {
+    projects.addEventListener("click", function(event) {
+        let clickedItem = null;
+        if(event.target.classList.contains(".projectItem")){
+            clickedItem = event.target;
+        }
+        // If the clicked element is not ".projectItem",
+        // try finding the nearest ancestor that is ".projectItem"
+        else if(event.target.closest('.projectItem')) {
+            clickedItem = event.target.closest('.projectItem');
+        }
+
+        if(clickedItem){
+            const projectItems = document.querySelectorAll(".projectItem");
+            const categoryItems = document.querySelectorAll(".categoryItem");
+
             for (let projectItem of projectItems) {
                 if(projectItem.classList.contains("clickedItem")){
                     projectItem.classList.remove("clickedItem");
@@ -52,15 +62,17 @@ export function clickProjectToShowAllTasksEvent() {
                 }
             }
             
-            this.classList.add("clickedItem");
+            clickedItem.classList.add("clickedItem");
 
-            DOMControlModule.showTasksinProject(index);
-        });
-    }
+            DOMControlModule.showTasksinProject(clickedItem.dataset.projectid);
+        }
+
+    });
 }
 
-export function setAddDialogEvent() {
-    const addBtn = document.querySelector("#projectAddBtn");
+// Add eventListners on "adding buttons in projects" and "project adding dialog"
+export function projectAddDialogEvent() {
+    const projects = document.querySelector(".projects");
 
     const pageDialog = document.querySelector('#project-add-pageDialog');
     const dialogForm = document.querySelector('#project-add-dialogForm');
@@ -73,10 +85,23 @@ export function setAddDialogEvent() {
     const notes = document.querySelector('#project-add-notes');
     const notesCurrent = document.querySelector('#project-add-notesCurrent');
 
-    addBtn.addEventListener("click", function() {
-        desCurrent.textContent = (description.value).length;
-        notesCurrent.textContent = (notes.value).length;
-        pageDialog.showModal();
+    projects.addEventListener("click", function(event) {
+        let clickedAddBtn = null;
+
+        if(event.target.classList.contains("#projectAddBtn")){
+            clickedAddBtn = event.target;
+        }
+        // If the clicked element is not "#projectAddBtn",
+        // try finding the nearest ancestor that is "#projectAddBtn"
+        else if(event.target.closest("#projectAddBtn")) {
+            clickedAddBtn = event.target.closest("#projectAddBtn");
+        }
+
+        if(clickedAddBtn) {
+            desCurrent.textContent = (description.value).length;
+            notesCurrent.textContent = (notes.value).length;
+            pageDialog.showModal();
+        }
     });
 
     crossDialogBtn.addEventListener('click', (event) => {
@@ -177,8 +202,9 @@ export function setAddDialogEvent() {
     }
 }
 
-export function setEditDialogEvent() {
-    const editBtn = document.querySelectorAll(".projectEdit");
+// Add eventListners on "editing buttons in projects" and "project editing dialog"
+export function projectEditDialogEvent() {
+    const projects = document.querySelector(".projects");
 
     const pageDialog = document.querySelector('#project-edit-pageDialog');
     const dialogForm = document.querySelector('#project-edit-dialogForm');
@@ -192,16 +218,21 @@ export function setEditDialogEvent() {
     const notesCurrent = document.querySelector('#project-edit-notesCurrent');
     let currentProjectName = title.value;
     let currentProjectID = null;
-    const projectList = itemLogicModule.getAllProjects();
 
+    projects.addEventListener("click", function(event) {
+        const projectList = itemLogicModule.getAllProjects();
+        let clickedEditBtn = null;
 
-    for(let index = 0; index < editBtn.length; index++) {
-        editBtn[index].addEventListener('click', (event) => {
+        if(event.target.classList.contains(".projectEdit")){
+            clickedEditBtn = event.target;
+        }
+        // If the clicked element is not ".projectEdit",
+        // try finding the nearest ancestor that is ".projectEdit"
+        else if(event.target.closest('.projectEdit')) {
+            clickedEditBtn = event.target.closest('.projectEdit');
+        }
 
-            // Put "currentProjectID" inside EventListener to avoid closure problem.
-            // If "currentProjectID" inside th loop but ouside EventListener, the referred "index" will always be "editBtn.length"
-            // You can also write as -> const clickedEditBtn = editBtn[index];
-            const clickedEditBtn = event.currentTarget;
+        if(clickedEditBtn) {
             currentProjectID = ((clickedEditBtn.parentNode).parentNode).dataset.projectid;
             const currentProject = projectList[currentProjectID];
 
@@ -212,8 +243,8 @@ export function setEditDialogEvent() {
             notesCurrent.textContent = (currentProject.notes).length;
             currentProjectName = currentProject.title;
             pageDialog.showModal();
-        });
-    }
+        }
+    });
 
     crossDialogBtn.addEventListener('click', (event) => {
         const crossButton = event.target;
@@ -268,6 +299,7 @@ export function setEditDialogEvent() {
     });
 
     title.addEventListener('input', function() {
+        const projectList = itemLogicModule.getAllProjects();
         const result = checkEditDuplicate(this.value, projectList, 'project');
         project_editBtn.disabled = result.isInValid; 
         displayEditMessage('title', result);
@@ -293,13 +325,13 @@ export function setEditDialogEvent() {
         const fieldElement = document.querySelector(`#project-edit-${fieldName}`);
         const messageElement = document.querySelector(`#project-edit-${fieldName}-message`);
 
-        // 清除所有樣式
+        // Clear all classes about styles to title field
         fieldElement.classList.remove('normal', 'error', 'success');
         messageElement.classList.remove('normal-message','error-message', 'success-message');
 
         fieldElement.classList.add(`${result.type}`);
         messageElement.classList.add(`${result.type}-message`);
-        // 根據結果類型添加樣式
+        // Add title field message based on classes about title field
         if(result.type == 'normal') {
             messageElement.textContent = '';
         }
@@ -309,8 +341,9 @@ export function setEditDialogEvent() {
     }
 }
 
-export function setInfoDialogEvent() {
-    const infoBtn = document.querySelectorAll(".projectInfo");
+// Add eventListners on "informing buttons in projects" and "project informing dialog"
+export function projectInfoDialogEvent() {
+    const projects = document.querySelector(".projects");
 
     const pageDialog = document.querySelector('#project-info-pageDialog');
     const dialogForm = document.querySelector('#project-info-dialogForm');
@@ -320,12 +353,21 @@ export function setInfoDialogEvent() {
     const notesText = document.querySelector('#project-info-notes-text');
 
     let currentProjectID = null;
-    const projectList = itemLogicModule.getAllProjects();
 
-    for(let index = 0; index < infoBtn.length; index++) {
-        infoBtn[index].addEventListener('click', (event) => {
+    projects.addEventListener("click", function(event) {
+        const projectList = itemLogicModule.getAllProjects();
+        let clickedInfoBtn = null;
 
-            const clickedInfoBtn = event.currentTarget;
+        if(event.target.classList.contains(".projectInfo")){
+            clickedInfoBtn = event.target;
+        }
+        // If the clicked element is not ".projectInfo",
+        // try finding the nearest ancestor that is ".projectInfo"
+        else if(event.target.closest('.projectInfo')) {
+            clickedInfoBtn = event.target.closest('.projectInfo');
+        }
+
+        if(clickedInfoBtn) {
             currentProjectID = ((clickedInfoBtn.parentNode).parentNode).dataset.projectid;
             const currentProject = projectList[currentProjectID];
 
@@ -333,8 +375,8 @@ export function setInfoDialogEvent() {
             descriptionText.textContent = currentProject.description;
             notesText.textContent = currentProject.notes;
             pageDialog.showModal();
-        });
-    }
+        }
+    });
 
     crossDialogBtn.addEventListener('click', (event) => {
         const crossButton = event.target;
@@ -360,8 +402,9 @@ export function setInfoDialogEvent() {
     });
 }
 
-export function setDeleteDialogEvent() {
-    const deleteBtn = document.querySelectorAll(".projectDelete");
+// Add eventListners on "deleteing buttons in projects" and "project deleteing dialog"
+export function projectDeleteDialogEvent() {
+    const projects = document.querySelector(".projects");
 
     const pageDialog = document.querySelector('#project-delete-pageDialog');
     const dialogForm = document.querySelector('#project-delete-dialogForm');
@@ -369,20 +412,28 @@ export function setDeleteDialogEvent() {
     const deletedProject = document.querySelector('#deletedProject');
 
     let currentProjectID = null;
-    const projectList = itemLogicModule.getAllProjects();
 
+    projects.addEventListener("click", function(event) {
+        const projectList = itemLogicModule.getAllProjects();
+        let clickedDeleteBtn = null;
 
-    for(let index = 0; index < deleteBtn.length; index++) {
-        deleteBtn[index].addEventListener('click', (event) => {
+        if(event.target.classList.contains(".projectDelete")){
+            clickedDeleteBtn = event.target;
+        }
+        // If the clicked element is not ".projectDelete",
+        // try finding the nearest ancestor that is ".projectDelete"
+        else if(event.target.closest('.projectDelete')) {
+            clickedDeleteBtn = event.target.closest('.projectDelete');
+        }
 
-            const clickedDeleteBtn = event.currentTarget;
+        if(clickedDeleteBtn) {
             currentProjectID = ((clickedDeleteBtn.parentNode).parentNode).dataset.projectid;
             const currentProject = projectList[currentProjectID];
 
             deletedProject.textContent = currentProject.title;
             pageDialog.showModal();
-        });
-    }
+        }
+    });
 
     crossDialogBtn.addEventListener('click', (event) => {
         const crossButton = event.target;
@@ -422,8 +473,8 @@ export function setDeleteDialogEvent() {
 }
 
 export function setAllDialogEvent() {
-    setAddDialogEvent();
-    setEditDialogEvent();
-    setInfoDialogEvent();
-    setDeleteDialogEvent();
+    projectAddDialogEvent();
+    projectEditDialogEvent();
+    projectInfoDialogEvent();
+    projectDeleteDialogEvent();
 }

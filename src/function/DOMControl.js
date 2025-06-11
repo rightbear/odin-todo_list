@@ -62,8 +62,6 @@ function addSidebarRegion (){
     const completeCategory = addCategory(checkMarkIcon, "check-mark", 20, "completed", "Completed");
 
     categoryList.append(allCategory, todayCategory, weekCategory, completeCategory);
-    
-    showProjects();
 }
 
 function addCategory(iconSrc, iconAlt, iconHeight, textID, text, ) {
@@ -98,11 +96,20 @@ function addContentRegion(){
     content.appendChild(tasks);
 }
 
+function addDialogRegion(){
+    const main = document.querySelector(".main");
+
+    const dialog = document.createElement("div");
+    dialog.classList.add("dialog");
+    main.appendChild(dialog);
+}
+
 export function loadInitialLayout(){
     addMainRegion();
     addHeaderRegion();
     addSidebarRegion();
     addContentRegion();
+    addDialogRegion();
 }
 
 // Show all projects in the sidebar
@@ -151,9 +158,10 @@ export function showProjects() {
         projectList.appendChild(projectItem);
     }
 
+    const dialog = document.querySelector('.dialog');
     const projectDialog = document.createElement("div");
     projectDialog.classList.add("projectDialog");
-    projects.appendChild(projectDialog);
+    dialog.appendChild(projectDialog);
 }
 
 function addProject(iconHeight, projectTitle) {
