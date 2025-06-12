@@ -226,7 +226,7 @@ export function projectEditDialogEvent() {
     const desCurrent = document.querySelector('#project-edit-desCurrent');
     const notes = document.querySelector('#project-edit-notes');
     const notesCurrent = document.querySelector('#project-edit-notesCurrent');
-    let currentProjectName = title.value;
+    let currentProjectName = null;
     let currentProjectID = null;
 
     projects.addEventListener("click", function(event) {
@@ -619,10 +619,238 @@ export function taskAddDialogEvent() {
     }
 }
 
+export function taskEditDialogEvent() {
+
+    const content = document.querySelector('.content');
+
+    const pageDialog = document.querySelector('#task-edit-pageDialog');
+    const dialogForm = document.querySelector('#task-edit-dialogForm');
+    const task_editBtn = document.querySelector('#task-edit-editBtn');
+    const crossDialogBtn = document.querySelector('#task-edit-crossDialogBtn');
+    const title = document.querySelector('#task-edit-title');
+    const editTitleMessage = document.querySelector('#task-edit-title-message');
+    const description = document.querySelector('#task-edit-description');
+    const desCurrent = document.querySelector('#task-edit-desCurrent');
+    const notes = document.querySelector('#task-edit-notes');
+    const notesCurrent = document.querySelector('#task-edit-notesCurrent');
+    const dueDate = document.querySelector('#task-edit-dueDate');
+    const priority = document.querySelector('#task-edit-priority');
+    const projectOfTask = document.querySelector('#task-edit-projectOfTask');
+    let currentTaskName = null;
+    let currentProjectID = null;
+    let currentTaskList = null;
+    let currentTaskID = null;
+
+    content.addEventListener("click", function(event) {
+        const projectList = itemLogicModule.getAllProjects();
+        let clickedEditBtn = null;
+
+        if(event.target.classList.contains(".taskEdit")){
+            clickedEditBtn = event.target;
+        }
+        // If the clicked element is not ".taskEdit",
+        // try finding the nearest ancestor that is ".taskEdit"
+        else if(event.target.closest(".taskEdit")) {
+            clickedEditBtn = event.target.closest(".taskEdit");
+        }
+
+        if(clickedEditBtn) {
+            currentProjectID = ((clickedEditBtn.parentNode).parentNode).dataset.task_projectid;
+            currentTaskID = ((clickedEditBtn.parentNode).parentNode).dataset.taskid;
+            currentTaskList = itemLogicModule.getAllTasks(currentProjectID);
+            const currentTask = currentTaskList[currentTaskID];
+
+            title.value = currentTask.title;
+            description.value = currentTask.description;
+            desCurrent.textContent = (currentTask.description).length;
+            dueDate.value = currentTask.dueDate;
+            priority.value = currentTask.priority;
+            notes.value = currentTask.notes;
+            notesCurrent.textContent = (currentTask.notes).length;
+
+            // remove all children from projectOfTask
+            while (projectOfTask.firstChild) {
+                projectOfTask.removeChild(projectOfTask.firstChild);
+            }
+
+            // add options to projectOfTask
+            const projectSelectInfo = document.createElement("option");
+            projectSelectInfo.value="";
+            projectSelectInfo.disabled = true;
+            projectSelectInfo.textContent = "Which project this task belong to ?";
+            projectOfTask.appendChild(projectSelectInfo);
+
+            for(let index = 0 ; index < projectList.length ; index++){
+                const projectSelectItem = document.createElement("option");
+                projectSelectItem.value = index;
+
+                if (index == currentProjectID) {
+                    projectSelectItem.selected = true;
+                }
+
+                let projectName = projectList[index].title;
+                
+                // Make sure the project name listed is not over 40 characters
+                if(projectName.length > 40){
+                    projectName = projectName.substring(0, 40) + "...";
+                }
+                projectSelectItem.textContent = projectName;
+                
+                projectOfTask.appendChild(projectSelectItem);
+            }
+
+            currentTaskName = currentTask.title;
+            pageDialog.showModal();
+        }
+    });
+
+    crossDialogBtn.addEventListener('click', (event) => {
+        const crossButton = event.target;
+        pageDialog.close(crossButton.value);
+    });
+
+    dialogForm.addEventListener('submit', function(event) {
+        const submitBtn = event.submitter;
+        event.preventDefault();
+        pageDialog.close(submitBtn.value);
+    });
+
+    pageDialog.addEventListener("close", () => {
+
+        const buttomValue = pageDialog.returnValue;
+    
+        if(buttomValue == 'cross'){
+            console.log('Dialog closed with crossDialogBtn');
+        }
+        else{
+            if(buttomValue == 'edit'){
+                console.log('Dialog closed with editBtn');
+                
+                let newProjectID = projectOfTask.value;
+
+                if(currentProjectID == newProjectID){
+                    itemLogicModule.modifyTask(currentProjectID, currentTaskID, title.value, description.value, dueDate.value, priority.value, notes.value);
+                }
+                else {
+                    itemLogicModule.addTask(title.value, description.value, dueDate.value, priority.value, newProjectID, notes.value, currentTaskList[currentTaskID].state);
+                    itemLogicModule.deleteTask(currentProjectID, currentTaskID);
+                }
+                DOMControlModule.showTasksinProject(currentProjectID);
+            }
+            else if (buttomValue == 'cancel'){
+                console.log('Dialog closed with cancelBtn');
+            }
+        }
+    
+        title.classList.remove('normal','error', 'success');
+        title.classList.add('normal');
+        editTitleMessage.classList.remove('normal-message','error-message', 'success-message');
+        editTitleMessage.classList.add('normal-message');
+        editTitleMessage.textContent="";
+        task_editBtn.disabled = false;
+        desCurrent.textContent = 0;
+        notesCurrent.textContent = 0;
+    
+        dialogForm.reset();
+    });
+
+    description.addEventListener('input', function() {
+        const allText = description.value;
+        const charCount = allText.length;
+        desCurrent.textContent = charCount;
+    });
+
+    notes.addEventListener('input', function() {
+        const allText = notes.value;
+        const charCount = allText.length;
+        notesCurrent.textContent = charCount;
+    });
+
+    title.addEventListener('input', function() {
+        let newProjectID = projectOfTask.value;
+        let checkedTaskList = null;
+        let result = null;
+
+        if(currentProjectID == newProjectID) {
+            result = checkEditDuplicate(this.value, currentTaskList, 'task');
+        }
+        else {
+            checkedTaskList = itemLogicModule.getAllTasks(newProjectID);
+            result = checkEditDuplicateInNewProject(this.value, checkedTaskList, 'task');
+        }
+
+        task_editBtn.disabled = result.isInValid; 
+        displayEditMessage('title', result);
+    });
+
+    projectOfTask.addEventListener('change', function() {
+        let newProjectID = this.value;
+        let checkedTaskList = null;
+        let result = null;
+
+        if(currentProjectID == newProjectID) {
+            result = checkEditDuplicate(title.value, currentTaskList, 'task');
+        }
+        else {
+            checkedTaskList = itemLogicModule.getAllTasks(newProjectID);
+            result = checkEditDuplicateInNewProject(title.value, checkedTaskList, 'task');
+        }
+
+        task_editBtn.disabled = result.isInValid; 
+        displayEditMessage('title', result);
+    });
+    
+    function checkEditDuplicate(value, array, fieldName) { 
+        const isDuplicate = array.some(item => (item.title).toLowerCase() === value.toLowerCase());
+
+        if ((value == "") || (currentTaskName.toLowerCase() == value.toLowerCase())){
+            return { isInValid: false, message: ``, type: 'normal'};
+        }
+        else {
+            if (isDuplicate) {
+                return {  isInValid: true, message: `The ${fieldName} name is duplicate in the selected project`, type: 'error'};
+            }
+            else {
+                return { isInValid: false, message: `The ${fieldName} name is available.`, type: 'success' };
+            }
+        }
+    }
+
+    function checkEditDuplicateInNewProject(value, array, fieldName) {
+        const isDuplicate = array.some(item => (item.title).toLowerCase() === value.toLowerCase());
+
+        if (isDuplicate) {
+            return {  isInValid: true, message: `The ${fieldName} name is duplicate in the selected project`, type: 'error'};
+        }
+        else {
+            return { isInValid: false, message: `The ${fieldName} name is available.`, type: 'success' };
+        }
+    }
+    
+    function displayEditMessage(fieldName, result) {
+        const fieldElement = document.querySelector(`#task-edit-${fieldName}`);
+        const messageElement = document.querySelector(`#task-edit-${fieldName}-message`);
+
+        fieldElement.classList.remove('normal', 'error', 'success');
+        messageElement.classList.remove('normal-message','error-message', 'success-message');
+
+        fieldElement.classList.add(`${result.type}`);
+        messageElement.classList.add(`${result.type}-message`);
+
+        if(result.type == 'normal') {
+            messageElement.textContent = '';
+        }
+        else{
+            messageElement.textContent = result.message;
+        }
+    }
+}
+
 export function setAllDialogEvent() {
     projectAddDialogEvent();
     projectEditDialogEvent();
     projectInfoDialogEvent();
     projectDeleteDialogEvent();
     taskAddDialogEvent();
+    taskEditDialogEvent();
 }

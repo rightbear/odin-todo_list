@@ -352,7 +352,3 @@ function addTaskinProject(iconHeight, taskTitle, taskState) {
 
     return divContainer;
 }
-//after remove projects, Update the data attribute of other projects, and update projectid of all tasks
-
-
-

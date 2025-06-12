@@ -364,6 +364,11 @@ dialog[id="task-add-pageDialog"] {
   min-height: 585px;
 }
 
+dialog[id="task-edit-pageDialog"] {
+  min-height: 635px;
+}
+
+
 dialog form {
   display: flex;
   flex-direction: column;
@@ -540,6 +545,12 @@ dialog form {
   margin-top: 2px;
   padding: 0.5rem;
   color: #666;
+}
+
+.field select[id="task-edit-projectOfTask"] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 select option[value="low"] {
