@@ -897,6 +897,32 @@ export function taskInfoDialogEvent() {
             pageDialog.showModal();
         }
     });
+
+    crossDialogBtn.addEventListener('click', (event) => {
+        const crossButton = event.target;
+        pageDialog.close(crossButton.value);
+    });
+
+
+    dialogForm.addEventListener('submit', function(event) {
+        const submitBtn = event.submitter;
+        event.preventDefault();
+        pageDialog.close(submitBtn.value);
+    });
+
+
+    pageDialog.addEventListener("close", () => {
+
+        const buttomValue = pageDialog.returnValue;
+    
+        if(buttomValue == 'cross'){
+            console.log('Dialog closed with crossDialogBtn');
+        }
+        else{
+            console.log('Dialog closed with closeBtn');
+        }
+        dialogForm.reset();
+    });
 }
 
 export function setAllDialogEvent() {
