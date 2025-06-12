@@ -368,6 +368,11 @@ dialog[id="task-edit-pageDialog"] {
   min-height: 635px;
 }
 
+dialog[id="task-info-pageDialog"] {
+  min-height: 550px;
+  max-height: 650px;
+}
+
 
 dialog form {
   display: flex;
@@ -581,14 +586,16 @@ select option[value="high"] {
   font-size: 0.875rem;
 }
 
-.field .infoText[id="project-info-title-text"] {
+.field .infoText[id="project-info-title-text"],
+.field .infoText[id="task-info-title-text"],
+.field .infoText[id="task-info-projectOfTask-text"] {
   /* Make the additional white-space and newline not shown in text fields */
   white-space: nowrap;
   overflow-x: auto;
 }
 
 .field .infoText[id="project-info-description-text"],
-.field .infoText[id="project-info-notes-text"] {
+.field .infoText[id="project-info-notes-text"]{
   /* Make the white-space and newline shown in text fields */
   white-space: pre-wrap;
   
@@ -597,6 +604,17 @@ select option[value="high"] {
   overflow-y: auto;
   
   /* force word with too much characters to wrap to the new line */
+  word-break: break-all;
+}
+
+.field .infoText[id="task-info-description-text"],
+.field .infoText[id="task-info-notes-text"] {
+  /* Make the white-space and newline shown in text fields */
+  white-space: pre-wrap;
+  
+  max-height: 50px;
+  overflow-y: auto;
+  
   word-break: break-all;
 }
 

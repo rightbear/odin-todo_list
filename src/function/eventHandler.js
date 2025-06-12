@@ -226,6 +226,7 @@ export function projectEditDialogEvent() {
     const desCurrent = document.querySelector('#project-edit-desCurrent');
     const notes = document.querySelector('#project-edit-notes');
     const notesCurrent = document.querySelector('#project-edit-notesCurrent');
+    
     let currentProjectName = null;
     let currentProjectID = null;
 
@@ -499,6 +500,7 @@ export function taskAddDialogEvent() {
     const notesCurrent = document.querySelector('#task-add-notesCurrent');
     const dueDate = document.querySelector('#task-add-dueDate');
     const priority = document.querySelector('#task-add-priority');
+    
     let projectID = null;
 
     content.addEventListener("click", function(event) {
@@ -620,7 +622,6 @@ export function taskAddDialogEvent() {
 }
 
 export function taskEditDialogEvent() {
-
     const content = document.querySelector('.content');
 
     const pageDialog = document.querySelector('#task-edit-pageDialog');
@@ -636,6 +637,7 @@ export function taskEditDialogEvent() {
     const dueDate = document.querySelector('#task-edit-dueDate');
     const priority = document.querySelector('#task-edit-priority');
     const projectOfTask = document.querySelector('#task-edit-projectOfTask');
+    
     let currentTaskName = null;
     let currentProjectID = null;
     let currentTaskList = null;
@@ -846,6 +848,57 @@ export function taskEditDialogEvent() {
     }
 }
 
+export function taskInfoDialogEvent() {
+    const content = document.querySelector('.content');
+
+    const pageDialog = document.querySelector('#task-info-pageDialog');
+    const dialogForm = document.querySelector('#task-info-dialogForm');
+    const crossDialogBtn = document.querySelector('#task-info-crossDialogBtn');
+    const title = document.querySelector('#task-info-title-text');
+    const description = document.querySelector('#task-info-description-text');
+    const notes = document.querySelector('#task-info-notes-text');
+    const dueDate = document.querySelector('#task-info-dueDate-text');
+    const priority = document.querySelector('#task-info-priority-text');
+    const projectOfTask = document.querySelector('#task-info-projectOfTask-text');
+
+    let currentProjectID = null;
+    let currentTaskID = null;
+    let currentTaskList = null;
+
+    content.addEventListener("click", function(event) {
+        const projectList = itemLogicModule.getAllProjects();
+        let clickedInfoBtn = null;
+
+        if(event.target.classList.contains(".taskInfo")){
+            clickedInfoBtn = event.target;
+        }
+        // If the clicked element is not ".taskInfo",
+        // try finding the nearest ancestor that is ".taskInfo"
+        else if(event.target.closest(".taskInfo")) {
+            clickedInfoBtn = event.target.closest(".taskInfo");
+        }
+
+        if(clickedInfoBtn) {
+            currentProjectID = ((clickedInfoBtn.parentNode).parentNode).dataset.task_projectid;
+            currentTaskID = ((clickedInfoBtn.parentNode).parentNode).dataset.taskid;
+            currentTaskList = itemLogicModule.getAllTasks(currentProjectID);
+            const currentTask = currentTaskList[currentTaskID];
+
+            title.textContent = currentTask.title;
+            description.textContent = currentTask.description;
+            dueDate.textContent = currentTask.dueDate;
+
+            let priorityValue = currentTask.priority;
+            priority.textContent = (priorityValue.charAt(0)).toUpperCase() + priorityValue.substring(1);
+
+            projectOfTask.textContent = projectList[currentProjectID].title;
+            notes.textContent = currentTask.notes;
+
+            pageDialog.showModal();
+        }
+    });
+}
+
 export function setAllDialogEvent() {
     projectAddDialogEvent();
     projectEditDialogEvent();
@@ -853,4 +906,5 @@ export function setAllDialogEvent() {
     projectDeleteDialogEvent();
     taskAddDialogEvent();
     taskEditDialogEvent();
+    taskInfoDialogEvent();
 }

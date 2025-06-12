@@ -444,3 +444,166 @@ export function createTaskEditDialog() {
 </dialog>
 
 */
+
+export function createTaskInfoDialog() {
+  const projectDialog = document.querySelector(".projectDialog");
+
+  const infoPageDialog = document.createElement("dialog");
+  infoPageDialog.id = "task-info-pageDialog";
+
+  const dialogHeader = document.createElement("div");
+  dialogHeader.classList.add("dialogHeader");
+
+  const headerTitle= document.createElement("h2");
+  headerTitle.classList.add("headerTitle");
+  headerTitle.textContent = "Task Information";
+
+  const crossDialogBtn= document.createElement("button");
+  crossDialogBtn.classList.add("crossDialogBtn");
+  crossDialogBtn.id = "task-info-crossDialogBtn";
+  crossDialogBtn.value = "cross";
+  crossDialogBtn.ariaLabel = "close";
+  crossDialogBtn.textContent = "X";
+
+  dialogHeader.append(headerTitle, crossDialogBtn);
+
+  const dialogForm = document.createElement("form");
+  dialogForm.classList.add("dialogForm");
+  dialogForm.id = "task-info-dialogForm";
+  dialogForm.setAttribute("method", "dialog");
+  const dialogFields = document.createElement("div");
+  dialogFields.classList.add("dialogFields");
+
+  const titleField = document.createElement("div");
+  titleField.classList.add("field");
+  titleField.id = "task-info-titleField";
+  const titleLabel = document.createElement("div");
+  titleLabel.id = "task-info-title";
+  titleLabel.innerHTML = 'Title:';
+  const titleText = document.createElement("div");
+  titleText.classList.add("infoText");
+  titleText.id = "task-info-title-text";
+  titleField.append(titleLabel, titleText)
+
+  const descriptionField = document.createElement("div");
+  descriptionField.classList.add("field");
+  descriptionField.id = "task-info-descriptionField";
+  const descriptionLabel = document.createElement("div");
+  descriptionLabel.id = "task-info-description";
+  descriptionLabel.textContent = "Description:";
+  const descriptionText = document.createElement("div");
+  descriptionText.classList.add("infoText");
+  descriptionText.id = "task-info-description-text";
+  descriptionField.append(descriptionLabel, descriptionText);
+
+  const dueDateField = document.createElement("div");
+  dueDateField.classList.add("field");
+  dueDateField.id = "task-info-dueDateField";
+  const dueDateLabel = document.createElement("div");
+  dueDateLabel.id = "task-info-dueDate";
+  dueDateLabel.textContent = "Due Date:";
+  const dueDateText = document.createElement("div");
+  dueDateText.classList.add("infoText");
+  dueDateText.id = "task-info-dueDate-text";
+  dueDateField.append(dueDateLabel, dueDateText);
+
+  const priorityField = document.createElement("div");
+  priorityField.classList.add("field");
+  priorityField.id = "task-info-priorityField";
+  const priorityLabel = document.createElement("div");
+  priorityLabel.id = "task-info-priority";
+  priorityLabel.textContent = "Priority:";
+  const priorityText = document.createElement("div");
+  priorityText.classList.add("infoText");
+  priorityText.id = "task-info-priority-text";
+  priorityField.append(priorityLabel, priorityText);
+
+  const projectOfTaskField = document.createElement("div");
+  projectOfTaskField.classList.add("field");
+  projectOfTaskField.id = "task-info-projectOfTaskField";
+  const projectOfTaskLabel = document.createElement("div");
+  projectOfTaskLabel.id = "task-info-projectOfTask";
+  projectOfTaskLabel.textContent = "Project of task:";
+  const projectOfTaskText = document.createElement("div");
+  projectOfTaskText.classList.add("infoText");
+  projectOfTaskText.id = "task-info-projectOfTask-text";
+  projectOfTaskField.append(projectOfTaskLabel, projectOfTaskText);
+
+  const notesField = document.createElement("div");
+  notesField.classList.add("field");
+  notesField.id = "task-info-notesField";
+  const notesLabel = document.createElement("div");
+  notesLabel.setAttribute("for", "task-info-notes");
+  notesLabel.textContent = "Notes:";
+  const notesText = document.createElement("div");
+  notesText.classList.add("infoText");
+  notesText.id = "task-info-notes-text";
+  notesField.append(notesLabel, notesText); 
+
+  dialogFields.append(titleField, descriptionField, dueDateField, priorityField, projectOfTaskField, notesField);
+
+  const dialogButtons = document.createElement("div");
+  dialogButtons.classList.add("dialogButtons");
+  const closeBtn = document.createElement("button");
+  closeBtn.type = "submit";
+  closeBtn.id = "task-info-closeBtn";
+  closeBtn.value = "close";
+  closeBtn.formMethod = "dialog";
+  closeBtn.formNoValidate = true;
+  closeBtn.textContent = "Close";
+  dialogButtons.appendChild(closeBtn);
+
+  dialogForm.append(dialogFields, dialogButtons);
+
+  infoPageDialog.append(dialogHeader, dialogForm);
+  projectDialog.appendChild(infoPageDialog);
+}
+
+/*
+
+<dialog id="task-info-pageDialog">
+    <div class="dialogHeader">
+        <h2 class="headerTitle">Task Information</h2>
+        <button class="crossDialogBtn" id="task-info-crossDialogBtn" value="cross" aria-label="close">X</button>
+    </div>
+    <form class="dialogForm" id="task-info-dialogForm" method="dialog">
+        <div class="dialogFields">
+         
+          <div class="field" id="task-info-titleField">
+            <div id="task-info-title">Title:</div>
+            <div class="infoText" id="task-info-title-text"></div>
+          </div>
+          
+          <div class="field" id="task-info-descriptionField">
+            <div id="task-info-description">Description:</div>
+            <div class="infoText" id="task-info-description-text"></div>
+          </div>
+          
+          <div class="field" id="task-info-dueDateField">
+            <div id="task-info-dueDate">Due Date:</div>
+            <div class="infoText" id="task-info-dueDate-text"></div>
+          </div>
+          
+          <div class="field" id="task-info-priorityField">
+            <div id="task-info-priority">Priority:</div>
+            <div class="infoText" id="task-info-priority-text"></div>
+          </div>
+          
+          <div class="field" id="task-info-projectOfTaskField">
+            <div id="task-info-projectOfTask">Project of task:</div>
+            <div class="infoText" id="task-info-projectOfTask-text"></div>
+          </div>
+          
+          <div class="field" id="task-info-notesField">
+            <div id="task-info-notes">Notes:</div>
+            <div class="infoText" id="task-info-notes-text"></div>
+          </div>
+        </div>
+      
+        <div class="dialogButtons">
+          <button type="submit" id="task-info-closeBtn" value="close" formmethod="dialog" formnovalidate>Close</button>
+        </div>
+    </form>
+</dialog>
+
+*/
