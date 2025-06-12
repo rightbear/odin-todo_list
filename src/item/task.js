@@ -40,6 +40,10 @@ export default class Task {
         console.log(`${this.title}, ${this.description}, ${this.dueDate}, ${this.priority}, ${this.projectID}, ${this.notes}, ${this.state}`);
     }
 
+    modifyProjectID(newProID) {
+        this.projectID = newProID;
+    }
+
     toJSON(){
         return {
             title: this.title,

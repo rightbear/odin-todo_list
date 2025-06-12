@@ -77,7 +77,7 @@ export function clickProjectToShowAllTasksEvent() {
     });
 }
 
-// Add eventListners on "adding buttons in projects" and "project adding dialog"
+// Add eventListners on "adding buttons for projects" and "project adding dialog"
 export function projectAddDialogEvent() {
     const projects = document.querySelector(".projects");
 
@@ -484,7 +484,7 @@ export function projectDeleteDialogEvent() {
     });
 }
 
-// Add eventListners on "adding buttons in tasks" and "task adding dialog"
+// Add eventListners on "adding buttons for tasks" and "task adding dialog"
 export function taskAddDialogEvent() {
     const content = document.querySelector('.content');
 
@@ -621,6 +621,7 @@ export function taskAddDialogEvent() {
     }
 }
 
+// Add eventListners on "editing buttons in tasks" and "task editing dialog"
 export function taskEditDialogEvent() {
     const content = document.querySelector('.content');
 
@@ -734,6 +735,7 @@ export function taskEditDialogEvent() {
                     itemLogicModule.modifyTask(currentProjectID, currentTaskID, title.value, description.value, dueDate.value, priority.value, notes.value);
                 }
                 else {
+                    // consider the situation that the belonged project is changed in the task
                     itemLogicModule.addTask(title.value, description.value, dueDate.value, priority.value, newProjectID, notes.value, currentTaskList[currentTaskID].state);
                     itemLogicModule.deleteTask(currentProjectID, currentTaskID);
                 }
@@ -768,6 +770,8 @@ export function taskEditDialogEvent() {
         notesCurrent.textContent = charCount;
     });
 
+    // For the case of detecting duplicate task name when the value of project in task is changed/unchanged.
+    // Also cover the situation when The title value is modified and it is duplicate in new project
     title.addEventListener('input', function() {
         let newProjectID = projectOfTask.value;
         let checkedTaskList = null;
@@ -777,6 +781,7 @@ export function taskEditDialogEvent() {
             result = checkEditDuplicate(this.value, currentTaskList, 'task');
         }
         else {
+            // consider the situation that the belonged project is changed in the task
             checkedTaskList = itemLogicModule.getAllTasks(newProjectID);
             result = checkEditDuplicateInNewProject(this.value, checkedTaskList, 'task');
         }
@@ -785,6 +790,8 @@ export function taskEditDialogEvent() {
         displayEditMessage('title', result);
     });
 
+    // For the case of detecting duplicate task name when the value of project in task is changed.
+    // Also cover the situation when The title value is unmodified but it is duplicate in new project
     projectOfTask.addEventListener('change', function() {
         let newProjectID = this.value;
         let checkedTaskList = null;
@@ -794,6 +801,7 @@ export function taskEditDialogEvent() {
             result = checkEditDuplicate(title.value, currentTaskList, 'task');
         }
         else {
+            // consider the situation that the belonged project is changed in the task
             checkedTaskList = itemLogicModule.getAllTasks(newProjectID);
             result = checkEditDuplicateInNewProject(title.value, checkedTaskList, 'task');
         }
@@ -848,6 +856,7 @@ export function taskEditDialogEvent() {
     }
 }
 
+// Add eventListners on "informing buttons in tasks" and "task informing dialog"
 export function taskInfoDialogEvent() {
     const content = document.querySelector('.content');
 
@@ -925,6 +934,77 @@ export function taskInfoDialogEvent() {
     });
 }
 
+// Add eventListners on "deleteing buttons in tasks" and "task deleteing dialog"
+export function taskDeleteDialogEvent() {
+    const content = document.querySelector('.content');
+
+    const pageDialog = document.querySelector('#task-delete-pageDialog');
+    const dialogForm = document.querySelector('#task-delete-dialogForm');
+    const crossDialogBtn = document.querySelector('#task-delete-crossDialogBtn');
+    const deletedTask = document.querySelector('#deletedTask');
+
+    let currentProjectID = null;
+    let currentTaskID = null;
+    let currentTaskList = null;
+
+    content.addEventListener("click", function(event) {
+        let clickedDeleteBtn = null;
+
+        if(event.target.classList.contains(".taskDelete")){
+            clickedDeleteBtn = event.target;
+        }
+        // If the clicked element is not ".taskDelete",
+        // try finding the nearest ancestor that is ".taskDelete"
+        else if(event.target.closest(".taskDelete")) {
+            clickedDeleteBtn = event.target.closest(".taskDelete");
+        }
+
+        if(clickedDeleteBtn) {
+            currentProjectID = ((clickedDeleteBtn.parentNode).parentNode).dataset.task_projectid;
+            currentTaskID = ((clickedDeleteBtn.parentNode).parentNode).dataset.taskid;
+            currentTaskList = itemLogicModule.getAllTasks(currentProjectID);
+            const currentTask = currentTaskList[currentTaskID];
+
+            deletedTask.textContent = currentTask.title;
+            pageDialog.showModal();
+        }
+    });
+
+    crossDialogBtn.addEventListener('click', (event) => {
+        const crossButton = event.target;
+        pageDialog.close(crossButton.value);
+    });
+
+    dialogForm.addEventListener('submit', function(event) {
+        const submitBtn = event.submitter;
+        event.preventDefault();
+        pageDialog.close(submitBtn.value);
+    });
+
+    pageDialog.addEventListener("close", () => {
+
+        const buttomValue = pageDialog.returnValue;
+    
+        if(buttomValue == 'cross'){
+            console.log('Dialog closed with crossDialogBtn');
+        }
+        else{
+            if(buttomValue == 'delete'){
+                console.log('Dialog closed with deleteBtn');
+
+                itemLogicModule.deleteTask(currentProjectID, currentTaskID);
+                DOMControlModule.showTasksinProject(currentProjectID);
+            }
+            else if (buttomValue == 'cancel'){
+                console.log('Dialog closed with cancelBtn');
+            }
+            
+            dialogForm.reset();
+        }
+    });
+
+}
+
 export function setAllDialogEvent() {
     projectAddDialogEvent();
     projectEditDialogEvent();
@@ -933,4 +1013,5 @@ export function setAllDialogEvent() {
     taskAddDialogEvent();
     taskEditDialogEvent();
     taskInfoDialogEvent();
+    taskDeleteDialogEvent();
 }

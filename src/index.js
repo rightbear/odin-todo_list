@@ -55,4 +55,5 @@ function createAllModal() {
     taskModalModule.createTaskAddDialog();
     taskModalModule.createTaskEditDialog();
     taskModalModule.createTaskInfoDialog();
+    taskModalModule.createTaskDeleteDialog();
 }

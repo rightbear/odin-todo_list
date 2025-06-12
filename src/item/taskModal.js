@@ -446,7 +446,7 @@ export function createTaskEditDialog() {
 */
 
 export function createTaskInfoDialog() {
-  const projectDialog = document.querySelector(".projectDialog");
+  const taskDialog = document.querySelector(".taskDialog");
 
   const infoPageDialog = document.createElement("dialog");
   infoPageDialog.id = "task-info-pageDialog";
@@ -556,7 +556,7 @@ export function createTaskInfoDialog() {
   dialogForm.append(dialogFields, dialogButtons);
 
   infoPageDialog.append(dialogHeader, dialogForm);
-  projectDialog.appendChild(infoPageDialog);
+  taskDialog.appendChild(infoPageDialog);
 }
 
 /*
@@ -606,4 +606,90 @@ export function createTaskInfoDialog() {
     </form>
 </dialog>
 
+*/
+
+export function createTaskDeleteDialog() {
+  const taskDialog = document.querySelector(".taskDialog");
+
+  const deletePageDialog = document.createElement("dialog");
+  deletePageDialog.id = "task-delete-pageDialog";
+
+  const dialogHeader = document.createElement("div");
+  dialogHeader.classList.add("dialogHeader");
+
+  const headerTitle= document.createElement("h2");
+  headerTitle.classList.add("headerTitle");
+  headerTitle.textContent = "Delete Task";
+
+  const crossDialogBtn= document.createElement("button");
+  crossDialogBtn.classList.add("crossDialogBtn");
+  crossDialogBtn.id = "task-delete-crossDialogBtn";
+  crossDialogBtn.value = "cross";
+  crossDialogBtn.ariaLabel = "close";
+  crossDialogBtn.textContent = "X";
+
+  dialogHeader.append(headerTitle, crossDialogBtn);
+
+  const dialogForm = document.createElement("form");
+  dialogForm.classList.add("dialogForm");
+  dialogForm.id = "task-delete-dialogForm";
+  dialogForm.setAttribute("method", "dialog");
+  const dialogFields = document.createElement("div");
+  dialogFields.classList.add("dialogFields");
+
+  const messageField = document.createElement("div");
+  messageField.classList.add("field");
+  messageField.id = "task-delete-message";
+  const messageText = document.createElement("p");
+  messageText.textContent = "Are you sure you want to delete the task";
+  const deletedName = document.createElement("p");
+  deletedName.innerHTML = '"<span id="deletedTask"></span>" ?';
+  messageField.append(messageText, deletedName)
+
+  dialogFields.appendChild(messageField);
+
+  const dialogButtons = document.createElement("div");
+  dialogButtons.classList.add("dialogButtons");
+  const cancelBtn = document.createElement("button");
+  cancelBtn.type = "submit";
+  cancelBtn.id = "task-delete-cancelBtn";
+  cancelBtn.value = "cancel";
+  cancelBtn.formMethod = "dialog";
+  cancelBtn.formNoValidate = true;
+  cancelBtn.textContent = "Cancel";
+  const deleteBtn = document.createElement("button");
+  deleteBtn.type = "submit";
+  deleteBtn.id = "task-delete-deleteBtn";
+  deleteBtn.value = "delete";
+  deleteBtn.autofocus = true;
+  deleteBtn.textContent = "Delete";
+  dialogButtons.append(cancelBtn, deleteBtn);
+
+  dialogForm.append(dialogFields, dialogButtons);
+
+  deletePageDialog.append(dialogHeader, dialogForm);
+  taskDialog.appendChild(deletePageDialog);
+}
+
+/*
+<dialog id="task-delete-pageDialog">
+    <div class="dialogHeader">
+        <h2 class="headerTitle">Delete Task</h2>
+        <button class="crossDialogBtn" id="task-delete-crossDialogBtn" value="cross" aria-label="close">X</button>
+    </div>
+    <form class="dialogForm" id="task-delete-dialogForm" method="dialog">
+      
+        <div class="dialogFields">
+          <div class="field" id="task-delete-message">
+            <p>Are you sure you want to delete the task</p>
+            <p>"<span id="deletedTask"></span>" ?</p>
+          </div>
+        </div>
+      
+        <div class="dialogButtons">
+          <button type="submit" id="task-delete-cancelBtn" value="cancel" formmethod="dialog" formnovalidate>Cancel</button>
+          <button type="submit" id="task-delete-deleteBtn" value="delete" autofocus>Delete</button>
+        </div>
+    </form>
+</dialog>
 */

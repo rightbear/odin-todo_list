@@ -373,6 +373,9 @@ dialog[id="task-info-pageDialog"] {
   max-height: 650px;
 }
 
+dialog[id="task-delete-pageDialog"] {
+  min-height: 200px;
+}
 
 dialog form {
   display: flex;
@@ -467,7 +470,8 @@ dialog form {
   border: 2px solid DarkGreen;
 }
 
-.field span[id="deletedProject"] {
+.field span[id="deletedProject"],
+.field span[id="deletedTask"] {
   font-weight: bold;
   overflow: hidden;
   white-space:nowrap;
@@ -600,6 +604,7 @@ select option[value="high"] {
   white-space: pre-wrap;
   
    /* If the text number in the text fields is too high, add the scrollbar in the text fields */
+  min-height: 35px;
   max-height: 100px;
   overflow-y: auto;
   
@@ -611,7 +616,7 @@ select option[value="high"] {
 .field .infoText[id="task-info-notes-text"] {
   /* Make the white-space and newline shown in text fields */
   white-space: pre-wrap;
-  
+  min-height: 35px;
   max-height: 50px;
   overflow-y: auto;
   
