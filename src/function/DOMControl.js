@@ -79,6 +79,7 @@ function addCategory(iconSrc, iconAlt, iconHeight, textID, text) {
 
     divContainer.append(divIcon, divText);
     divContainer.classList.add("categoryItem");
+    divContainer.id = `category-${textID}`
 
     return divContainer;
 }

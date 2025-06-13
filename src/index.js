@@ -43,11 +43,13 @@ itemLogic.modifyProject(1, "dddddddd7898788979d555d", "des2", "note2");
 DOMControlModule.showProjects();
 createAllModal();
 eventHandlerModule.setAllDialogEvent();
-//DOMControlModule.showTasksinProject(0);
-DOMControlModule.showCompletedTasks();
+const categoryAllItem = document.querySelector("#category-all");
+categoryAllItem.classList.add("clickedItem");
+DOMControlModule.showAllTasksinAllProjects();
 
 eventHandlerModule.taskCheckboxEvent();
 eventHandlerModule.clickProjectToShowAllTasksEvent();
+eventHandlerModule.clickCategoryToShowAllTasksEvent();
 
 function createAllModal() {
     projectModalModule.createProjectAddDialog();

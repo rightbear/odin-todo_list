@@ -65,6 +65,13 @@ export function getAllProjects() {
     return structuredClone(projectList);
 }
 
+// Get the amount of all projects
+export function getNumOfProjects() {
+    projectList = restoreFromJSON();
+
+    return projectList.length;
+}
+
 // Add a specific task in task list
 export function addTask(title, description, dueDate, priority, projectIndex, notes, state){
     projectList = restoreFromJSON();

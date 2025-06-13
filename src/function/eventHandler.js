@@ -33,13 +33,52 @@ export function taskCheckboxEvent() {
             }
 
             itemLogicModule.switchTask(projectID, taskID);
+            showClickedItem();
+        }
+
+    });
+}
+
+
+// Click category to show all tasks inside the project.
+// Also add classes about hovering and clicking effects on ".categoryItem"
+export function clickCategoryToShowAllTasksEvent() {
+    const categories = document.querySelector(".category");
+
+    categories.addEventListener("click", function(event) {
+        let clickedItem = null;
+        if(event.target.classList.contains(".categoryItem")){
+            clickedItem = event.target;
+        }
+        // If the clicked element is not ".categoryItem",
+        // try finding the nearest ancestor that is ".categoryItem"
+        else if(event.target.closest('.categoryItem')) {
+            clickedItem = event.target.closest('.categoryItem');
+        }
+
+        if(clickedItem){
+            clickSpecificItem(clickedItem);
+            const clickedItemID = clickedItem.id
+
+            if(clickedItemID === "category-all") {
+                DOMControlModule.showAllTasksinAllProjects();
+            }
+            else if(clickedItemID === "category-today") {
+                DOMControlModule.showTodayTasks();
+            }
+            else if(clickedItemID === "category-week"){
+                DOMControlModule.showWeekTasks();
+            }
+            else if(clickedItemID === "category-completed"){
+                DOMControlModule.showCompletedTasks();
+            }
         }
 
     });
 }
 
 // Click project to show all tasks inside the project.
-// Also add classes about hovering and clicking effects on .projectItem
+// Also add classes about hovering and clicking effects on ".projectItem"
 export function clickProjectToShowAllTasksEvent() {
     const projects = document.querySelector(".projects");
 
@@ -55,26 +94,63 @@ export function clickProjectToShowAllTasksEvent() {
         }
 
         if(clickedItem){
-            const projectItems = document.querySelectorAll(".projectItem");
-            const categoryItems = document.querySelectorAll(".categoryItem");
-
-            for (let projectItem of projectItems) {
-                if(projectItem.classList.contains("clickedItem")){
-                    projectItem.classList.remove("clickedItem");
-                }
-            }
-            for (let categoryItem of categoryItems) {
-                if(categoryItem.classList.contains("clickedItem")){
-                    categoryItem.classList.remove("clickedItem");
-                }
-            }
-            
-            clickedItem.classList.add("clickedItem");
+            clickSpecificItem(clickedItem);
 
             DOMControlModule.showTasksinProject(clickedItem.dataset.projectid);
         }
 
     });
+}
+
+// Change the clicked item inside  ".category" and ".projects"
+function clickSpecificItem(clickedItem) {
+    const projectItems = document.querySelectorAll(".projectItem");
+    const categoryItems = document.querySelectorAll(".categoryItem");
+
+    for (let categoryItem of categoryItems) {
+        if(categoryItem.classList.contains("clickedItem")){
+            categoryItem.classList.remove("clickedItem");
+        }
+    }
+
+    for (let projectItem of projectItems) {
+        if(projectItem.classList.contains("clickedItem")){
+            projectItem.classList.remove("clickedItem");
+        }
+    }
+    
+    clickedItem.classList.add("clickedItem");
+}
+
+// Show the taskList based on the currently clikced ".projectItem" or ".categoryItem"
+function showClickedItem() {
+    const projectItems = document.querySelectorAll(".projectItem");
+    const categoryItems = document.querySelectorAll(".categoryItem");
+
+    for (let categoryItem of categoryItems) {
+        if(categoryItem.classList.contains("clickedItem")){
+            const clickedItemID = categoryItem.id
+
+            if(clickedItemID === "category-all") {
+                DOMControlModule.showAllTasksinAllProjects();
+            }
+            else if(clickedItemID === "category-today") {
+                DOMControlModule.showTodayTasks();
+            }
+            else if(clickedItemID === "category-week"){
+                DOMControlModule.showWeekTasks();
+            }
+            else if(clickedItemID === "category-completed"){
+                DOMControlModule.showCompletedTasks();
+            }
+        }
+    }
+
+    for (let projectItem of projectItems) {
+        if(projectItem.classList.contains("clickedItem")){
+            DOMControlModule.showTasksinProject(projectItem.dataset.projectid);
+        }
+    }
 }
 
 // Add eventListners on "adding buttons for projects" and "project adding dialog"
@@ -137,7 +213,13 @@ export function projectAddDialogEvent() {
                 console.log('Dialog closed with addBtn');
                 
                 itemLogicModule.addProject(title.value, description.value, notes.value)
+
                 DOMControlModule.showProjects();
+                
+                const newProjectID = itemLogicModule.getNumOfProjects() - 1;
+                const newProjectItem = document.querySelector(`.projectItem:nth-child(${newProjectID + 1})`);
+                clickSpecificItem(newProjectItem);
+                DOMControlModule.showTasksinProject(newProjectID);
             }
             else if (buttomValue === 'cancel'){
                 console.log('Dialog closed with cancelBtn');
@@ -280,7 +362,10 @@ export function projectEditDialogEvent() {
                 console.log('Dialog closed with editBtn');
                 
                 itemLogicModule.modifyProject(currentProjectID, title.value, description.value, notes.value)
+
                 DOMControlModule.showProjects();
+                const currentProjectItem = document.querySelector(`.projectItem:nth-child(${Number(currentProjectID) + 1})`);
+                clickSpecificItem(currentProjectItem);
                 DOMControlModule.showTasksinProject(currentProjectID);
             }
             else if (buttomValue === 'cancel'){
@@ -471,9 +556,9 @@ export function projectDeleteDialogEvent() {
 
                 itemLogicModule.deleteProject(currentProjectID);
                 DOMControlModule.showProjects();
-
-                //Need yo modify to show all page
-                DOMControlModule.showTasksinProject(0);
+                const allCategoryItem = document.querySelector("#category-all");
+                clickSpecificItem(allCategoryItem);
+                DOMControlModule.showAllTasksinAllProjects();
             }
             else if (buttomValue === 'cancel'){
                 console.log('Dialog closed with cancelBtn');
@@ -739,7 +824,7 @@ export function taskEditDialogEvent() {
                     itemLogicModule.addTask(title.value, description.value, dueDate.value, priority.value, newProjectID, notes.value, currentTaskList[currentTaskID].state);
                     itemLogicModule.deleteTask(currentProjectID, currentTaskID);
                 }
-                DOMControlModule.showTasksinProject(currentProjectID);
+                showClickedItem();
             }
             else if (buttomValue === 'cancel'){
                 console.log('Dialog closed with cancelBtn');
@@ -993,7 +1078,7 @@ export function taskDeleteDialogEvent() {
                 console.log('Dialog closed with deleteBtn');
 
                 itemLogicModule.deleteTask(currentProjectID, currentTaskID);
-                DOMControlModule.showTasksinProject(currentProjectID);
+                showClickedItem();
             }
             else if (buttomValue === 'cancel'){
                 console.log('Dialog closed with cancelBtn');
