@@ -18,18 +18,18 @@ itemLogic.addProject("project6", "des6", "note6");
 
 itemLogic.addTask("task00", "des00", "2025-06-13", "low", "0", "note00", false);
 itemLogic.addTask("task01", "des01", "2025-06-11", "low", "0", "note01", false);
-itemLogic.addTask("task02", "des01", "2025-06-13", "low", "0", "note01", false);
-itemLogic.addTask("task03555555555555555555555555555555555555666666666666655555555555555555555555555555555555555555", "des01", "2025-06-09", "low", "0", "note01", false);
-itemLogic.addTask("task04", "des01", "2025-06-08", "medium", "0", "note01", false);
-itemLogic.addTask("task05", "des01", "2025-06-07", "medium", "0", "note01", false);
-itemLogic.addTask("task06", "des01", "2025-06-13", "medium", "0", "note01", false);
-itemLogic.addTask("task07", "des01", "2025-06-05", "medium", "0", "note01", false);
-itemLogic.addTask("task08", "des01", "2025-06-13", "high", "0", "note01", false);
-itemLogic.addTask("task09", "des01", "2025-06-03", "high", "0", "note01", false);
-itemLogic.addTask("task10", "des01", "2025-06-02", "high", "0", "note01", false);
+itemLogic.addTask("task02", "des01", "2025-06-15", "low", "0", "note01", false);
+itemLogic.addTask("task03555555555555555555555555555555555555666666666666655555555555555555555555555555555555555555", "des01", "2025-06-16", "low", "0", "note01", false);
+itemLogic.addTask("task04", "des01", "2025-06-17", "medium", "0", "note01", false);
+itemLogic.addTask("task05", "des01", "2025-06-18", "medium", "0", "note01", false);
+itemLogic.addTask("task06", "des01", "2025-06-19", "medium", "0", "note01", false);
+itemLogic.addTask("task07", "des01", "2025-06-20", "medium", "0", "note01", false);
+itemLogic.addTask("task08", "des01", "2025-06-21", "high", "0", "note01", false);
+itemLogic.addTask("task09", "des01", "2025-06-22", "high", "0", "note01", false);
+itemLogic.addTask("task10", "des01", "2025-06-23", "high", "0", "note01", false);
 
 
-itemLogic.modifyTask(0, 1, "task000", "des000", "2025-06-01", "low", "note000");
+itemLogic.modifyTask(0, 1, "task000", "des000", "2025-06-10", "low", "note000");
 
 itemLogic.switchTask(0, 0);
 itemLogic.addTask("task11", "des10", "2025-06-13", "high", "1", "note10", false);
@@ -47,7 +47,7 @@ DOMControlModule.showTasksinProject(0);
 eventHandlerModule.taskCheckboxEvent();
 eventHandlerModule.clickProjectToShowAllTasksEvent();
 
-//itemLogic.getTodayTasks();
+//itemLogic.getWeekTasks();
 
 function createAllModal() {
     projectModalModule.createProjectAddDialog();

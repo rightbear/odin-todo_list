@@ -2,7 +2,7 @@ import Task from "./task.js";
 import Project from "./project.js"
 import * as storageModule from "../function/localStorageService.js"
 
-import { format, add, sub } from 'date-fns';
+import { format, differenceInDays } from 'date-fns';
 
 let projectList = [];
 
@@ -143,7 +143,7 @@ export function getTodayTasks() {
         const currentTaskList = getAllTasks(projectIndex);
 
         for(let taskIndex = 0 ; taskIndex < currentTaskList.length ; taskIndex++){
-            if (currentTaskList[taskIndex].dueDate == formattedDate){
+            if (currentTaskList[taskIndex].dueDate === formattedDate){
                 allTodayTaskList.push(currentTaskList[taskIndex]);
             }
         }
@@ -152,12 +152,43 @@ export function getTodayTasks() {
     return allTodayTaskList;
 }
 
+// Deep Copy tasks within future 7 days in all projects
 export function getWeekTasks() {
+    // Get the current date
+    const currentDate = new Date();
+    // Format the date
+    const formattedDate = format(currentDate, 'yyyy-MM-dd');
+    const allWeekTaskList = [];
 
+    for(let projectIndex = 0 ; projectIndex < projectList.length ; projectIndex++){
+        const currentTaskList = getAllTasks(projectIndex);
+
+        for(let taskIndex = 0 ; taskIndex < currentTaskList.length ; taskIndex++){
+            const differenceDays = differenceInDays(currentTaskList[taskIndex].dueDate, formattedDate);
+            if (differenceDays >= 0 && differenceDays <= 7){
+                allWeekTaskList.push(currentTaskList[taskIndex]);
+            }
+        }
+    }
+
+    return allWeekTaskList;
 }
 
+// Deep Copy completed tasks in all projects
 export function getCompletedTask() {
+    const allCompletedTaskList = [];
 
+    for(let projectIndex = 0 ; projectIndex < projectList.length ; projectIndex++){
+        const currentTaskList = getAllTasks(projectIndex);
+
+        for(let taskIndex = 0 ; taskIndex < currentTaskList.length ; taskIndex++){
+            if (currentTaskList[taskIndex].state === true){
+                allCompletedTaskList.push(currentTaskList[taskIndex]);
+            }
+        }
+    }
+
+    console.log(allCompletedTaskList);
 }
 
 

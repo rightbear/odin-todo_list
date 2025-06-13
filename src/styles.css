@@ -7,51 +7,51 @@
 /*************************************/
 
 body {
-    font-family: Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    height: 100vh;
+  font-family: Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  height: 100vh;
 }
 
 .main {
-    height: 100vh;
-    width: 100%;
+  height: 100vh;
+  width: 100%;
 
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(10, 1fr);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(10, 1fr);
 
-    --color-with-theme: #009688;
-    --color-with-hover: #4db6ac;
+  --color-with-theme: #009688;
+  --color-with-hover: #4db6ac;
 }
 
 /*************************************/
 
 /*Set style of text part of tooltip*/
 button > .btnTooltip {
-    visibility: hidden;
-    width: 100px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 105%;
-    /* 90px is 90% width of Tooltip */
-    left: 90%;
-    margin-left: -90px;
+  visibility: hidden;
+  width: 100px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 105%;
+  /* 90px is 90% width of Tooltip */
+  left: 90%;
+  margin-left: -90px;
 }
 
 /*Set style of button triangle part of tooltip*/
 button > .btnTooltip::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 80%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 80%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
 }
 
 button:hover > .btnTooltip {
@@ -88,148 +88,148 @@ button:hover > .btnTooltip {
 /*************************************/
 
 .header {
-    grid-column: 1 / -1;
-    grid-row: 1 / 2;
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    
-    background-color: var(--color-with-theme);
-    color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  
+  background-color: var(--color-with-theme);
+  color: white;
 }
 
 .hIcon {
-    margin: 0px 10px 0px 15px;
-    filter: invert(1);
+  margin: 0px 10px 0px 15px;
+  filter: invert(1);
 }
 
 /*************************************/
 
 .sidebar {
-    grid-column: 1 / 2;
-    grid-row: 2 / -1;
+  grid-column: 1 / 2;
+  grid-row: 2 / -1;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    background-color: Gainsboro;
+  background-color: Gainsboro;
 
-    max-width: 305px;
+  max-width: 305px;
 }
 
 .sidebar .itemsTitle{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px;
 
-    min-width: 145px;
-    width: 75%;
+  min-width: 145px;
+  width: 75%;
 }
 
 /********************/
 
 .category {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    /* Category section remain fixed size and will not shrink*/
-    flex: 0 0 240px;
+  /* Category section remain fixed size and will not shrink*/
+  flex: 0 0 240px;
 
-    padding: 5px;
+  padding: 5px;
 }
 
 .categoryTitle {
-    width: 90%;
-    margin: 3px 5px;
+  width: 90%;
+  margin: 3px 5px;
 }
 
 .categoryItem {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 
-    padding: 10px;
-    border: 1px solid black;
-    margin: 10px;
-    border-radius: 5px;
+  padding: 10px;
+  border: 1px solid black;
+  margin: 10px;
+  border-radius: 5px;
 
-    background-color: #fff;
+  background-color: #fff;
 
-    max-width: 275px;
+  max-width: 275px;
 
-    transition: border 0.2s ease;
+  transition: border 0.2s ease;
 }
 
 .categoryItem:hover {
-    border: 1px solid var(--color-with-hover);
+  border: 1px solid var(--color-with-hover);
 }
 
 .categoryItem.clickedItem {
-    background-color: var(--color-with-theme);
-    border: 1px solid var(--color-with-theme);
-    color: white;
+  background-color: var(--color-with-theme);
+  border: 1px solid var(--color-with-theme);
+  color: white;
 }
 
 .categoryItem.clickedItem img {
-    filter: invert(1);
+  filter: invert(1);
 }
 
 .categoryItem.clickedItem:hover {
-    border: 1px solid var(--color-with-hover);
-    background-color: var(--color-with-hover);
+  border: 1px solid var(--color-with-hover);
+  background-color: var(--color-with-hover);
 }
 
 
 /********************/
 
 .projects {
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-    margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  margin-bottom: 10px;
 
-    /* For scrollbar in y-axis of .projectList */
-    /* "flex: 1" makes the element occupy all remaining available space
-       (other fiexd space is occupied by category calss) in the flex container(sidebar) */
-    flex: 1;
+  /* For scrollbar in y-axis of .projectList */
+  /* "flex: 1" makes the element occupy all remaining available space
+      (other fiexd space is occupied by category calss) in the flex container(sidebar) */
+  flex: 1;
 
-    /* "min-height: 0" overrides the default minimum height behavior of flex items */
-    /* Flex items have an implicit "min-height: auto" by default, this means flex 
-       items won't shrink smaller than their content size */
-    /* When there's a lot of content, "min-height: 0" prevents the flex item from 
-       shrinking, causing the entire container to expand */
-    min-height: 0;
+  /* "min-height: 0" overrides the default minimum height behavior of flex items */
+  /* Flex items have an implicit "min-height: auto" by default, this means flex 
+      items won't shrink smaller than their content size */
+  /* When there's a lot of content, "min-height: 0" prevents the flex item from 
+      shrinking, causing the entire container to expand */
+  min-height: 0;
 
-    /* Summary:
-        "flex: 1" makes the element fill all space not occupied by other fixed elements in the container
-        "min-height: 0" allows the element to shrink, so that when internal content overflows, it can trigger overflow behavior
-        Without "min-height: 0", when there's too much content, the entire container would expand instead of creating a scrollbar within the element
-    */
+  /* Summary:
+      "flex: 1" makes the element fill all space not occupied by other fixed elements in the container
+      "min-height: 0" allows the element to shrink, so that when internal content overflows, it can trigger overflow behavior
+      Without "min-height: 0", when there's too much content, the entire container would expand instead of creating a scrollbar within the element
+  */
 }
 
 .projectHeader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .projectHeader > button {
-    position: relative;
-    background-color: Gainsboro;
-    transition: transform .2s;
+  position: relative;
+  background-color: Gainsboro;
+  transition: transform .2s;
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
-    height: 30px;
-    border: none;
-    margin: 0 5px;
+  height: 30px;
+  border: none;
+  margin: 0 5px;
 }
 
 .projectHeader > button:hover {
@@ -237,88 +237,88 @@ button:hover > .btnTooltip {
 }
 
 .projectList {
-    /* Add scrollbar in y-axis */
-    /* Need to cooperate with "flex: 1" and "min-height: 0" in projects class
-       ,and cooperate with "flex: 0 0 240px" in category class*/
-    overflow-y: auto;
+  /* Add scrollbar in y-axis */
+  /* Need to cooperate with "flex: 1" and "min-height: 0" in projects class
+    ,and cooperate with "flex: 0 0 240px" in category class*/
+  overflow-y: auto;
 }
 
 .projectItem {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
-    padding: 10px;
-    border: 1px solid black;
-    margin: 10px 8px 10px 10px;
-    border-radius: 5px;
+  padding: 10px;
+  border: 1px solid black;
+  margin: 10px 8px 10px 10px;
+  border-radius: 5px;
 
-    background-color: #fff;
+  background-color: #fff;
 
-    /* For adding text overflow effect in x-axis of .projectTitle */
-    /*Prevent the size of projectItem gets too big when .projectTitle is too long */
-    max-width: 275px;
+  /* For adding text overflow effect in x-axis of .projectTitle */
+  /*Prevent the size of projectItem gets too big when .projectTitle is too long */
+  max-width: 275px;
 
-    transition: border 0.2s ease;
+  transition: border 0.2s ease;
 }
 
 .projectItem:hover {
-    border: 1px solid var(--color-with-hover);
+  border: 1px solid var(--color-with-hover);
 }
 
 .projectItem.clickedItem {
-    background-color: var(--color-with-theme);
-    border: 1px solid var(--color-with-theme);
-    color: white;
+  background-color: var(--color-with-theme);
+  border: 1px solid var(--color-with-theme);
+  color: white;
 }
 
 .projectItem.clickedItem button {
-    background-color: var(--color-with-theme);
+  background-color: var(--color-with-theme);
 }
 
 .projectItem.clickedItem img {
-    filter: invert(1);
+  filter: invert(1);
 }
 
 .projectItem.clickedItem:hover {
-    border: 1px solid var(--color-with-hover);
-    background-color: var(--color-with-hover);
+  border: 1px solid var(--color-with-hover);
+  background-color: var(--color-with-hover);
 }
 
 .projectItem.clickedItem:hover button {
-    background-color: var(--color-with-hover);
+  background-color: var(--color-with-hover);
 }
 
 .projectTitle {
-    width: 75%;
-    margin: 3px 5px;
+  width: 75%;
+  margin: 3px 5px;
 
-    /* Add text overflow effect in x-axis of .projectTitle */
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  /* Add text overflow effect in x-axis of .projectTitle */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .projectBtns {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-    /*fixed the size of butons*/
-    flex-shrink: 0;
+  /*fixed the size of butons*/
+  flex-shrink: 0;
 }
 
 .projectItem > img {
-    /*fixed the size of image*/
-    flex-shrink: 0; 
+  /*fixed the size of image*/
+  flex-shrink: 0; 
 }
 
 .projectBtns > button {
-    background-color: #fff;
-    transition: transform .2s;
+  background-color: #fff;
+  transition: transform .2s;
 
-    border: none;
-    margin: 1px;
+  border: none;
+  margin: 1px;
 }
 
 /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
@@ -329,19 +329,19 @@ button:hover > .btnTooltip {
 /*************************************/
 
 dialog {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin:auto;
-  
-    min-width: 350px;
-  
-    border-radius: 10px;
-    box-shadow: 0px 10px 15px 5px #888888;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin:auto;
+
+  min-width: 350px;
+
+  border-radius: 10px;
+  box-shadow: 0px 10px 15px 5px #888888;
 }
 
 dialog::backdrop {
-    /* Blur the background when the dialog pops*/
-    backdrop-filter: blur(10px);
+  /* Blur the background when the dialog pops*/
+  backdrop-filter: blur(10px);
 }
 
 dialog[id="project-add-pageDialog"]{
@@ -386,29 +386,29 @@ dialog form {
 }
 
 .dialogHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 20px;
-  
-    width: 100%;
-    position: relative;
-  
-    background-color: var(--color-with-theme);
-    color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px;
+
+  width: 100%;
+  position: relative;
+
+  background-color: var(--color-with-theme);
+  color: white;
 }
 
 .dialogHeader .crossDialogBtn {
-    background: none;
-    border: none;
-    font-size: 1.5em;
-    cursor: pointer;
-  
-    position: absolute;
-    top: 15px;
-    right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
 
-    filter: invert(1);
+  position: absolute;
+  top: 15px;
+  right: 15px;
+
+  filter: invert(1);
 }
 
 .dialogFields {
@@ -685,87 +685,87 @@ form .dialogButtons {
 /*************************************/
 
 .content {
-    grid-column: 2 / -1;
-    grid-row: 2 / -1;
+  grid-column: 2 / -1;
+  grid-row: 2 / -1;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    justify-content: flex-start;
-    align-items: center;
-    
-    background-color: #fff;
+  justify-content: flex-start;
+  align-items: center;
+  
+  background-color: #fff;
 }
 
 .content .itemsTitle{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px;
 }
 
 /*************************/
 
 .sloganTitle {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 
-    margin: 25px 0px 30px 0px ;
-    gap: 10px
+  margin: 25px 0px 30px 0px ;
+  gap: 10px
 }
 
 .sloganTitle .sloganName {
-    font-size: 30px;
-    font-weight: bold;
+  font-size: 30px;
+  font-weight: bold;
 
-    /* For adding text overflow effect in x-axis of .sloganName */
-    max-width: 375px;
+  /* For adding text overflow effect in x-axis of .sloganName */
+  max-width: 375px;
 
-    /* Add text overflow effect in x-axis of .sloganName */
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  /* Add text overflow effect in x-axis of .sloganName */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .tasks {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    width: 60%;
+  width: 60%;
 
-    /* For adding scrollbar in y-axis of .taskList */
-    flex: 1;
-    min-height: 0;
+  /* For adding scrollbar in y-axis of .taskList */
+  flex: 1;
+  min-height: 0;
 
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .taskHeader {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
-    padding: 5px;
-    border-bottom: 1px solid black;
-    margin: 30px 0px 0px 0px;
+  padding: 5px;
+  border-bottom: 1px solid black;
+  margin: 30px 0px 0px 0px;
 }
 
 .taskHeader > button {
-    position: relative;
-    background-color: #fff;
-    transition: transform .2s;
+  position: relative;
+  background-color: #fff;
+  transition: transform .2s;
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
-    height: 30px;
-    border: none;
-    margin: 0 8px;
+  height: 30px;
+  border: none;
+  margin: 0 8px;
 }
 
 .taskHeader > button:hover {
@@ -773,36 +773,36 @@ form .dialogButtons {
 }
 
 .taskList {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    padding: 0px 0px;
+  padding: 0px 0px;
 
-    /* Add scrollbar in y-axis */
-    overflow-y: auto;
+  /* Add scrollbar in y-axis */
+  overflow-y: auto;
 }
 
 .taskItem {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
-    height: 50px;
-    padding: 10px 0px 10px 5px;
-    border-bottom: 1px solid Gainsboro;
+  height: 50px;
+  padding: 10px 0px 10px 5px;
+  border-bottom: 1px solid Gainsboro;
 
-    /* For adding text overflow effect in x-axis of .taskTitle */
-    /* Prevent the size of taskLeftItem gets too big when .taskTitle is too long */
-    max-width: 1000px;
+  /* For adding text overflow effect in x-axis of .taskTitle */
+  /* Prevent the size of taskLeftItem gets too big when .taskTitle is too long */
+  max-width: 1000px;
 }
 
 .taskItem:hover {
-    background-color: Gainsboro;
+  background-color: Gainsboro;
 }
 
 .taskItem:hover button {
-    background-color: Gainsboro;
+  background-color: Gainsboro;
 }
 
 .taskItem.priority-low {
@@ -828,7 +828,7 @@ form .dialogButtons {
 }
 
 .taskDueDate {
-  width: 85px;
+  min-width: 85px;
   margin: 0px 10px 0px 0px;
   color: var(--color-with-theme);
 }

@@ -129,17 +129,17 @@ export function projectAddDialogEvent() {
 
         const buttomValue = pageDialog.returnValue;
     
-        if(buttomValue == 'cross'){
+        if(buttomValue === 'cross'){
             console.log('Dialog closed with crossDialogBtn');
         }
         else{
-            if(buttomValue == 'add'){
+            if(buttomValue === 'add'){
                 console.log('Dialog closed with addBtn');
                 
                 itemLogicModule.addProject(title.value, description.value, notes.value)
                 DOMControlModule.showProjects();
             }
-            else if (buttomValue == 'cancel'){
+            else if (buttomValue === 'cancel'){
                 console.log('Dialog closed with cancelBtn');
             }
             
@@ -178,7 +178,7 @@ export function projectAddDialogEvent() {
     function checkAddDuplicate(value, array, fieldName) {
         const isDuplicate = array.some(item => (item.title).toLowerCase() === value.toLowerCase());
 
-        if (value == ""){
+        if (value === ""){
             return { isInValid: false, message: ``, type: 'normal'};
         }
         else {
@@ -203,7 +203,7 @@ export function projectAddDialogEvent() {
         messageElement.classList.add(`${result.type}-message`);
 
         // Add title field message based on classes about title field
-        if(result.type == 'normal') {
+        if(result.type === 'normal') {
             messageElement.textContent = '';
         }
         else{
@@ -272,18 +272,18 @@ export function projectEditDialogEvent() {
 
         const buttomValue = pageDialog.returnValue;
     
-        if(buttomValue == 'cross'){
+        if(buttomValue === 'cross'){
             console.log('Dialog closed with crossDialogBtn');
         }
         else{
-            if(buttomValue == 'edit'){
+            if(buttomValue === 'edit'){
                 console.log('Dialog closed with editBtn');
                 
                 itemLogicModule.modifyProject(currentProjectID, title.value, description.value, notes.value)
                 DOMControlModule.showProjects();
                 DOMControlModule.showTasksinProject(currentProjectID);
             }
-            else if (buttomValue == 'cancel'){
+            else if (buttomValue === 'cancel'){
                 console.log('Dialog closed with cancelBtn');
             }
         }
@@ -321,7 +321,7 @@ export function projectEditDialogEvent() {
     function checkEditDuplicate(value, array, fieldName) { 
         const isDuplicate = array.some(item => (item.title).toLowerCase() === value.toLowerCase());
     
-        if ((value == "") || (currentProjectName.toLowerCase() == value.toLowerCase())){
+        if ((value === "") || (currentProjectName.toLowerCase() === value.toLowerCase())){
             return { isInValid: false, message: ``, type: 'normal'};
         }
         else {
@@ -344,7 +344,7 @@ export function projectEditDialogEvent() {
         fieldElement.classList.add(`${result.type}`);
         messageElement.classList.add(`${result.type}-message`);
         
-        if(result.type == 'normal') {
+        if(result.type === 'normal') {
             messageElement.textContent = '';
         }
         else{
@@ -404,7 +404,7 @@ export function projectInfoDialogEvent() {
     pageDialog.addEventListener("close", () => {
         const buttomValue = pageDialog.returnValue;
     
-        if(buttomValue == 'cross'){
+        if(buttomValue === 'cross'){
             console.log('Dialog closed with crossDialogBtn');
         }
         else{
@@ -462,11 +462,11 @@ export function projectDeleteDialogEvent() {
 
         const buttomValue = pageDialog.returnValue;
     
-        if(buttomValue == 'cross'){
+        if(buttomValue === 'cross'){
             console.log('Dialog closed with crossDialogBtn');
         }
         else{
-            if(buttomValue == 'delete'){
+            if(buttomValue === 'delete'){
                 console.log('Dialog closed with deleteBtn');
 
                 itemLogicModule.deleteProject(currentProjectID);
@@ -475,7 +475,7 @@ export function projectDeleteDialogEvent() {
                 //Need yo modify to show all page
                 DOMControlModule.showTasksinProject(0);
             }
-            else if (buttomValue == 'cancel'){
+            else if (buttomValue === 'cancel'){
                 console.log('Dialog closed with cancelBtn');
             }
             
@@ -540,17 +540,17 @@ export function taskAddDialogEvent() {
 
         const buttomValue = pageDialog.returnValue;
     
-        if(buttomValue == 'cross') {
+        if(buttomValue === 'cross') {
             console.log('Dialog closed with crossDialogBtn');
         }
         else {
-            if(buttomValue == 'add'){
+            if(buttomValue === 'add'){
                 console.log('Dialog closed with addBtn');
                  
                 itemLogicModule.addTask(title.value, description.value, dueDate.value, priority.value, projectID, notes.value, false);
                 DOMControlModule.showTasksinProject(projectID);
             }
-            else if (buttomValue == 'cancel'){
+            else if (buttomValue === 'cancel'){
                 console.log('Dialog closed with cancelBtn');
             }
             
@@ -589,7 +589,7 @@ export function taskAddDialogEvent() {
     function checkAddDuplicate(value, array, fieldName) {
         const isDuplicate = array.some(item => (item.title).toLowerCase() === value.toLowerCase());
 
-        if (value == ""){
+        if (value === ""){
             return { isInValid: false, message: ``, type: 'normal'};
         }
         else {
@@ -612,7 +612,7 @@ export function taskAddDialogEvent() {
         fieldElement.classList.add(`${result.type}`);
         messageElement.classList.add(`${result.type}-message`);
 
-        if(result.type == 'normal') {
+        if(result.type === 'normal') {
             messageElement.textContent = '';
         }
         else{
@@ -722,11 +722,11 @@ export function taskEditDialogEvent() {
 
         const buttomValue = pageDialog.returnValue;
     
-        if(buttomValue == 'cross'){
+        if(buttomValue === 'cross'){
             console.log('Dialog closed with crossDialogBtn');
         }
         else{
-            if(buttomValue == 'edit'){
+            if(buttomValue === 'edit'){
                 console.log('Dialog closed with editBtn');
                 
                 let newProjectID = projectOfTask.value;
@@ -741,7 +741,7 @@ export function taskEditDialogEvent() {
                 }
                 DOMControlModule.showTasksinProject(currentProjectID);
             }
-            else if (buttomValue == 'cancel'){
+            else if (buttomValue === 'cancel'){
                 console.log('Dialog closed with cancelBtn');
             }
         }
@@ -813,7 +813,7 @@ export function taskEditDialogEvent() {
     function checkEditDuplicate(value, array, fieldName) { 
         const isDuplicate = array.some(item => (item.title).toLowerCase() === value.toLowerCase());
 
-        if ((value == "") || (currentTaskName.toLowerCase() == value.toLowerCase())){
+        if ((value === "") || (currentTaskName.toLowerCase() === value.toLowerCase())){
             return { isInValid: false, message: ``, type: 'normal'};
         }
         else {
@@ -847,7 +847,7 @@ export function taskEditDialogEvent() {
         fieldElement.classList.add(`${result.type}`);
         messageElement.classList.add(`${result.type}-message`);
 
-        if(result.type == 'normal') {
+        if(result.type === 'normal') {
             messageElement.textContent = '';
         }
         else{
@@ -924,7 +924,7 @@ export function taskInfoDialogEvent() {
 
         const buttomValue = pageDialog.returnValue;
     
-        if(buttomValue == 'cross'){
+        if(buttomValue === 'cross'){
             console.log('Dialog closed with crossDialogBtn');
         }
         else{
@@ -985,17 +985,17 @@ export function taskDeleteDialogEvent() {
 
         const buttomValue = pageDialog.returnValue;
     
-        if(buttomValue == 'cross'){
+        if(buttomValue === 'cross'){
             console.log('Dialog closed with crossDialogBtn');
         }
         else{
-            if(buttomValue == 'delete'){
+            if(buttomValue === 'delete'){
                 console.log('Dialog closed with deleteBtn');
 
                 itemLogicModule.deleteTask(currentProjectID, currentTaskID);
                 DOMControlModule.showTasksinProject(currentProjectID);
             }
-            else if (buttomValue == 'cancel'){
+            else if (buttomValue === 'cancel'){
                 console.log('Dialog closed with cancelBtn');
             }
             
