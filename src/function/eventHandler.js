@@ -1,6 +1,5 @@
 import * as DOMControlModule from "./DOMControl"
 import * as itemLogicModule from "../item/itemLogic"
-import * as projectModalModule from "../item/projectModal"
 
 // Control checkbox in task items to change text
 export function taskCheckboxEvent() {
@@ -98,7 +97,6 @@ export function clickProjectToShowAllTasksEvent() {
 
             DOMControlModule.showTasksinProject(clickedItem.dataset.projectid);
         }
-
     });
 }
 
@@ -1088,6 +1086,12 @@ export function taskDeleteDialogEvent() {
         }
     });
 
+}
+
+export function setAllItemListEvent() {
+    clickCategoryToShowAllTasksEvent();
+    clickProjectToShowAllTasksEvent();
+    taskCheckboxEvent();
 }
 
 export function setAllDialogEvent() {

@@ -3,6 +3,7 @@ const TASK_UNFINISHED = false;
 
 export default class Task {
 
+    // Convert task item from JSON format to Task object format
     static fromJSON(taskData) {
         const task = new Task(
             taskData.title,
@@ -44,6 +45,7 @@ export default class Task {
         this.projectID = newProID;
     }
 
+    // Convert task item from Task object format to JSON format
     toJSON(){
         return {
             title: this.title,

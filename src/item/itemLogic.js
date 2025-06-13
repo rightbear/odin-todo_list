@@ -36,7 +36,7 @@ export function deleteProject(projectIndex) {
     // Need to modify the data attribute of other projects
 
     const newLength = projectList.length;
-    // if the length of current projectList is bigger than projectIndex, that 
+    // If the length of current projectList is bigger than projectIndex, that 
     // means the deleted project is not the last project in the old projectList.
     // Need to modify the project number in tasks inside all projects after 
     // the deleted project in the old projectList.

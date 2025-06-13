@@ -4,54 +4,39 @@ import * as eventHandlerModule from "./function/eventHandler"
 import * as projectModalModule from "./item/projectModal"
 import * as taskModalModule from "./item/taskModal"
 import * as itemLogic from "./item/itemLogic"
+import { format, addDays, subDays } from 'date-fns';
 
-localStorage.clear();
+// If there is no created key of "projectList" in localStorage, set some default projects and tasks inside.
+
+if(!localStorage.getItem('projectList')){
+    const today = new Date();
+    itemLogic.addProject("Default project1", "project desciption1", "project note1");
+    itemLogic.addProject("Default project2", "project desciption2", "project note2");
+    itemLogic.addProject("Default project3", "project desciption3", "project note3");
+
+    itemLogic.addTask("Default task1.1", "task desciption1.1", convertDays(today), "low", "0", "task note1.1", true);
+    itemLogic.addTask("Default task1.2", "task desciption1.2", convertDays(addDays(today, 2)), "medium", "0", "task note1.2", false);
+    itemLogic.addTask("Default task1.3", "task desciption1.3", convertDays(addDays(today, 5)), "medium", "0", "task note1.3", true);
+    itemLogic.addTask("Default task1.4", "task desciption1.4", convertDays(addDays(today, 8)), "high", "0", "task note1.4", false);
+    itemLogic.addTask("Default task2.1", "task desciption2.1", convertDays(subDays(today, 5)), "low", "1", "task note2.1", false);
+    itemLogic.addTask("Default task2.2", "task desciption2.2", convertDays(subDays(today, 2)), "medium", "1", "task note2.2", true);
+    itemLogic.addTask("Default task2.3", "task desciption2.3", convertDays(today), "high", "1", "task note2.3", false);
+    itemLogic.addTask("Default task2.4", "task desciption2.4", convertDays(addDays(today, 2)), "high", "1", "task note2.4", true);
+    itemLogic.addTask("Default task3.1", "task desciption3.1", convertDays(today), "high", "2", "task note3.1", true);
+    itemLogic.addTask("Default task3.2", "task desciption3.2", convertDays(subDays(today, 10)), "medium", "2", "task note3.2", true);
+    itemLogic.addTask("Default task3.3", "task desciption3.3", convertDays(addDays(today, 10)), "low", "2", "task note3.3", false);
+}
 
 DOMControlModule.loadInitialLayout();
-
-itemLogic.addProject("project1", "des1", "note1");
-itemLogic.addProject("project2", "des2", "note2");
-itemLogic.addProject("project3", "des3", "note3");
-itemLogic.addProject("project4", "des4", "note4");
-itemLogic.addProject("project5", "des5", "note5");
-itemLogic.addProject("project6", "des6", "note6");
-
-itemLogic.addTask("task00", "des00", "2025-06-13", "low", "0", "note00", false);
-itemLogic.addTask("task01", "des01", "2025-06-11", "low", "0", "note01", false);
-itemLogic.addTask("task02", "des01", "2025-06-15", "low", "0", "note01", false);
-itemLogic.addTask("task03555555555555555555555555555555555555666666666666655555555555555555555555555555555555555555", "des01", "2025-06-16", "low", "0", "note01", false);
-itemLogic.addTask("task04", "des01", "2025-06-17", "medium", "0", "note01", false);
-itemLogic.addTask("task05", "des01", "2025-06-18", "medium", "0", "note01", false);
-itemLogic.addTask("task06", "des01", "2025-06-19", "medium", "0", "note01", false);
-itemLogic.addTask("task07", "des01", "2025-06-20", "medium", "0", "note01", false);
-itemLogic.addTask("task08", "des01", "2025-06-21", "high", "0", "note01", false);
-itemLogic.addTask("task09", "des01", "2025-06-22", "high", "0", "note01", false);
-itemLogic.addTask("task10", "des01", "2025-06-23", "high", "0", "note01", false);
-
-
-itemLogic.modifyTask(0, 1, "task000", "des000", "2025-06-10", "low", "note000");
-
-itemLogic.switchTask(0, 0);
-itemLogic.addTask("task11", "des10", "2025-06-13", "high", "1", "note10", true);
-
-//itemLogic.deleteTask(0, 0);
-
-itemLogic.modifyProject(1, "dddddddd7898788979d555d", "des2", "note2");
-
-//itemLogic.deleteProject(0);
-
 DOMControlModule.showProjects();
-createAllModal();
-eventHandlerModule.setAllDialogEvent();
+DOMControlModule.showAllTasksinAllProjects();
+createAllModals();
+setAllEventListners();
+
 const categoryAllItem = document.querySelector("#category-all");
 categoryAllItem.classList.add("clickedItem");
-DOMControlModule.showAllTasksinAllProjects();
 
-eventHandlerModule.taskCheckboxEvent();
-eventHandlerModule.clickProjectToShowAllTasksEvent();
-eventHandlerModule.clickCategoryToShowAllTasksEvent();
-
-function createAllModal() {
+function createAllModals() {
     projectModalModule.createProjectAddDialog();
     projectModalModule.createProjectEditDialog();
     projectModalModule.createProjectInfoDialog();
@@ -60,4 +45,13 @@ function createAllModal() {
     taskModalModule.createTaskEditDialog();
     taskModalModule.createTaskInfoDialog();
     taskModalModule.createTaskDeleteDialog();
+}
+
+function setAllEventListners() {
+    eventHandlerModule.setAllItemListEvent();
+    eventHandlerModule.setAllDialogEvent();
+}
+
+function convertDays(convertedDate) {
+    return (format(convertedDate, 'yyyy-MM-dd'));
 }

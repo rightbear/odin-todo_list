@@ -2,6 +2,7 @@ import Task from "./task.js"
 
 export default class Project {
 
+    // Convert project item from JSON format to Project object format
     static fromJSON(projectData) {
         const project = new Project(
             projectData.title,
@@ -62,6 +63,7 @@ export default class Project {
         return structuredClone(this.#taskList);
     }
 
+    // Convert project item from Project object format to JSON format
     toJSON(){
         return {
             title: this.title,
