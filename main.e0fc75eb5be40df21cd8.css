@@ -1,0 +1,915 @@
+*  {
+    margin: 0;  
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*************************************/
+
+body {
+  font-family: Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  height: 100vh;
+}
+
+.main {
+  height: 100vh;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+
+  --color-with-theme: #009688;
+  --color-with-hover: #4db6ac;
+}
+
+/*************************************/
+
+/*Set style of text part of tooltip*/
+button > .btnTooltip {
+  visibility: hidden;
+  width: 100px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 105%;
+  /* 90px is 90% width of Tooltip */
+  left: 90%;
+  margin-left: -90px;
+}
+
+/*Set style of button triangle part of tooltip*/
+button > .btnTooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 80%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+button:hover > .btnTooltip {
+  visibility: visible;
+}
+
+/*************************************/
+
+/*Set style of text part of scrollbar*/
+
+/* width */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-with-hover); 
+}
+
+/*************************************/
+
+.header {
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  
+  background-color: var(--color-with-theme);
+  color: white;
+}
+
+.hIcon {
+  margin: 0px 10px 0px 15px;
+  filter: invert(1);
+}
+
+/*************************************/
+
+.sidebar {
+  grid-column: 1 / 2;
+  grid-row: 2 / -1;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: Gainsboro;
+
+  max-width: 305px;
+}
+
+.sidebar .itemsTitle{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px;
+
+  min-width: 145px;
+  width: 75%;
+}
+
+/********************/
+
+.category {
+  display: flex;
+  flex-direction: column;
+
+  /* Category section remain fixed size and will not shrink*/
+  flex: 0 0 240px;
+
+  padding: 5px;
+}
+
+.categoryTitle {
+  width: 90%;
+  margin: 3px 5px;
+}
+
+.categoryItem {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 10px;
+  border: 1px solid black;
+  margin: 10px;
+  border-radius: 5px;
+
+  background-color: #fff;
+
+  max-width: 275px;
+
+  transition: border 0.2s ease;
+}
+
+.categoryItem:hover {
+  border: 1px solid var(--color-with-hover);
+}
+
+.categoryItem.clickedItem {
+  background-color: var(--color-with-theme);
+  border: 1px solid var(--color-with-theme);
+  color: white;
+}
+
+.categoryItem.clickedItem img {
+  filter: invert(1);
+}
+
+.categoryItem.clickedItem:hover {
+  border: 1px solid var(--color-with-hover);
+  background-color: var(--color-with-hover);
+}
+
+
+/********************/
+
+.projects {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  margin-bottom: 10px;
+
+  /* For scrollbar in y-axis of .projectList */
+  /* "flex: 1" makes the element occupy all remaining available space
+      (other fiexd space is occupied by category calss) in the flex container(sidebar) */
+  flex: 1;
+
+  /* "min-height: 0" overrides the default minimum height behavior of flex items */
+  /* Flex items have an implicit "min-height: auto" by default, this means flex 
+      items won't shrink smaller than their content size */
+  /* When there's a lot of content, "min-height: 0" prevents the flex item from 
+      shrinking, causing the entire container to expand */
+  min-height: 0;
+
+  /* Summary:
+      "flex: 1" makes the element fill all space not occupied by other fixed elements in the container
+      "min-height: 0" allows the element to shrink, so that when internal content overflows, it can trigger overflow behavior
+      Without "min-height: 0", when there's too much content, the entire container would expand instead of creating a scrollbar within the element
+  */
+}
+
+.projectHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 5px;
+  border-bottom: 2px solid black;
+  margin-bottom: 5px;
+}
+
+.projectHeader > button {
+  position: relative;
+  background-color: Gainsboro;
+  transition: transform .2s;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  height: 30px;
+  border: none;
+  margin: 0 5px;
+}
+
+.projectHeader > button:hover {
+  transform: scale(1.2);
+}
+
+.projectList {
+  /* Add scrollbar in y-axis */
+  /* Need to cooperate with "flex: 1" and "min-height: 0" in projects class
+    ,and cooperate with "flex: 0 0 240px" in category class*/
+  overflow-y: auto;
+}
+
+.projectItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  padding: 10px;
+  border: 1px solid black;
+  margin: 10px 8px 10px 10px;
+  border-radius: 5px;
+
+  background-color: #fff;
+
+  /* For adding text overflow effect in x-axis of .projectTitle */
+  /*Prevent the size of projectItem gets too big when .projectTitle is too long */
+  max-width: 275px;
+
+  transition: border 0.2s ease;
+}
+
+.projectItem:hover {
+  border: 1px solid var(--color-with-hover);
+}
+
+.projectItem.clickedItem {
+  background-color: var(--color-with-theme);
+  border: 1px solid var(--color-with-theme);
+  color: white;
+}
+
+.projectItem.clickedItem button {
+  background-color: var(--color-with-theme);
+}
+
+.projectItem.clickedItem img {
+  filter: invert(1);
+}
+
+.projectItem.clickedItem:hover {
+  border: 1px solid var(--color-with-hover);
+  background-color: var(--color-with-hover);
+}
+
+.projectItem.clickedItem:hover button {
+  background-color: var(--color-with-hover);
+}
+
+.projectTitle {
+  width: 75%;
+  margin: 3px 5px;
+
+  /* Add text overflow effect in x-axis of .projectTitle */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.projectBtns {
+  display: flex;
+  flex-direction: row;
+
+  /*fixed the size of butons*/
+  flex-shrink: 0;
+}
+
+.projectItem > img {
+  /*fixed the size of image*/
+  flex-shrink: 0; 
+}
+
+.projectBtns > button {
+  background-color: #fff;
+  transition: transform .2s;
+
+  border: none;
+  margin: 1px;
+}
+
+/* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+.projectBtns > button:hover {
+  transform: scale(1.2);
+}
+
+/*************************************/
+
+dialog {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin:auto;
+
+  min-width: 350px;
+
+  border-radius: 10px;
+  box-shadow: 0px 10px 15px 5px #888888;
+}
+
+dialog::backdrop {
+  /* Blur the background when the dialog pops*/
+  backdrop-filter: blur(10px);
+}
+
+dialog[id="project-add-pageDialog"]{
+  min-height: 550px;
+}
+
+dialog[id="project-edit-pageDialog"]{
+  min-height: 550px;
+}
+
+dialog[id="project-info-pageDialog"] {
+  min-height: 350px;
+  max-height: 550px;
+}
+
+dialog[id="project-delete-pageDialog"] {
+  min-height: 200px;
+}
+
+dialog[id="task-add-pageDialog"] {
+  min-height: 585px;
+}
+
+dialog[id="task-edit-pageDialog"] {
+  min-height: 635px;
+}
+
+dialog[id="task-info-pageDialog"] {
+  min-height: 550px;
+  max-height: 650px;
+}
+
+dialog[id="task-delete-pageDialog"] {
+  min-height: 200px;
+}
+
+dialog form {
+  display: flex;
+  flex-direction: column;
+  
+  padding: 10px;
+}
+
+.dialogHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px;
+
+  width: 100%;
+  position: relative;
+
+  background-color: var(--color-with-theme);
+  color: white;
+}
+
+.dialogHeader .crossDialogBtn {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+
+  position: absolute;
+  top: 15px;
+  right: 15px;
+
+  filter: invert(1);
+}
+
+.dialogFields {
+  display: flex;
+  flex-direction: column;
+  
+  /* Trigger overflow property in fields of project*/
+  max-width: 325px;
+  
+  padding-bottom: 10px;
+  border-bottom: 1px solid Gainsboro;
+}
+
+.dialogFields .field {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.field input {
+  width: 100%;
+  
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 2px;
+  padding: 0.5rem;
+  color: #666;
+  box-shadow: inset 0 0 0.25rem #ddd;
+  
+  font-size: 0.875rem;
+}
+
+.field input:focus {
+  outline: none;
+  border: 2px solid black;
+  box-shadow: inset 0 0 0.5rem darken(#ddd, 5%);
+}
+
+.field input[class="normal"] {
+  border: 1px solid #ddd;
+}
+
+.field input[class="normal"]:focus {
+  border: 2px solid black;
+}
+
+.field input[class="error"] {
+  border: 1px solid red;
+}
+
+.field input[class="error"]:focus {
+  border: 2px solid DarkRed;
+}
+
+.field input[class="success"] {
+  border: 1px solid green;
+}
+
+.field input[class="success"]:focus {
+  border: 2px solid DarkGreen;
+}
+
+.field span[id="deletedProject"],
+.field span[id="deletedTask"] {
+  font-weight: bold;
+  overflow: hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  max-width: 290px;
+  
+  display:inline-block;
+  /* Vertical align the text in inline-block*/
+  vertical-align: middle;
+}
+
+.validation-message {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 15px;
+  margin: 2px;
+  padding-left: 5px;
+  font-size: 0.8rem;
+}
+
+.success-message {
+  color: green;
+}
+
+.error-message {
+  color: red;
+}
+  
+.field textarea {
+  width: 100%;
+  resize: none;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 2px;
+  padding: 0.5rem;
+  color: #666;
+  box-shadow: inset 0 0 0.25rem #ddd;
+  
+  font-size: 0.875rem;
+}
+
+.field textarea[id="project-add-description"],
+.field textarea[id="project-add-notes"],
+.field textarea[id="project-edit-description"],
+.field textarea[id="project-edit-notes"] {
+  height: 100px;
+}
+
+.field textarea[id="task-add-description"],
+.field textarea[id="task-add-notes"], 
+.field textarea[id="task-edit-description"],
+.field textarea[id="task-edit-notes"] {
+  height: 50px;
+}
+
+.field textarea:focus {
+  outline: none;
+  border: 2px solid black;
+  box-shadow: inset 0 0 0.5rem darken(#ddd, 5%);
+}
+
+.requiredSign {
+  color: red;  
+}
+
+.field .textCount {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  padding: 0.1rem 0 0 0;
+  font-size: 0.875rem;
+}
+
+.field select {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 2px;
+  padding: 0.5rem;
+  color: #666;
+}
+
+.field select[id="task-edit-projectOfTask"] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+select option[value="low"] {
+  font-weight: bold;
+  color: #228B22;
+}
+
+select option[value="medium"] {
+  font-weight: bold;
+  color: #FFAA33;
+}
+
+select option[value="high"] {
+  font-weight: bold;
+  color: #ff2052;
+}
+
+.field .infoText {
+  width: 100%;
+  
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 2px;
+  padding: 0.5rem;
+  color: #666;
+  box-shadow: inset 0 0 0.25rem #ddd;
+  
+  font-size: 0.875rem;
+}
+
+.field .infoText[id="project-info-title-text"],
+.field .infoText[id="task-info-title-text"],
+.field .infoText[id="task-info-projectOfTask-text"] {
+  /* Make the additional white-space and newline not shown in text fields */
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.field .infoText[id="project-info-description-text"],
+.field .infoText[id="project-info-notes-text"]{
+  /* Make the white-space and newline shown in text fields */
+  white-space: pre-wrap;
+  
+   /* If the text number in the text fields is too high, add the scrollbar in the text fields */
+  min-height: 35px;
+  max-height: 100px;
+  overflow-y: auto;
+  
+  /* force word with too much characters to wrap to the new line */
+  word-break: break-all;
+}
+
+.field .infoText[id="task-info-description-text"],
+.field .infoText[id="task-info-notes-text"] {
+  /* Make the white-space and newline shown in text fields */
+  white-space: pre-wrap;
+  min-height: 35px;
+  max-height: 50px;
+  overflow-y: auto;
+  
+  word-break: break-all;
+}
+
+form .dialogButtons {
+  display: flex;
+  flex-direction: row;
+  
+  margin: 10px;
+  gap: 5px;
+  justify-content: end;
+  align-items: center;
+}
+
+.dialogButtons button {
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.dialogButtons button[value="cancel"],
+.dialogButtons button[value="close"] {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #f44336;
+}
+
+
+.dialogButtons button[value="cancel"]:hover,
+.dialogButtons button[value="close"]:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+.dialogButtons button[value="add"],
+.dialogButtons button[value="edit"],
+.dialogButtons button[value="delete"] {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+
+.dialogButtons button[value="add"]:hover,
+.dialogButtons button[value="edit"]:hover,
+.dialogButtons button[value="delete"]:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+.dialogButtons button[value="add"]:disabled,
+.dialogButtons button[value="edit"]:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/*************************************/
+
+.content {
+  grid-column: 2 / -1;
+  grid-row: 2 / -1;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-start;
+  align-items: center;
+  
+  background-color: #fff;
+}
+
+.content .itemsTitle{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px;
+}
+
+/*************************/
+
+.sloganTitle {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: center;
+  align-items: center;
+
+  margin: 25px 0px 30px 0px ;
+  gap: 10px
+}
+
+.sloganTitle .sloganName {
+  font-size: 30px;
+  font-weight: bold;
+
+  /* For adding text overflow effect in x-axis of .sloganName */
+  max-width: 375px;
+
+  /* Add text overflow effect in x-axis of .sloganName */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+
+  width: 60%;
+
+  /* For adding scrollbar in y-axis of .taskList */
+  flex: 1;
+  min-height: 0;
+
+  margin-bottom: 20px;
+}
+
+.taskHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 5px;
+  border-bottom: 1px solid black;
+  margin: 30px 0px 0px 0px;
+}
+
+.taskHeader > button {
+  position: relative;
+  background-color: #fff;
+  transition: transform .2s;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  height: 30px;
+  border: none;
+  margin: 0 8px;
+}
+
+.taskHeader > button:hover {
+  transform: scale(1.2);
+}
+
+.taskList {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0px 0px;
+
+  /* Add scrollbar in y-axis */
+  overflow-y: auto;
+}
+
+.taskItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  height: 50px;
+  padding: 10px 0px 10px 5px;
+  border-bottom: 1px solid Gainsboro;
+
+  /* For adding text overflow effect in x-axis of .taskTitle */
+  /* Prevent the size of taskLeftItem gets too big when .taskTitle is too long */
+  max-width: 1000px;
+}
+
+.taskItem:hover {
+  background-color: Gainsboro;
+}
+
+.taskItem:hover button {
+  background-color: Gainsboro;
+}
+
+.taskItem.priority-low {
+  border-left: 5px solid #8FBC8F;
+}
+
+.taskItem.priority-medium {
+  border-left: 5px solid #FFD700;
+}
+
+.taskItem.priority-high {
+  border-left: 5px solid #DC143C;
+}
+
+.taskTitle {
+  width: 70%;
+  margin: 3px 20px;
+
+  /* Add text overflow effect in x-axis of .taskTitle */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.taskDueDate {
+  min-width: 85px;
+  margin: 0px 10px 0px 0px;
+  color: var(--color-with-theme);
+}
+
+.taskBtns {
+  display: flex;
+  flex-direction: row;
+
+  /*fixed the size of butons*/
+  flex-shrink: 0;
+  margin-right: 5px;
+}
+
+.taskBtns > img {
+  /*fixed the size of image*/
+  flex-shrink: 0; 
+}
+
+.taskBtns > button {
+  background-color: #fff;
+  transition: transform .2s;
+
+  border: none;
+  margin: 1px;
+}
+
+/* 150% zoom */
+.taskBtns > button:hover {
+  transform: scale(1.2);
+}
+
+/*************************/
+
+/* Pseudo element for check styling */
+
+.taskCheckbox[type=checkbox] {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-with-theme);
+  vertical-align: middle;
+  appearance: none;
+  background: none;
+  border: 0;
+  margin-left: 5px;
+  outline: 0;
+  flex-grow: 0;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: background-color 300ms;
+  cursor: pointer;
+}
+
+
+/* Pseudo element for check styling */
+
+.taskCheckbox[type=checkbox]::before {
+  content: "";
+  color: transparent;
+  display: block;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  border: 0;
+  background-color: transparent;
+  background-size: contain;
+  box-shadow: inset 0 0 0 1px #CCD3D8;
+}
+
+
+/* Checked */
+
+.taskCheckbox[type=checkbox]:checked {
+  background-color: currentcolor;
+}
+
+.taskCheckbox[type=checkbox]:checked::before {
+  box-shadow: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27 viewBox=%270 0 24 24%27%3E %3Cpath d=%27M15.88 8.29L10 14.17l-1.88-1.88a.996.996 0 1 0-1.41 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7a.996.996 0 0 0 0-1.41c-.39-.39-1.03-.39-1.42 0z%27 fill=%27%23fff%27/%3E %3C/svg%3E");
+}
+
+/*# sourceMappingURL=main.e0fc75eb5be40df21cd8.css.map*/
