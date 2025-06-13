@@ -7,7 +7,6 @@ import * as itemLogic from "./item/itemLogic"
 import { format, addDays, subDays } from 'date-fns';
 
 // If there is no created key of "projectList" in localStorage, set some default projects and tasks inside.
-
 if(!localStorage.getItem('projectList')){
     const today = new Date();
     itemLogic.addProject("Default project1", "project desciption1", "project note1");
@@ -27,14 +26,16 @@ if(!localStorage.getItem('projectList')){
     itemLogic.addTask("Default task3.3", "task desciption3.3", convertDays(addDays(today, 10)), "low", "2", "task note3.3", false);
 }
 
+// Load basic DOM elements
 DOMControlModule.loadInitialLayout();
+
+// Load projectList, taskList and dialogs
 DOMControlModule.showProjects();
 DOMControlModule.showAllTasksinAllProjects();
 createAllModals();
-setAllEventListners();
 
-const categoryAllItem = document.querySelector("#category-all");
-categoryAllItem.classList.add("clickedItem");
+// Load all eventListners
+setAllEventListners();
 
 function createAllModals() {
     projectModalModule.createProjectAddDialog();

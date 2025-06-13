@@ -9,12 +9,14 @@ import infoIcon from "../images/information.png"
 import addIcon from "../images/add.png"
 import twoTicsIcon from "../images/two-ticks.png"
 
+// Create div container for all elements
 function addMainRegion (){
     const main = document.createElement("div");
     main.classList.add("main");
     document.body.appendChild(main);
 }
 
+// Load basic elements in the header
 function addHeaderRegion (){
     const main = document.querySelector(".main");
 
@@ -35,6 +37,7 @@ function addHeaderRegion (){
     header.append(hIcon, hTitle);
 }
 
+// Load basic elements in the sidebar
 function addSidebarRegion (){
     const main = document.querySelector(".main");
 
@@ -56,6 +59,7 @@ function addSidebarRegion (){
     category.append(categoryTitle, categoryList);
 
     const allCategory = addCategory(layersIcon, "layers", 20, "all", "All");
+    allCategory.classList.add("clickedItem");
     const todayCategory = addCategory(calenderIcon, "calender", 20, "today", "Today");
     const weekCategory = addCategory(calenderIcon, "calender", 20, "week", "Week");
     const completeCategory = addCategory(checkMarkIcon, "check-mark", 20, "completed", "Completed");
@@ -63,6 +67,7 @@ function addSidebarRegion (){
     categoryList.append(allCategory, todayCategory, weekCategory, completeCategory);
 }
 
+// Add one category element in the sidebar
 function addCategory(iconSrc, iconAlt, iconHeight, textID, text) {
 
     const divContainer = document.createElement("div");
@@ -84,6 +89,7 @@ function addCategory(iconSrc, iconAlt, iconHeight, textID, text) {
     return divContainer;
 }
 
+// Load basic elements in the content region
 function addContentRegion(){
     const main = document.querySelector(".main");
 
@@ -96,6 +102,7 @@ function addContentRegion(){
     content.appendChild(tasks);
 }
 
+// Load basic elements for dialogs
 function addDialogRegion(){
     const main = document.querySelector(".main");
 
@@ -110,6 +117,7 @@ function addDialogRegion(){
     dialog.append(projectDialog, taskDialog);
 }
 
+// Load all basic elements except the projectList and taskList
 export function loadInitialLayout(){
     addMainRegion();
     addHeaderRegion();
@@ -165,6 +173,7 @@ export function showProjects() {
     }
 }
 
+// Add one project element in the sidebar
 function addProject(iconHeight, projectTitle) {
 
     const divContainer = document.createElement("div");
@@ -522,7 +531,7 @@ export function showCompletedTasks() {
     }
 }
 
-
+// Add slogan of taskList in the content region
 function addSlogan(iconSrc, iconAlt, sloganText) {
     const sloganTitle = document.createElement("div");
     sloganTitle.classList.add("sloganTitle");
@@ -539,6 +548,7 @@ function addSlogan(iconSrc, iconAlt, sloganText) {
     return sloganTitle;
 }
 
+// Add one task element in the content region
 function addTaskinProject(iconHeight, taskTitle, taskDueDate, taskState) {
 
     const divContainer = document.createElement("div");
