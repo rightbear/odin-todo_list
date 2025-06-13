@@ -270,19 +270,257 @@ export function showTasksinProject(projectID) {
 
         let taskPriority = allTasksinProject[index].priority;
 
-        if(taskPriority == "low"){
+        if(taskPriority === "low"){
             taskItem.classList.add("priority-low");
         }
-        else if(taskPriority == "medium"){
+        else if(taskPriority === "medium"){
             taskItem.classList.add("priority-medium");
         }
-        else if(taskPriority == "high"){
+        else if(taskPriority === "high"){
             taskItem.classList.add("priority-high");
         }
 
         taskList.appendChild(taskItem);
     }
 }
+
+// Show all tasks of all projects in the content region
+export function showAllTasksinAllProjects() {
+
+    const content = document.querySelector(".content");
+
+    //Remove all old task items on page
+    while (content.firstChild) {
+        content.removeChild(content.firstChild);
+    }
+
+    const categoryItem = document.querySelector("#all");
+    const categoryName = categoryItem.textContent;
+    const allTasksinCategory = itemLogicModule.getAllProjectsTasks();
+    const taskNum = allTasksinCategory.length;
+    
+    const sloganTitle = addSlogan(layersIcon, "layers", categoryName);
+
+    const tasks = document.createElement("div");
+    tasks.classList.add("tasks");
+
+    const taskHeader = document.createElement("div");
+
+    taskHeader.classList.add("taskHeader");
+    const tasksTitle = document.createElement("h2");
+    tasksTitle.classList.add("itemsTitle");
+    tasksTitle.textContent = `Tasks (${taskNum})`;
+
+    taskHeader.appendChild(tasksTitle);
+
+    const taskList = document.createElement("div");
+    taskList.classList.add("taskList");
+    tasks.append(taskHeader, taskList);
+
+    content.append(sloganTitle, tasks);
+
+    for (let index = 0 ; index < taskNum ; index++){
+        let taskTitle = allTasksinCategory[index].title;
+        let taskDueDate = allTasksinCategory[index].dueDate;
+        let taskState = allTasksinCategory[index].state;
+
+        const taskItem = addTaskinProject(20, taskTitle, taskDueDate, taskState);
+        taskItem.dataset.taskid = allTasksinCategory[index].taskID;
+        taskItem.dataset.task_projectid = allTasksinCategory[index].projectID;
+
+        let taskPriority = allTasksinCategory[index].priority;
+
+        if(taskPriority === "low"){
+            taskItem.classList.add("priority-low");
+        }
+        else if(taskPriority === "medium"){
+            taskItem.classList.add("priority-medium");
+        }
+        else if(taskPriority === "high"){
+            taskItem.classList.add("priority-high");
+        }
+
+        taskList.appendChild(taskItem);
+    }
+}
+
+// Show all tasks of today in the content region
+export function showTodayTasks() {
+
+    const content = document.querySelector(".content");
+
+    while (content.firstChild) {
+        content.removeChild(content.firstChild);
+    }
+
+    const categoryItem = document.querySelector("#today");
+    const categoryName = categoryItem.textContent;
+    const allTasksinCategory = itemLogicModule.getTodayTasks();
+    const taskNum = allTasksinCategory.length;
+    
+    const sloganTitle = addSlogan(calenderIcon, "calender", categoryName);
+
+    const tasks = document.createElement("div");
+    tasks.classList.add("tasks");
+
+    const taskHeader = document.createElement("div");
+
+    taskHeader.classList.add("taskHeader");
+    const tasksTitle = document.createElement("h2");
+    tasksTitle.classList.add("itemsTitle");
+    tasksTitle.textContent = `Tasks (${taskNum})`;
+
+    taskHeader.appendChild(tasksTitle);
+
+    const taskList = document.createElement("div");
+    taskList.classList.add("taskList");
+    tasks.append(taskHeader, taskList);
+
+    content.append(sloganTitle, tasks);
+
+    for (let index = 0 ; index < taskNum ; index++){
+        let taskTitle = allTasksinCategory[index].title;
+        let taskDueDate = allTasksinCategory[index].dueDate;
+        let taskState = allTasksinCategory[index].state;
+
+        const taskItem = addTaskinProject(20, taskTitle, taskDueDate, taskState);
+        taskItem.dataset.taskid = allTasksinCategory[index].taskID;
+        taskItem.dataset.task_projectid = allTasksinCategory[index].projectID;
+
+        let taskPriority = allTasksinCategory[index].priority;
+
+        if(taskPriority === "low"){
+            taskItem.classList.add("priority-low");
+        }
+        else if(taskPriority === "medium"){
+            taskItem.classList.add("priority-medium");
+        }
+        else if(taskPriority === "high"){
+            taskItem.classList.add("priority-high");
+        }
+
+        taskList.appendChild(taskItem);
+    }
+}
+
+// Show all tasks within future 7 days in the content region
+export function showWeekTasks() {
+
+    const content = document.querySelector(".content");
+
+    while (content.firstChild) {
+        content.removeChild(content.firstChild);
+    }
+
+    const categoryItem = document.querySelector("#week");
+    const categoryName = categoryItem.textContent;
+    const allTasksinCategory = itemLogicModule.getWeekTasks();
+    const taskNum = allTasksinCategory.length;
+    
+    const sloganTitle = addSlogan(calenderIcon, "calender", categoryName);
+
+    const tasks = document.createElement("div");
+    tasks.classList.add("tasks");
+
+    const taskHeader = document.createElement("div");
+
+    taskHeader.classList.add("taskHeader");
+    const tasksTitle = document.createElement("h2");
+    tasksTitle.classList.add("itemsTitle");
+    tasksTitle.textContent = `Tasks (${taskNum})`;
+
+    taskHeader.appendChild(tasksTitle);
+
+    const taskList = document.createElement("div");
+    taskList.classList.add("taskList");
+    tasks.append(taskHeader, taskList);
+
+    content.append(sloganTitle, tasks);
+
+    for (let index = 0 ; index < taskNum ; index++){
+        let taskTitle = allTasksinCategory[index].title;
+        let taskDueDate = allTasksinCategory[index].dueDate;
+        let taskState = allTasksinCategory[index].state;
+
+        const taskItem = addTaskinProject(20, taskTitle, taskDueDate, taskState);
+        taskItem.dataset.taskid = allTasksinCategory[index].taskID;
+        taskItem.dataset.task_projectid = allTasksinCategory[index].projectID;
+
+        let taskPriority = allTasksinCategory[index].priority;
+
+        if(taskPriority === "low"){
+            taskItem.classList.add("priority-low");
+        }
+        else if(taskPriority === "medium"){
+            taskItem.classList.add("priority-medium");
+        }
+        else if(taskPriority === "high"){
+            taskItem.classList.add("priority-high");
+        }
+
+        taskList.appendChild(taskItem);
+    }
+}
+
+// Show all completed tasks in the content region
+export function showCompletedTasks() {
+
+    const content = document.querySelector(".content");
+
+    while (content.firstChild) {
+        content.removeChild(content.firstChild);
+    }
+
+    const categoryItem = document.querySelector("#completed");
+    const categoryName = categoryItem.textContent;
+    const allTasksinCategory = itemLogicModule.getCompletedTask();
+    const taskNum = allTasksinCategory.length;
+    
+    const sloganTitle = addSlogan(checkMarkIcon, "check-mark", categoryName);
+
+    const tasks = document.createElement("div");
+    tasks.classList.add("tasks");
+
+    const taskHeader = document.createElement("div");
+
+    taskHeader.classList.add("taskHeader");
+    const tasksTitle = document.createElement("h2");
+    tasksTitle.classList.add("itemsTitle");
+    tasksTitle.textContent = `Tasks (${taskNum})`;
+
+    taskHeader.appendChild(tasksTitle);
+
+    const taskList = document.createElement("div");
+    taskList.classList.add("taskList");
+    tasks.append(taskHeader, taskList);
+
+    content.append(sloganTitle, tasks);
+
+    for (let index = 0 ; index < taskNum ; index++){
+        let taskTitle = allTasksinCategory[index].title;
+        let taskDueDate = allTasksinCategory[index].dueDate;
+        let taskState = allTasksinCategory[index].state;
+
+        const taskItem = addTaskinProject(20, taskTitle, taskDueDate, taskState);
+        taskItem.dataset.taskid = allTasksinCategory[index].taskID;
+        taskItem.dataset.task_projectid = allTasksinCategory[index].projectID;
+
+        let taskPriority = allTasksinCategory[index].priority;
+
+        if(taskPriority === "low"){
+            taskItem.classList.add("priority-low");
+        }
+        else if(taskPriority === "medium"){
+            taskItem.classList.add("priority-medium");
+        }
+        else if(taskPriority === "high"){
+            taskItem.classList.add("priority-high");
+        }
+
+        taskList.appendChild(taskItem);
+    }
+}
+
 
 function addSlogan(iconSrc, iconAlt, sloganText) {
     const sloganTitle = document.createElement("div");

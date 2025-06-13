@@ -32,7 +32,7 @@ itemLogic.addTask("task10", "des01", "2025-06-23", "high", "0", "note01", false)
 itemLogic.modifyTask(0, 1, "task000", "des000", "2025-06-10", "low", "note000");
 
 itemLogic.switchTask(0, 0);
-itemLogic.addTask("task11", "des10", "2025-06-13", "high", "1", "note10", false);
+itemLogic.addTask("task11", "des10", "2025-06-13", "high", "1", "note10", true);
 
 //itemLogic.deleteTask(0, 0);
 
@@ -43,11 +43,11 @@ itemLogic.modifyProject(1, "dddddddd7898788979d555d", "des2", "note2");
 DOMControlModule.showProjects();
 createAllModal();
 eventHandlerModule.setAllDialogEvent();
-DOMControlModule.showTasksinProject(0);
+//DOMControlModule.showTasksinProject(0);
+DOMControlModule.showCompletedTasks();
+
 eventHandlerModule.taskCheckboxEvent();
 eventHandlerModule.clickProjectToShowAllTasksEvent();
-
-//itemLogic.getWeekTasks();
 
 function createAllModal() {
     projectModalModule.createProjectAddDialog();

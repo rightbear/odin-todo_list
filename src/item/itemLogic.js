@@ -118,13 +118,18 @@ export function getAllTasks(projectIndex) {
     return taskList;
 }
 
-// Deep Copy task lists in all projects
-export function getAllProjectTasks() {
+// Deep Copy all task lists in all projects
+export function getAllProjectsTasks() {
     projectList = restoreFromJSON();
     const allTaskList = [];
 
     for(let projectIndex = 0 ; projectIndex < projectList.length ; projectIndex++){
         const currentTaskList = getAllTasks(projectIndex);
+
+        for(let taskIndex = 0 ; taskIndex < currentTaskList.length ; taskIndex++){
+            currentTaskList[taskIndex].taskID = taskIndex;
+        }
+
         allTaskList.push(...currentTaskList);
     }
 
@@ -144,6 +149,7 @@ export function getTodayTasks() {
 
         for(let taskIndex = 0 ; taskIndex < currentTaskList.length ; taskIndex++){
             if (currentTaskList[taskIndex].dueDate === formattedDate){
+                currentTaskList[taskIndex].taskID = taskIndex;
                 allTodayTaskList.push(currentTaskList[taskIndex]);
             }
         }
@@ -166,6 +172,7 @@ export function getWeekTasks() {
         for(let taskIndex = 0 ; taskIndex < currentTaskList.length ; taskIndex++){
             const differenceDays = differenceInDays(currentTaskList[taskIndex].dueDate, formattedDate);
             if (differenceDays >= 0 && differenceDays <= 7){
+                currentTaskList[taskIndex].taskID = taskIndex;
                 allWeekTaskList.push(currentTaskList[taskIndex]);
             }
         }
@@ -183,12 +190,13 @@ export function getCompletedTask() {
 
         for(let taskIndex = 0 ; taskIndex < currentTaskList.length ; taskIndex++){
             if (currentTaskList[taskIndex].state === true){
+                currentTaskList[taskIndex].taskID = taskIndex;
                 allCompletedTaskList.push(currentTaskList[taskIndex]);
             }
         }
     }
 
-    console.log(allCompletedTaskList);
+    return allCompletedTaskList;
 }
 
 
