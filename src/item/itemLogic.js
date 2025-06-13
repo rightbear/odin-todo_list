@@ -2,6 +2,8 @@ import Task from "./task.js";
 import Project from "./project.js"
 import * as storageModule from "../function/localStorageService.js"
 
+import { format, add, sub } from 'date-fns';
+
 let projectList = [];
 
 // Add a specific project in project list
@@ -107,12 +109,57 @@ export function displayTask(projectIndex) {
     projectList[projectIndex].displayAllTasks();
 }
 
-// Deep Copy the task list
+// Deep Copy the task list in specific project
 export function getAllTasks(projectIndex) {
+    projectList = restoreFromJSON();
+
     const taskList = projectList[projectIndex].getAllTasks();
 
     return taskList;
 }
+
+// Deep Copy task lists in all projects
+export function getAllProjectTasks() {
+    projectList = restoreFromJSON();
+    const allTaskList = [];
+
+    for(let projectIndex = 0 ; projectIndex < projectList.length ; projectIndex++){
+        const currentTaskList = getAllTasks(projectIndex);
+        allTaskList.push(...currentTaskList);
+    }
+
+    return allTaskList;
+}
+
+// Deep Copy tasks of today in all projects
+export function getTodayTasks() {
+    // Get the current date
+    const currentDate = new Date();
+    // Format the date
+    const formattedDate = format(currentDate, 'yyyy-MM-dd');
+    const allTodayTaskList = [];
+
+    for(let projectIndex = 0 ; projectIndex < projectList.length ; projectIndex++){
+        const currentTaskList = getAllTasks(projectIndex);
+
+        for(let taskIndex = 0 ; taskIndex < currentTaskList.length ; taskIndex++){
+            if (currentTaskList[taskIndex].dueDate == formattedDate){
+                allTodayTaskList.push(currentTaskList[taskIndex]);
+            }
+        }
+    }
+
+    return allTodayTaskList;
+}
+
+export function getWeekTasks() {
+
+}
+
+export function getCompletedTask() {
+
+}
+
 
 // Convert the object array of Project class to a JSON format object
 function storeWithJSON(projectData) {

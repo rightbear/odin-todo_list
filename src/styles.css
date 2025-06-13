@@ -125,6 +125,7 @@ button:hover > .btnTooltip {
     align-items: center;
     margin: 5px;
 
+    min-width: 145px;
     width: 75%;
 }
 
@@ -792,7 +793,7 @@ form .dialogButtons {
     border-bottom: 1px solid Gainsboro;
 
     /* For adding text overflow effect in x-axis of .taskTitle */
-    /*Prevent the size of taskLeftItem gets too big when .taskTitle is too long */
+    /* Prevent the size of taskLeftItem gets too big when .taskTitle is too long */
     max-width: 1000px;
 }
 
@@ -817,35 +818,41 @@ form .dialogButtons {
 }
 
 .taskTitle {
-    width: 80%;
-    margin: 3px 20px;
+  width: 70%;
+  margin: 3px 20px;
 
-    /* Add text overflow effect in x-axis of .taskTitle */
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  /* Add text overflow effect in x-axis of .taskTitle */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.taskDueDate {
+  width: 85px;
+  margin: 0px 10px 0px 0px;
+  color: var(--color-with-theme);
 }
 
 .taskBtns {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-    /*fixed the size of butons*/
-    flex-shrink: 0;
-    margin-right: 5px;
+  /*fixed the size of butons*/
+  flex-shrink: 0;
+  margin-right: 5px;
 }
 
 .taskBtns > img {
-    /*fixed the size of image*/
-    flex-shrink: 0; 
+  /*fixed the size of image*/
+  flex-shrink: 0; 
 }
 
 .taskBtns > button {
-    background-color: #fff;
-    transition: transform .2s;
+  background-color: #fff;
+  transition: transform .2s;
 
-    border: none;
-    margin: 1px;
+  border: none;
+  margin: 1px;
 }
 
 /* 150% zoom */

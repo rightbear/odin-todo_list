@@ -63,7 +63,7 @@ function addSidebarRegion (){
     categoryList.append(allCategory, todayCategory, weekCategory, completeCategory);
 }
 
-function addCategory(iconSrc, iconAlt, iconHeight, textID, text, ) {
+function addCategory(iconSrc, iconAlt, iconHeight, textID, text) {
 
     const divContainer = document.createElement("div");
 
@@ -261,9 +261,10 @@ export function showTasksinProject(projectID) {
 
     for (let index = 0 ; index < taskNum ; index++){
         let taskTitle = allTasksinProject[index].title;
+        let taskDueDate = allTasksinProject[index].dueDate;
         let taskState = allTasksinProject[index].state;
 
-        const taskItem = addTaskinProject(20, taskTitle, taskState);
+        const taskItem = addTaskinProject(20, taskTitle, taskDueDate, taskState);
         taskItem.dataset.taskid = index;
         taskItem.dataset.task_projectid = projectID;
 
@@ -299,7 +300,7 @@ function addSlogan(iconSrc, iconAlt, sloganText) {
     return sloganTitle;
 }
 
-function addTaskinProject(iconHeight, taskTitle, taskState) {
+function addTaskinProject(iconHeight, taskTitle, taskDueDate, taskState) {
 
     const divContainer = document.createElement("div");
     divContainer.classList.add("taskItem");
@@ -320,6 +321,10 @@ function addTaskinProject(iconHeight, taskTitle, taskState) {
         divTaskTitle.style.textDecoration = "none";
     }
     
+    const divTaskDueDate = document.createElement("div");
+    divTaskDueDate.classList.add("taskDueDate");
+    divTaskDueDate.textContent = taskDueDate;
+
     const divFuncBtns = document.createElement("div");
     divFuncBtns.classList.add("taskBtns");
     const editBtn = document.createElement("button");
@@ -348,7 +353,7 @@ function addTaskinProject(iconHeight, taskTitle, taskState) {
 
     divFuncBtns.append(editBtn, deleteBtn, infoBtn);
 
-    divContainer.append(divChecklist, divTaskTitle, divFuncBtns);
+    divContainer.append(divChecklist, divTaskTitle, divTaskDueDate, divFuncBtns);
 
     return divContainer;
 }

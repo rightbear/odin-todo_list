@@ -154,65 +154,6 @@ export function createTaskAddDialog() {
   taskDialog.appendChild(addPageDialog);
 }
 
-/*
-
-<dialog id="task-add-pageDialog">
-    <div class="dialogHeader">
-        <h2 class="headerTitle">Add Task</h2>
-        <button class="crossDialogBtn" id="task-add-crossDialogBtn" value="cross" aria-label="close">X</button>
-    </div>
-    <form class="dialogForm" id="task-add-dialogForm" method="dialog">
-        <div class="dialogFields">
-         
-          <div class="field" id="task-add-titleField">
-            <label for="task-add-title">Title<span class="requiredSign">*</span>:</label>
-            <input type="text" id="task-add-title" name="title" required>
-            <div class="validation-message" id="task-add-title-message"></div>
-          </div>
-          
-          <div class="field" id="task-add-descriptionField">
-            <div for="task-add-description">Description:</div>
-            <textarea id="task-add-description" name="description" maxlength="200" placeholder="Start Typing..."></textarea>
-            <div class="textCount">
-              <span class="current" id="task-add-desCurrent">0</span>
-              <span class="maximum">&nbsp;/ 200</span>
-            </div>
-          </div>
-          
-          <div class="field" id="task-add-dueDateField">
-            <label for="task-add-dueDate">Due Date<span class="requiredSign">*</span>:</label>
-            <input type="date" id="task-add-dueDate" name="dueDate" required>
-          </div>
-          
-          <div class="field" id="task-add-priorityField">
-            <label for="task-add-priority">Priority<span class="requiredSign">*</span>:</label>
-            <select name="priority" id="task-add-priority" required>
-              <option value="" disabled>How important the task is?</option>
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
-          </div>
-          
-          <div class="field" id="task-add-notesField">
-            <div for="task-add-notes">Notes:</div>
-            <textarea id="task-add-notes" name="notes" maxlength="200" placeholder="Start Typing..."></textarea>
-            <div class="textCount">
-              <span class="current" id="task-add-notesCurrent">0</span>
-              <span class="maximum">&nbsp;/ 200</span>
-            </div>
-          </div>
-        </div>
-      
-        <div class="dialogButtons">
-          <button type="submit" id="task-add-cancelBtn" value="cancel" formmethod="dialog" formnovalidate>Cancel</button>
-          <button type="submit" id="task-add-addBtn" value="add" autofocus>Add</button>
-        </div>
-    </form>
-</dialog>
-
-*/
-
 export function createTaskEditDialog() {
   const taskDialog = document.querySelector(".taskDialog");
 
@@ -380,71 +321,6 @@ export function createTaskEditDialog() {
   taskDialog.appendChild(editPageDialog);
 }
 
-/*
-
-<dialog id="task-edit-pageDialog">
-    <div class="dialogHeader">
-        <h2 class="headerTitle">Edit Task</h2>
-        <button class="crossDialogBtn" id="task-edit-crossDialogBtn" value="cross" aria-label="close">X</button>
-    </div>
-    <form class="dialogForm" id="task-edit-dialogForm" method="dialog">
-        <div class="dialogFields">
-         
-          <div class="field" id="task-edit-titleField">
-            <label for="task-edit-title">Title<span class="requiredSign">*</span>:</label>
-            <input type="text" id="task-edit-title" name="title" required>
-            <div class="validation-message" id="task-edit-title-message"></div>
-          </div>
-          
-          <div class="field" id="task-edit-descriptionField">
-            <div for="task-edit-description">Description:</div>
-            <textarea id="task-edit-description" name="description" maxlength="200" placeholder="Start Editing..."></textarea>
-            <div class="textCount">
-              <span class="current" id="task-edit-desCurrent">0</span>
-              <span class="maximum">&nbsp;/ 200</span>
-            </div>
-          </div>
-          
-          <div class="field" id="task-edit-dueDateField">
-            <label for="task-edit-dueDate">Due Date<span class="requiredSign">*</span>:</label>
-            <input type="date" id="task-edit-dueDate" name="dueDate" required>
-          </div>
-          
-          <div class="field" id="task-edit-priorityField">
-            <label for="task-edit-priority">Priority<span class="requiredSign">*</span>:</label>
-            <select name="priority" id="task-edit-priority" required>
-              <option value="" disabled>How important the task is?</option>
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
-          </div>
-          
-          <div class="field" id="task-edit-projectOfTaskField">
-            <label for="task-edit-projectOfTask">Project of task:<span class="requiredSign">*</span>:</label>
-            <select name="projectOfTask" id="task-edit-projectOfTask" required>
-            </select>
-          </div>
-          
-          <div class="field" id="task-edit-notesField">
-            <div for="task-edit-notes">Notes:</div>
-            <textarea id="task-edit-notes" name="notes" maxlength="200" placeholder="Start Editing..."></textarea>
-            <div class="textCount">
-              <span class="current" id="task-edit-notesCurrent">0</span>
-              <span class="maximum">&nbsp;/ 200</span>
-            </div>
-          </div>
-        </div>
-      
-        <div class="dialogButtons">
-          <button type="submit" id="task-edit-cancelBtn" value="cancel" formmethod="dialog" formnovalidate>Cancel</button>
-          <button type="submit" id="task-edit-editBtn" value="edit" autofocus>Edit</button>
-        </div>
-    </form>
-</dialog>
-
-*/
-
 export function createTaskInfoDialog() {
   const taskDialog = document.querySelector(".taskDialog");
 
@@ -559,55 +435,6 @@ export function createTaskInfoDialog() {
   taskDialog.appendChild(infoPageDialog);
 }
 
-/*
-
-<dialog id="task-info-pageDialog">
-    <div class="dialogHeader">
-        <h2 class="headerTitle">Task Information</h2>
-        <button class="crossDialogBtn" id="task-info-crossDialogBtn" value="cross" aria-label="close">X</button>
-    </div>
-    <form class="dialogForm" id="task-info-dialogForm" method="dialog">
-        <div class="dialogFields">
-         
-          <div class="field" id="task-info-titleField">
-            <div id="task-info-title">Title:</div>
-            <div class="infoText" id="task-info-title-text"></div>
-          </div>
-          
-          <div class="field" id="task-info-descriptionField">
-            <div id="task-info-description">Description:</div>
-            <div class="infoText" id="task-info-description-text"></div>
-          </div>
-          
-          <div class="field" id="task-info-dueDateField">
-            <div id="task-info-dueDate">Due Date:</div>
-            <div class="infoText" id="task-info-dueDate-text"></div>
-          </div>
-          
-          <div class="field" id="task-info-priorityField">
-            <div id="task-info-priority">Priority:</div>
-            <div class="infoText" id="task-info-priority-text"></div>
-          </div>
-          
-          <div class="field" id="task-info-projectOfTaskField">
-            <div id="task-info-projectOfTask">Project of task:</div>
-            <div class="infoText" id="task-info-projectOfTask-text"></div>
-          </div>
-          
-          <div class="field" id="task-info-notesField">
-            <div id="task-info-notes">Notes:</div>
-            <div class="infoText" id="task-info-notes-text"></div>
-          </div>
-        </div>
-      
-        <div class="dialogButtons">
-          <button type="submit" id="task-info-closeBtn" value="close" formmethod="dialog" formnovalidate>Close</button>
-        </div>
-    </form>
-</dialog>
-
-*/
-
 export function createTaskDeleteDialog() {
   const taskDialog = document.querySelector(".taskDialog");
 
@@ -670,26 +497,3 @@ export function createTaskDeleteDialog() {
   deletePageDialog.append(dialogHeader, dialogForm);
   taskDialog.appendChild(deletePageDialog);
 }
-
-/*
-<dialog id="task-delete-pageDialog">
-    <div class="dialogHeader">
-        <h2 class="headerTitle">Delete Task</h2>
-        <button class="crossDialogBtn" id="task-delete-crossDialogBtn" value="cross" aria-label="close">X</button>
-    </div>
-    <form class="dialogForm" id="task-delete-dialogForm" method="dialog">
-      
-        <div class="dialogFields">
-          <div class="field" id="task-delete-message">
-            <p>Are you sure you want to delete the task</p>
-            <p>"<span id="deletedTask"></span>" ?</p>
-          </div>
-        </div>
-      
-        <div class="dialogButtons">
-          <button type="submit" id="task-delete-cancelBtn" value="cancel" formmethod="dialog" formnovalidate>Cancel</button>
-          <button type="submit" id="task-delete-deleteBtn" value="delete" autofocus>Delete</button>
-        </div>
-    </form>
-</dialog>
-*/

@@ -114,50 +114,6 @@ export function createProjectAddDialog() {
   projectDialog.appendChild(addPageDialog);
 }
 
-/*
-
-<dialog id="project-add-pageDialog">
-    <div class="dialogHeader">
-        <h2 class="headerTitle">Add Project</h2>
-        <button class="crossDialogBtn" id="project-add-crossDialogBtn" value="cross" aria-label="close">X</button>
-    </div>
-    <form class="dialogForm" id="project-add-dialogForm" method="dialog">
-        <div class="dialogFields">
-         
-          <div class="field" id="project-add-titleField">
-            <label for="project-add-title">Title<span class="requiredSign">*</span>:</label>
-            <input type="text" id="project-add-title" name="title" required>
-            <div class="validation-message" id="project-add-title-message"></div>
-          </div>
-          
-          <div class="field" id="project-add-descriptionField">
-            <div for="project-add-description">Description:</div>
-            <textarea id="project-add-description" name="description" maxlength="400" placeholder="Start Typing..."></textarea>
-            <div class="textCount">
-              <span class="current" id="project-add-desCurrent">0</span>
-              <span class="maximum">&nbsp;/ 400</span>
-            </div>
-          </div>
-          
-          <div class="field" id="project-add-notesField">
-            <div for="project-add-notes">Notes:</div>
-            <textarea id="project-add-notes" name="notes" maxlength="400" placeholder="Start Typing..."></textarea>
-            <div class="textCount">
-              <span class="current" id="project-add-notesCurrent">0</span>
-              <span class="maximum">&nbsp;/ 400</span>
-            </div>
-          </div>
-        </div>
-      
-        <div class="dialogButtons">
-          <button type="submit" id="project-add-cancelBtn" value="cancel" formmethod="dialog" formnovalidate>Cancel</button>
-          <button type="submit" id="project-add-addBtn" value="add" autofocus>Add</button>
-        </div>
-    </form>
-</dialog>
-
-*/
-
 export function createProjectEditDialog() {
   const projectDialog = document.querySelector(".projectDialog");
 
@@ -274,48 +230,6 @@ export function createProjectEditDialog() {
   projectDialog.appendChild(editPageDialog);
 }
 
-/*
-<dialog id="project-edit-pageDialog">
-    <div class="dialogHeader">
-        <h2 class="headerTitle">Edit Project</h2>
-        <button class="crossDialogBtn" id="project-edit-crossDialogBtn" value="cross" aria-label="close">X</button>
-    </div>
-    <form class="dialogForm" id="project-edit-dialogForm" method="dialog">
-        <div class="dialogFields">
-         
-          <div class="field" id="project-edit-titleField">
-            <label for="project-edit-title">Title<span class="requiredSign">*</span>:</label>
-            <input type="text" id="project-edit-title" name="title" required>
-            <div class="validation-message" id="project-edit-title-message"></div>
-          </div>
-          
-          <div class="field" id="project-edit-descriptionField">
-            <div for="project-edit-description">Description:</div>
-            <textarea id="project-edit-description" name="description" maxlength="400" placeholder="Start Editing..."></textarea>
-            <div class="textCount">
-              <span class="current" id="project-edit-desCurrent">0</span>
-              <span class="maximum">&nbsp;/ 400</span>
-            </div>
-          </div>
-          
-          <div class="field" id="notesField">
-            <div for="project-edit-notes">Notes:</div>
-            <textarea id="project-edit-notes" name="notes" maxlength="400" placeholder="Start Editing..."></textarea>
-            <div class="textCount">
-              <span class="current" id="project-edit-notesCurrent">0</span>
-              <span class="maximum">&nbsp;/ 400</span>
-            </div>
-          </div>
-        </div>
-      
-        <div class="dialogButtons">
-          <button type="submit" id="project-edit-cancelBtn" value="cancel" formmethod="dialog" formnovalidate>Cancel</button>
-          <button type="submit" id="project-edit-editBtn" value="edit" autofocus>Edit</button>
-        </div>
-    </form>
-</dialog>
-*/
-
 export function createProjectInfoDialog() {
   const projectDialog = document.querySelector(".projectDialog");
 
@@ -397,40 +311,6 @@ export function createProjectInfoDialog() {
   projectDialog.appendChild(infoPageDialog);
 }
 
-/*
-
-<dialog id="project-info-pageDialog">
-    <div class="dialogHeader">
-        <h2 class="headerTitle">Project Information</h2>
-        <button class="crossDialogBtn" id="project-info-crossDialogBtn" value="cross" aria-label="close">X</button>
-    </div>
-    <form class="dialogForm" id="project-info-dialogForm" method="dialog">
-        <div class="dialogFields">
-         
-          <div class="field" id="project-info-titleField">
-            <div id="project-info-title">Title:</div>
-            <div class="infoText" id="project-info-title-text"></div>
-          </div>
-          
-          <div class="field" id="project-info-descriptionField">
-            <div id="project-info-description">Description:</div>
-            <div class="infoText" id="project-info-description-text"></div>
-          </div>
-          
-          <div class="field" id="project-info-notesField">
-            <div id="project-info-notes">Notes:</div>
-            <div class="infoText" id="project-info-notes-text"></div>
-          </div>
-        </div>
-      
-        <div class="dialogButtons">
-          <button type="submit" id="project-info-closeBtn" value="close" formmethod="dialog" formnovalidate>Close</button>
-        </div>
-    </form>
-</dialog>
-
-*/
-
 export function createProjectDeleteDialog() {
   const projectDialog = document.querySelector(".projectDialog");
 
@@ -493,28 +373,3 @@ export function createProjectDeleteDialog() {
   deletePageDialog.append(dialogHeader, dialogForm);
   projectDialog.appendChild(deletePageDialog);
 }
-
-/*
-
-<dialog id="project-delete-pageDialog">
-    <div class="dialogHeader">
-        <h2 class="headerTitle">Delete Project</h2>
-        <button class="crossDialogBtn" id="project-delete-crossDialogBtn" value="cross" aria-label="close">X</button>
-    </div>
-    <form class="dialogForm" id="project-delete-dialogForm" method="dialog">
-      
-        <div class="dialogFields">
-          <div class="field" id="project-delete-message">
-            <p>Are you sure you want to delete the project</p>
-            <p>"<span id="deletedProject"></span>" ?</p>
-          </div>
-        </div>
-      
-        <div class="dialogButtons">
-          <button type="submit" id="project-delete-cancelBtn" value="cancel" formmethod="dialog" formnovalidate>Cancel</button>
-          <button type="submit" id="project-delete-deleteBtn" value="delete" autofocus>Delete</button>
-        </div>
-    </form>
-</dialog>
-
-*/
