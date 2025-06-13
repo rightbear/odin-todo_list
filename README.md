@@ -1,7 +1,31 @@
 # odin-todo_list
-Practice of "Project: Todo List" in The Odin Project
+This is the tenth project to work in the "JavaScript Course"
 
-Initiate Process:
+Github page: https://rightbear.github.io/odin-todo_list/
+
+## Basic features of the todo list
+
+  1. Feature to view four categories(All, Today, Week, Completed) of todo tasks.
+
+  2. Feature to view the todo tasks in different projects.
+
+  3. Feature for adding, editing, deleteing and checking projects. When adding and editing projects, the dialog will check duplicate name of project.
+
+  4. Feature for adding, editing, deleteing and checking todo tasks. When adding and editing tasks, the dialog will check duplicate name of todo task.
+
+  5. Hover and clicked effects for buttons in the sidebar.
+
+  6. Indicate the priority of different tasks with different color. If the task is finined, the text will be marked with visual effects.
+
+  7. Store the status of todo list to localStorage in browser.
+
+## The experience I get in this project
+
+(2025/06/13) I complete this project with knowledges of JavaScript I learned in the previous course. I use Javascript concepts such as module, npm and webpack to build a website with todo list inside. With advices in Assignment of the project, I separate my application logic (i.e. creating new todos, setting todos as complete, changing todo priority etc.) from the DOM-related stuff. Try to follow the spirit of SOLID principles.  I also add visual effects on todo tasks, dialogs and buttons for different status of project and todo tasks. This activity strengthens my skills in HTML, CSS and JavaScript.
+
+The following content is the basic procedure to initialize and deploy this project. It is documented for future refernece.
+
+## Initiate Process:
   1. Create a new directory for our new project, then create a package.json file in it.
   ```
   $ npm init -y
@@ -36,7 +60,7 @@ Initiate Process:
   $ npm run build
   ```
   7. If the bundle is finished, you will see a new folder called 'dist' is created in the project root.
-  Run Live Server (Live Server is on http://localhost:5500/). Then open the browser and check your devtool in the browser. If you see the sentence "Hello, Odinite!" is printed in the console, the bundle function is working well. 
+  Run VSCode Live Server (Live Server is on http://localhost:5500/). Then open the browser and check your devtool in the browser. If you see the sentence "Hello, Odinite!" is printed in the console, the bundle function is working well. 
 
   8. Terminate Live Server. Then ceate a .gitignore file in the root of your project. Add new contents inside the .gitignore file.
   ```
@@ -45,7 +69,7 @@ Initiate Process:
   9. All starting jobs are done. Enjoy building your new project!
 
 
-Commit Process:
+## Commit Process:
   1. Make a new branch called 'gh-pages'. You only need to do this the first time you deploy. The rest of the steps should be done every time you deploy or redeploy your project.
   ```  
   $ git branch gh-pages
