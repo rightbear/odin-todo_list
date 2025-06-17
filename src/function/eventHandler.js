@@ -8,7 +8,7 @@ export function taskCheckboxEvent() {
     content.addEventListener("click", function(event) {
         let clickedCheckbox = null;
 
-        if(event.target.classList.contains(".taskCheckbox")){
+        if(event.target.matches(".taskCheckbox")){
             clickedCheckbox = event.target;
         }
         // If the clicked element is not ".taskCheckbox",
@@ -46,7 +46,7 @@ export function clickCategoryToShowAllTasksEvent() {
 
     categories.addEventListener("click", function(event) {
         let clickedItem = null;
-        if(event.target.classList.contains(".categoryItem")){
+        if(event.target.matches(".categoryItem")){
             clickedItem = event.target;
         }
         // If the clicked element is not ".categoryItem",
@@ -83,7 +83,7 @@ export function clickProjectToShowAllTasksEvent() {
 
     projects.addEventListener("click", function(event) {
         let clickedItem = null;
-        if(event.target.classList.contains(".projectItem")){
+        if(event.target.matches(".projectItem")){
             clickedItem = event.target;
         }
         // If the clicked element is not ".projectItem",
@@ -169,7 +169,7 @@ export function projectAddDialogEvent() {
     projects.addEventListener("click", function(event) {
         let clickedAddBtn = null;
 
-        if(event.target.classList.contains("#projectAddBtn")){
+        if(event.target.matches("#projectAddBtn")){
             clickedAddBtn = event.target;
         }
         // If the clicked element is not "#projectAddBtn",
@@ -314,7 +314,7 @@ export function projectEditDialogEvent() {
         const projectList = itemLogicModule.getAllProjects();
         let clickedEditBtn = null;
 
-        if(event.target.classList.contains(".projectEdit")){
+        if(event.target.matches(".projectEdit")){
             clickedEditBtn = event.target;
         }
         // If the clicked element is not ".projectEdit",
@@ -453,7 +453,7 @@ export function projectInfoDialogEvent() {
         const projectList = itemLogicModule.getAllProjects();
         let clickedInfoBtn = null;
 
-        if(event.target.classList.contains(".projectInfo")){
+        if(event.target.matches(".projectInfo")){
             clickedInfoBtn = event.target;
         }
         // If the clicked element is not ".projectInfo",
@@ -512,7 +512,7 @@ export function projectDeleteDialogEvent() {
         const projectList = itemLogicModule.getAllProjects();
         let clickedDeleteBtn = null;
 
-        if(event.target.classList.contains(".projectDelete")){
+        if(event.target.matches(".projectDelete")){
             clickedDeleteBtn = event.target;
         }
         // If the clicked element is not ".projectDelete",
@@ -589,7 +589,7 @@ export function taskAddDialogEvent() {
     content.addEventListener("click", function(event) {
         let clickedAddBtn = null;
 
-        if(event.target.classList.contains("#taskAddBtn")){
+        if(event.target.matches("#taskAddBtn")){
             clickedAddBtn = event.target;
         }
         // If the clicked element is not "#taskAddBtn",
@@ -731,7 +731,7 @@ export function taskEditDialogEvent() {
         const projectList = itemLogicModule.getAllProjects();
         let clickedEditBtn = null;
 
-        if(event.target.classList.contains(".taskEdit")){
+        if(event.target.matches(".taskEdit")){
             clickedEditBtn = event.target;
         }
         // If the clicked element is not ".taskEdit",
@@ -961,7 +961,7 @@ export function taskInfoDialogEvent() {
         const projectList = itemLogicModule.getAllProjects();
         let clickedInfoBtn = null;
 
-        if(event.target.classList.contains(".taskInfo")){
+        if(event.target.matches(".taskInfo")){
             clickedInfoBtn = event.target;
         }
         // If the clicked element is not ".taskInfo",
@@ -1033,7 +1033,7 @@ export function taskDeleteDialogEvent() {
     content.addEventListener("click", function(event) {
         let clickedDeleteBtn = null;
 
-        if(event.target.classList.contains(".taskDelete")){
+        if(event.target.matches(".taskDelete")){
             clickedDeleteBtn = event.target;
         }
         // If the clicked element is not ".taskDelete",
